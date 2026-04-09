@@ -1,0 +1,160 @@
+name: 🏷️ Auto Tag and Release on Main Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  create-tag-and-release:
+    # Só executa se o PR foi mergeado (não apenas fechado)
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+    
+      - name: 🔍 Extract version from PR title
+        id: extract_version
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          VERSION=""
+        
+          echo "📝 PR Title: $PR_TITLE"
+          echo "🌿 PR Branch: $PR_BRANCH"
+        
+          # Tenta extrair do título do PR
+          # Formatos aceitos: [v1.2.3], v1.2.3, Release v1.2.3, etc.
+          if echo "$PR_TITLE" | grep -qE '\[v?[0-9]+\.[0-9]+\.[0-9]+[^\]]*\]'; then
+            # Formato [v1.2.3] ou [1.2.3]
+            VERSION=$(echo "$PR_TITLE" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.]+)?' | head -n 1)
+          elif echo "$PR_TITLE" | grep -qE 'Release\s+v?[0-9]+\.[0-9]+\.[0-9]+'; then
+            # Formato "Release v1.2.3" ou "Release 1.2.3"
+            VERSION=$(echo "$PR_TITLE" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.]+)?' | head -n 1)
+          elif echo "$PR_TITLE" | grep -qE 'v?[0-9]+\.[0-9]+\.[0-9]+'; then
+            # Qualquer outro formato com versão
+            VERSION=$(echo "$PR_TITLE" | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.]+)?' | head -n 1)
+          fi
+        
+          # Adicionar 'v' prefix se não tiver
+          if [ -n "$VERSION" ]; then
+            if [[ ! "$VERSION" =~ ^v ]]; then
+              VERSION="v$VERSION"
+            fi
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "✅ Versão extraída do título do PR: $VERSION"
+          else
+            echo "❌ Não foi possível extrair versão do título do PR"
+            echo "💡 O validador de título deveria ter impedido este PR de ser mergeado"
+            exit 1
+          fi
+    
+      - name: 🔍 Check if tag already exists
+        id: check_tag
+        run: |
+          TAG="${{ steps.extract_version.outputs.version }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Tag $TAG já existe no repositório"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Tag $TAG não existe, será criada"
+          fi
+    
+      - name: 🏷️ Create annotated tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG="${{ steps.extract_version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG"
+          echo "✅ Tag $TAG criada localmente"
+    
+      - name: 🚀 Push tag to repository
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG="${{ steps.extract_version.outputs.version }}"
+          git push origin "refs/tags/$TAG"
+          echo "🚀 Tag $TAG enviada para o repositório remoto"
+    
+      - name: 📝 Generate release notes
+        id: release_notes
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG="${{ steps.extract_version.outputs.version }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_AUTHOR="${{ github.event.pull_request.user.login }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Criar arquivo temporário para as release notes
+          cat > release_notes.md << 'EOF'
+          ## 🎉 Release $TAG
+          
+          ### 📋 Pull Request
+          - **PR #$PR_NUMBER**: $PR_TITLE
+          - **Author**: @$PR_AUTHOR
+          - **Link**: $PR_URL
+          
+          ### 📝 Changes
+          
+          $PR_BODY
+          
+          ---
+          
+          **Full Changelog**: https://github.com/${{ github.repository }}/compare/$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")...$TAG
+          EOF
+          
+          # Substituir variáveis
+          sed -i "s|\$TAG|$TAG|g" release_notes.md
+          sed -i "s|\$PR_NUMBER|$PR_NUMBER|g" release_notes.md
+          sed -i "s|\$PR_TITLE|$PR_TITLE|g" release_notes.md
+          sed -i "s|\$PR_AUTHOR|$PR_AUTHOR|g" release_notes.md
+          sed -i "s|\$PR_URL|$PR_URL|g" release_notes.md
+          sed -i "s|\$PR_BODY|${PR_BODY:-No description provided}|g" release_notes.md
+          
+          echo "✅ Release notes geradas"
+          cat release_notes.md
+    
+      - name: 🎁 Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.extract_version.outputs.version }}
+          name: Release ${{ steps.extract_version.outputs.version }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: ${{ contains(steps.extract_version.outputs.version, '-') }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: ⏭️ Skip - Tag already exists
+        if: steps.check_tag.outputs.exists == 'true'
+        run: |
+          echo "⚠️ Tag ${{ steps.extract_version.outputs.version }} já existe"
+          echo "Nenhuma ação necessária - tag e release não serão recriadas"
+    
+      - name: ✅ Summary
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          echo "## 🎉 Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ steps.extract_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag**: Created and pushed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release**: Published on GitHub" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR**: #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [View Release](https://github.com/${{ github.repository }}/releases/tag/${{ steps.extract_version.outputs.version }})" >> $GITHUB_STEP_SUMMARY
