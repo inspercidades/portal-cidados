@@ -11,7 +11,7 @@ resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: '9aefe228-12f2-48ee-825c-6f4a5c808b81'
+  dockerRegistryServiceConnection: 'c04c7d40-1d3c-419a-a814-d1233083cda8'
   imageRepository: 'portal-cidados-web'
   containerRegistry: 'devinspertech.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
