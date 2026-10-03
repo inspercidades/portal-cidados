@@ -68,9 +68,16 @@ export function Header() {
       hasSubItems: true,
       subItems: [
         {
-          name: "OBSERVATÓRIO NACIONAL",
+          name: "OBSERVATÓRIO NACIONAL DE MOBILIDADE SUSTENTÁVEL",
           href: "https://observatorio.insper.edu.br/",
           description: "OBSERVATÓRIO NACIONAL DE MOBILIDADE SUSTENTÁVEL",
+          label: (
+            <>
+              OBSERVATÓRIO NACIONAL DE
+              <br />
+              MOBILIDADE SUSTENTÁVEL
+            </>
+          ),
         },
       ],
     },
@@ -209,7 +216,7 @@ export function Header() {
                         className="group/sub block"
                       >
                         <div className="font-gt-ultra text-2xl md:text-3xl font-medium text-gray-500 dark:text-gray-400 group-hover/sub:text-black dark:group-hover/sub:text-white transition-all duration-300">
-                          {subItem.name}
+                          {subItem.label ?? subItem.name}
                         </div>
                       </Link>
                     ))}
