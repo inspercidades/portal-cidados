@@ -664,7 +664,7 @@ export function IntroMare() {
         <div>
           <p className="text-base md:text-lg leading-relaxed">
             A Maré é{" "}
-            <strong>um dos maiores conjunto de favelas do Brasil</strong>, e sua
+            <strong>um dos maiores conjuntos de favelas do Brasil</strong>, e sua
             formação reflete um longo processo de ocupação urbana ligado à
             migração, remoções e políticas habitacionais do Estado.
           </p>

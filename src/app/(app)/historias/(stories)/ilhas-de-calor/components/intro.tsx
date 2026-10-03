@@ -150,7 +150,7 @@ export default function Intro() {
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
               Para uma compreensão mais profunda dessa realidade, a seguir
               trazemos um breve resumo da história da Maré, desde as primeiras
-              ocupações até sua consolidação como um dos maiores conjunto de
+              ocupações até sua consolidação como um dos maiores conjuntos de
               favelas do Brasil.{" "}
             </p>
           </div>
