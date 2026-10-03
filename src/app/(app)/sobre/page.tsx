@@ -27,7 +27,7 @@ export default function Sobre() {
         {/* Title */}
         <div className="flex items-left px-4 md:px-8 lg:px-12 justify-between lg:flex-row flex-col gap-4 pb-10 lg:items-center">
           <h1 className="max-w-[800px] text-2xl md:text-4xl font-bold text-foreground mb-1 font-gt-ultra-fine leading-tight">
-            O Portal CiDados é uma plataforma de divulgação científica que
+            O Portal Cidados é uma plataforma de divulgação científica que
             transforma pesquisas acadêmicas em narrativas visuais acessíveis ao
             público
           </h1>

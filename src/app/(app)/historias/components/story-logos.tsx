@@ -70,7 +70,7 @@ export function StoryLogos({
       >
         <Image
           src={portalLogo}
-          alt="Portal Cidadãos Logo"
+          alt="Portal Cidados Logo"
           width={272}
           height={90}
           className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${filterClass} ${portalScale}`}
