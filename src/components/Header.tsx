@@ -203,6 +203,8 @@ export function Header() {
                       <Link
                         key={subItem.name}
                         href={subItem.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={closeMenu}
                         className="group/sub block"
                       >
