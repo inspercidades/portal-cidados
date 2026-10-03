@@ -1455,30 +1455,32 @@ export default function PropertyMap() {
           />
         </div>
 
-        {/* Card: Selecione as camadas */}
-        <div className="bg-white shadow-lg">
-          {isComparisonMode ? (
-            <CityLayersComparison
-              selectedCity={selectedCity || "Brasil"}
-              selectedLayer1={selectedLayer1}
-              selectedLayer2={selectedLayer2}
-              onLayer1Change={handleLayer1Change}
-              onLayer2Change={handleLayer2Change}
-              layerLoadingStates={layerLoadingStates}
-              layerOpacities={layerOpacities}
-              onOpacityChange={handleOpacityChange}
-            />
-          ) : (
-            <CityLayers
-              selectedCity={selectedCity || "Brasil"}
-              selectedLayers={selectedLayers}
-              onLayersChange={handleLayersChange}
-              layerLoadingStates={layerLoadingStates}
-              layerOpacities={layerOpacities}
-              onOpacityChange={handleOpacityChange}
-            />
-          )}
-        </div>
+        {/* Card: Selecione as camadas — só exibe após cidade selecionada */}
+        {selectedCity && (
+          <div className="bg-white shadow-lg">
+            {isComparisonMode ? (
+              <CityLayersComparison
+                selectedCity={selectedCity}
+                selectedLayer1={selectedLayer1}
+                selectedLayer2={selectedLayer2}
+                onLayer1Change={handleLayer1Change}
+                onLayer2Change={handleLayer2Change}
+                layerLoadingStates={layerLoadingStates}
+                layerOpacities={layerOpacities}
+                onOpacityChange={handleOpacityChange}
+              />
+            ) : (
+              <CityLayers
+                selectedCity={selectedCity}
+                selectedLayers={selectedLayers}
+                onLayersChange={handleLayersChange}
+                layerLoadingStates={layerLoadingStates}
+                layerOpacities={layerOpacities}
+                onOpacityChange={handleOpacityChange}
+              />
+            )}
+          </div>
+        )}
       </div>
 
       {/* legends */}
@@ -1488,7 +1490,7 @@ export default function PropertyMap() {
             ? ([selectedLayer1, selectedLayer2].filter(Boolean) as string[])
             : selectedLayers
         }
-        selectedCity={selectedCity || "Brasil"}
+        selectedCity={selectedCity}
         cityLayersConfig={cityLayersConfig}
         mapTheme={mapTheme}
         onThemeToggle={handleThemeToggle}

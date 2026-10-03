@@ -61,18 +61,6 @@ export interface CityLayersConfig {
 }
 
 export const cityLayersConfig: CityLayersConfig = {
-  Brasil: [
-    {
-      id: "tarifa_zero",
-      name: "Tarifa Zero",
-      description:
-        "Municípios com tarifa zero integral, parcial por dias específicos (domingos/feriados) ou parcial por área geográfica (linhas específicas). Dados atualizados até outubro de 2025. Total de 134 municípios com tarifa zero integral e 8 com tarifa zero parcial.",
-      tilesetId: "observatorio-nacional.0bzbtkfg",
-      sourceLayer: "insper_tarifa_zero_municipios-dwws9i",
-      layerType: "circle",
-      hasCustomStyle: true,
-    },
-  ],
   "Rio de Janeiro": [
     {
       id: "ic_areas-3ii8xj",
