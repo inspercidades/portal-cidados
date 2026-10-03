@@ -1,10 +1,10 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
+import Script from "next/script";
 import { Toaster } from "sonner";
-import ClarityInit from "@/components/clarity-init";
+import { CookieConsent } from "@/components/cookie-consent";
 import { JsonLd } from "@/components/json-ld";
 import { LenisProvider } from "@/components/lenis-provider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -193,12 +193,22 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR" nonce={nonce} suppressHydrationWarning>
       <head>
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+        <Script
+          id="ga-consent-default"
+          strategy="beforeInteractive"
           nonce={nonce}
-          debugMode={process.env.NODE_ENV === "development"}
-        />
-        <ClarityInit />
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function gtag(){window.dataLayer.push(arguments);};
+            window.gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied'
+            });
+          `}
+        </Script>
         <JsonLd data={organizationJsonLd()} nonce={nonce} />
         <JsonLd data={websiteJsonLd()} nonce={nonce} />
       </head>
@@ -214,6 +224,7 @@ export default async function RootLayout({
           <Toaster />
           <WebVitals />
           <LenisProvider>{children}</LenisProvider>
+          <CookieConsent nonce={nonce} />
         </ThemeProvider>
       </body>
     </html>

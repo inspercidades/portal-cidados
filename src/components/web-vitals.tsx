@@ -4,11 +4,7 @@ import { useReportWebVitals } from "next/web-vitals";
 
 declare global {
   interface Window {
-    gtag?: (
-      command: "event",
-      eventName: string,
-      params: Record<string, unknown>,
-    ) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
