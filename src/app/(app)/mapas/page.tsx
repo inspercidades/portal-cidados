@@ -4,7 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 import { GeoportalMap } from "./geoportal-map";
 
 export const metadata: Metadata = buildMetadata({
-  path: "/geoportal",
+  path: "/mapas",
   title: "Geoportal — mapa interativo de dados urbanos",
   description:
     "Explore camadas geoespaciais por cidade, compare visualizações e navegue por dados urbanos no mapa interativo do Portal Cidados.",
@@ -17,7 +17,7 @@ export default function GeoportalPage() {
       <PageJsonLd
         breadcrumbs={[
           { name: "Início", path: "/" },
-          { name: "Geoportal", path: "/geoportal" },
+          { name: "Geoportal", path: "/mapas" },
         ]}
       />
       <GeoportalMap />

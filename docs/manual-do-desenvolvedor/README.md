@@ -60,10 +60,10 @@ repositório:
 - [Documentação da API](../API_DOCUMENTATION.md) · [Exemplos de API](../API_EXAMPLES.md)
 - [Integração Frontend ↔ API](../FRONTEND_INTEGRATION.md)
 - [Integração Catálogo ↔ Geoportal](../CATALOG_GEOPORTAL_INTEGRATION.md)
-- Módulo Geoportal: [README](../../src/app/(app)/geoportal/README.md) ·
-  [Workflow de layers](../../src/app/(app)/geoportal/WORKFLOW.md) ·
-  [Guia de estilos de layer](../../src/app/(app)/geoportal/LAYER_STYLES_GUIDE.md) ·
-  [Proposta de workflow em R](../../src/app/(app)/geoportal/PROPOSTA_WORKFLOW_R.md)
+- Módulo Geoportal: [README](../../src/app/(app)/mapas/README.md) ·
+  [Workflow de layers](../../src/app/(app)/mapas/WORKFLOW.md) ·
+  [Guia de estilos de layer](../../src/app/(app)/mapas/LAYER_STYLES_GUIDE.md) ·
+  [Proposta de workflow em R](../../src/app/(app)/mapas/PROPOSTA_WORKFLOW_R.md)
 
 ---
 

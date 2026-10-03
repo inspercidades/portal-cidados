@@ -202,7 +202,7 @@ Não há banco de dados. Os dados são módulos TypeScript versionados:
 | [`src/lib/data/collaborators.ts`](../../src/lib/data/collaborators.ts) | Colaboradores exibidos na página `/sobre` |
 
 Além disso, dados específicos de módulo ficam próximos do módulo — por exemplo,
-[`geoportal/lib/city-layers.ts`](../../src/app/(app)/geoportal/lib/city-layers.ts)
+[`geoportal/lib/city-layers.ts`](../../src/app/(app)/mapas/lib/city-layers.ts)
 (camadas por cidade) e os módulos `data/*.ts` de cada história
 (ver [capítulo 06](./06-historias-scrollytelling.md)).
 

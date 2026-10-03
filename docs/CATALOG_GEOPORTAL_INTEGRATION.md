@@ -1,6 +1,6 @@
 # Integração Bidirecional: Catálogo de Dados ↔ Geoportal
 
-Documentação da feature de navegação bidirecional entre o Catálogo de Dados (`/catalogo-de-dados`) e o Geoportal (`/geoportal`).
+Documentação da feature de navegação bidirecional entre o Catálogo de Dados (`/catalogo-de-dados`) e o Geoportal (`/mapas`).
 
 ---
 
@@ -43,7 +43,7 @@ graph LR
 
 1. O usuário abre o modal de um dataset que tem camadas correspondentes (ex: **Sinistros de Trânsito**)
 2. No modal, aparece o botão **"Ver dados no mapa"**
-3. O clique navega para `/geoportal?city=São+Paulo&layers=sinistros-por-distrito-spo,sinistros-por-trecho-spo`
+3. O clique navega para `/mapas?city=São+Paulo&layers=sinistros-por-distrito-spo,sinistros-por-trecho-spo`
 4. O Geoportal abre com São Paulo selecionado e as duas camadas de sinistros já ativas
 
 ---
@@ -61,7 +61,7 @@ O `catalogItemId` é definido por camada em `city-layers.ts` e corresponde ao `i
 ### Catálogo → Geoportal
 
 ```
-/geoportal?city={cidade}&layers={layerId1},{layerId2},...
+/mapas?city={cidade}&layers={layerId1},{layerId2},...
 ```
 
 Os IDs das camadas são derivados dinamicamente via `getLayersForCatalogItem()` em `city-layers.ts`.
@@ -111,7 +111,7 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 O campo `catalogItemId` na interface `CityLayer` é o único ponto de configuração do mapeamento:
 
 ```ts
-// src/app/(app)/geoportal/lib/city-layers.ts
+// src/app/(app)/mapas/lib/city-layers.ts
 
 export interface CityLayer {
   id: string;
@@ -163,7 +163,7 @@ sequenceDiagram
     User->>DP: Abre modal do item 8
     DP->>CLT: getLayersForCatalogItem("8")
     CLT->>DP: [{city: "Rio de Janeiro", layerIds: ["ic_areas-3ii8xj", "ic_pontos-90vwh4", "quali_area-1ci0wo", "quali_pontos-b424eh"]}]
-    DP->>User: Exibe botão → /geoportal?city=Rio+de+Janeiro&layers=ic_areas-3ii8xj,ic_pontos-90vwh4,quali_area-1ci0wo,quali_pontos-b424eh
+    DP->>User: Exibe botão → /mapas?city=Rio+de+Janeiro&layers=ic_areas-3ii8xj,ic_pontos-90vwh4,quali_area-1ci0wo,quali_pontos-b424eh
     User->>CL: Navega para o Geoportal
     CL->>CL: useSearchParams() → inicializa estado com city + layers
     CL->>User: Mapa com camadas já ativas
@@ -175,9 +175,9 @@ sequenceDiagram
 
 | Arquivo | Papel na integração |
 |---|---|
-| `src/app/(app)/geoportal/lib/city-layers.ts` | Define `catalogItemId` por camada e exporta `getLayersForCatalogItem()` |
-| `src/app/(app)/geoportal/components/city-layers.tsx` | Exibe link "Acessar base de dados" para camadas selecionadas |
-| `src/app/(app)/geoportal/components/city-layers-comparison.tsx` | Idem para o modo comparação |
+| `src/app/(app)/mapas/lib/city-layers.ts` | Define `catalogItemId` por camada e exporta `getLayersForCatalogItem()` |
+| `src/app/(app)/mapas/components/city-layers.tsx` | Exibe link "Acessar base de dados" para camadas selecionadas |
+| `src/app/(app)/mapas/components/city-layers-comparison.tsx` | Idem para o modo comparação |
 | `src/components/DataCard.tsx` | Aceita `initialOpen`, exibe botão "Ver dados no mapa" |
 | `src/components/CatalogPage.tsx` | Lê `?item` da URL e passa `initialOpen` para cada `DataCard` |
 | `src/app/(app)/catalogo-de-dados/page.tsx` | Envolve `CatalogPage` em `<Suspense>` (necessário para `useSearchParams`) |

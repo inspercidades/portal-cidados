@@ -57,7 +57,7 @@ export function Header() {
     },
     {
       name: "MAPAS",
-      href: "/geoportal",
+      href: "/mapas",
     },
     {
       name: "CATÁLOGO DE DADOS",

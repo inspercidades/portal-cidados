@@ -23,7 +23,7 @@ Mapa interativo baseado em **Mapbox GL JS** que permite visualizar camadas de da
 
 ```mermaid
 graph TD
-    A["GeoportalPage\n/geoportal/page.tsx"] --> B["PropertyMap\ncomponents/property-map.tsx"]
+    A["GeoportalPage\n/mapas/page.tsx"] --> B["PropertyMap\ncomponents/property-map.tsx"]
 
     B --> C["CityAccordion\nSeleção de cidade"]
     B --> D["CityLayers\nModo normal"]
@@ -50,7 +50,7 @@ Toda a visualização é capturada em query params. Ao copiar e colar a URL, o m
 ### Modo normal
 
 ```
-/geoportal?city=Rio+de+Janeiro
+/mapas?city=Rio+de+Janeiro
   &layers=ic_areas-3ii8xj,quali_area-1ci0wo
   &opacity=ic_areas-3ii8xj:50,quali_area-1ci0wo:80
   &zoom=12.2900
@@ -64,7 +64,7 @@ Toda a visualização é capturada em query params. Ao copiar e colar a URL, o m
 ### Modo comparação
 
 ```
-/geoportal?compare=1
+/mapas?compare=1
   &city=Rio+de+Janeiro
   &layer1=ic_areas-3ii8xj
   &layer2=quali_area-1ci0wo
@@ -234,7 +234,7 @@ NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1...
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `page.tsx` | Entry point da rota `/geoportal` |
+| `page.tsx` | Entry point da rota `/mapas` |
 | `components/property-map.tsx` | Orquestrador principal — mapa, estado, URL |
 | `components/city-accordion.tsx` | Seleção de cidade |
 | `components/city-layers.tsx` | Painel de camadas (modo normal) |

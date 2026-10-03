@@ -47,7 +47,7 @@ A plataforma combina três formas de acesso ao mesmo acervo de dados urbanos:
 |---|---|---|---|
 | Home | `/` | Página inicial com apresentação e vitrine de histórias | [05](./05-home-e-navegacao.md) |
 | Histórias | `/historias` e `/historias/[slug]` | Índice e páginas de scrollytelling | [06](./06-historias-scrollytelling.md) |
-| Geoportal | `/geoportal` | Mapa interativo com camadas por cidade | [07](./07-geoportal.md) |
+| Geoportal | `/mapas` | Mapa interativo com camadas por cidade | [07](./07-geoportal.md) |
 | Catálogo de Dados | `/catalogo-de-dados` | Busca e filtros de datasets | [08](./08-catalogo-de-dados.md) |
 | Sobre | `/sobre` | Página institucional e colaboradores | — |
 | API do catálogo | `/api/catalog` | Endpoint REST de busca/filtro | [08](./08-catalogo-de-dados.md) |
@@ -72,7 +72,7 @@ graph TD
     H --> H2["/historias/adensamento"]
     H --> H3["/historias/desigualdades-em-saude-sp"]
     H --> H4["/historias/faixa-azul"]
-    Root --> G["/geoportal"]
+    Root --> G["/mapas"]
     Root --> C["/catalogo-de-dados"]
     Root --> S["/sobre"]
     Root --> API["/api/catalog  (Route Handler)"]

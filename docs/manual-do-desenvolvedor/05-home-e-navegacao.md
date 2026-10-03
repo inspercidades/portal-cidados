@@ -83,7 +83,7 @@ Não existe navbar no layout raiz. A navegação é feita pelo
 manualmente em cada página principal** (Home, `/historias`, `/catalogo-de-dados`,
 `/sobre`).
 
-> **Exceção:** o `/geoportal` tem sua própria UI de tela cheia com sidebar e
+> **Exceção:** o `/mapas` tem sua própria UI de tela cheia com sidebar e
 > **não** usa o `Header`.
 
 Comportamento do `Header`:
@@ -102,7 +102,7 @@ Comportamento do `Header`:
 const menuItems = [
   { name: "HOME", href: "/" },
   { name: "HISTÓRIAS", href: "/historias" },
-  { name: "MAPAS", href: "/geoportal" },
+  { name: "MAPAS", href: "/mapas" },
   { name: "CATÁLOGO DE DADOS", href: "/catalogo-de-dados" },
   {
     name: "PROJETOS",

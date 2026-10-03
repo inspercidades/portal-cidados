@@ -2,7 +2,7 @@
 
 [← Voltar ao índice](./README.md)
 
-O Geoportal (`/geoportal`) é o mapa interativo da plataforma, baseado em
+O Geoportal (`/mapas`) é o mapa interativo da plataforma, baseado em
 **Mapbox GL JS**. Este capítulo dá a visão de desenvolvedor e aponta para a
 documentação detalhada já existente no módulo.
 
@@ -42,13 +42,13 @@ Diferentemente das demais páginas, o Geoportal tem UI de tela cheia própria e
 O módulo já possui documentação detalhada. **Este capítulo não a duplica** —
 consulte diretamente:
 
-- [Geoportal README](../../src/app/(app)/geoportal/README.md) — visão completa:
+- [Geoportal README](../../src/app/(app)/mapas/README.md) — visão completa:
   features, arquitetura de componentes, parâmetros de URL, inventário de camadas.
-- [WORKFLOW.md](../../src/app/(app)/geoportal/WORKFLOW.md) — passo a passo do
+- [WORKFLOW.md](../../src/app/(app)/mapas/WORKFLOW.md) — passo a passo do
   Mapbox Studio ao código (para a equipe de dados).
-- [LAYER_STYLES_GUIDE.md](../../src/app/(app)/geoportal/LAYER_STYLES_GUIDE.md) —
+- [LAYER_STYLES_GUIDE.md](../../src/app/(app)/mapas/LAYER_STYLES_GUIDE.md) —
   como integrar estilos visuais de camada.
-- [PROPOSTA_WORKFLOW_R.md](../../src/app/(app)/geoportal/PROPOSTA_WORKFLOW_R.md) —
+- [PROPOSTA_WORKFLOW_R.md](../../src/app/(app)/mapas/PROPOSTA_WORKFLOW_R.md) —
   proposta de gerar estilos Mapbox GL diretamente em R (ainda não implementada).
 - [CATALOG_GEOPORTAL_INTEGRATION.md](../CATALOG_GEOPORTAL_INTEGRATION.md) —
   integração bidirecional Catálogo ↔ Geoportal.
@@ -56,8 +56,8 @@ consulte diretamente:
 ## Estrutura de arquivos
 
 ```
-src/app/(app)/geoportal/
-├── page.tsx                          # Rota /geoportal (Suspense + PropertyMap)
+src/app/(app)/mapas/
+├── page.tsx                          # Rota /mapas (Suspense + PropertyMap)
 ├── components/
 │   ├── property-map.tsx              # Orquestrador principal (mapa, estado, URL)
 │   ├── city-accordion.tsx            # Seleção de cidade (ativo)
@@ -79,7 +79,7 @@ src/app/(app)/geoportal/
 
 ## Orquestrador: `property-map.tsx`
 
-[`PropertyMap`](../../src/app/(app)/geoportal/components/property-map.tsx) é o
+[`PropertyMap`](../../src/app/(app)/mapas/components/property-map.tsx) é o
 componente central (~1600 linhas). Ele detém todo o estado do mapa, a
 sincronização com a URL, o ciclo de vida das camadas, o modo de comparação, os
 popups de hover e o layout da UI.
@@ -103,7 +103,7 @@ Pipeline de adição de camada (modo normal), quando o usuário liga uma camada:
 
 ## Camadas: `city-layers.ts` e `layer-styles.ts`
 
-**Metadados** ([`lib/city-layers.ts`](../../src/app/(app)/geoportal/lib/city-layers.ts)):
+**Metadados** ([`lib/city-layers.ts`](../../src/app/(app)/mapas/lib/city-layers.ts)):
 
 ```ts
 export interface CityLayer {
@@ -119,7 +119,7 @@ export interface CityLayer {
 }
 ```
 
-**Estilos** ([`lib/layer-styles.ts`](../../src/app/(app)/geoportal/lib/layer-styles.ts)):
+**Estilos** ([`lib/layer-styles.ts`](../../src/app/(app)/mapas/lib/layer-styles.ts)):
 o objeto `layerStyles` é **indexado pelo nome do `sourceLayer`** (não pelo `id`).
 
 ```ts
@@ -141,7 +141,7 @@ export function createStyledLayer(layerId, sourceLayer, _tilesetId): LayerStyle 
 
 Toda a visualização é capturada em query params e restaurada ao abrir a URL.
 Referência completa dos parâmetros no
-[Geoportal README](../../src/app/(app)/geoportal/README.md#estado-serializado-na-url).
+[Geoportal README](../../src/app/(app)/mapas/README.md#estado-serializado-na-url).
 Resumo:
 
 - Modo normal: `city`, `layers` (CSV de IDs), `opacity` (`id:val,...`), `zoom`,
@@ -183,7 +183,7 @@ O elo é o campo `catalogItemId` em cada `CityLayer`, que corresponde ao `id` em
   painel mostra um link "Acessar base de dados"
   (`/catalogo-de-dados?item={id}`).
 - **Catálogo → Geoportal:** o `DataCard` usa `getLayersForCatalogItem(id)` e
-  renderiza "Ver dados no mapa" (`/geoportal?city=...&layers=...`).
+  renderiza "Ver dados no mapa" (`/mapas?city=...&layers=...`).
 
 Detalhes e tabela de mapeamento completa em
 [CATALOG_GEOPORTAL_INTEGRATION.md](../CATALOG_GEOPORTAL_INTEGRATION.md). Ver
@@ -191,7 +191,7 @@ também o [capítulo 08](./08-catalogo-de-dados.md).
 
 ## Checklist: adicionar uma nova camada
 
-Fluxo completo em [WORKFLOW.md](../../src/app/(app)/geoportal/WORKFLOW.md).
+Fluxo completo em [WORKFLOW.md](../../src/app/(app)/mapas/WORKFLOW.md).
 Resumo:
 
 1. Faça upload do tileset no Mapbox Studio (conta `observatorio-nacional`).

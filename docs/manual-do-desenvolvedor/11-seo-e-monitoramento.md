@@ -94,7 +94,7 @@ injete JSON-LD sem nonce — o navegador bloqueia.
 | `Organization` + `WebSite` (com `SearchAction` em `/catalogo-de-dados?q=`) | Layout raiz |
 | `Article` + `BreadcrumbList` | Histórias (`StoryJsonLd`) |
 | `CollectionPage` + `Dataset` + `BreadcrumbList` | Catálogo |
-| `BreadcrumbList` | `/historias`, `/geoportal`, `/sobre` (`PageJsonLd`) |
+| `BreadcrumbList` | `/historias`, `/mapas`, `/sobre` (`PageJsonLd`) |
 
 A ação de busca do `WebSite` aponta para `?q=`. O catálogo lê esse parâmetro e
 pré-preenche a busca.
@@ -178,7 +178,7 @@ Ou [PageSpeed Insights](https://pagespeed.web.dev/) colando cada URL.
 | `/historias/adensamento` | | | | | |
 | `/historias/ilhas-de-calor` | | | | | |
 | `/historias/desigualdades-em-saude-sp` | | | | | |
-| `/geoportal` | | | | | |
+| `/mapas` | | | | | |
 | `/catalogo-de-dados` | | | | | |
 | `/sobre` | | | | | |
 

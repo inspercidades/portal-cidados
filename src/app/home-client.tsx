@@ -84,7 +84,7 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link href="/geoportal">
+            <Link href="/mapas">
               <Button
                 variant="default"
                 size="lg"

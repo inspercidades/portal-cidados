@@ -21,9 +21,9 @@ Documentação técnica completa do Portal Cidados para desenvolvedores, arquite
 
 | Documento | Descrição |
 |---|---|
-| **[Geoportal README](../src/app/(app)/geoportal/README.md)** | Visão completa do módulo: features, URL state, camadas, comparação |
-| **[Workflow de Layers](../src/app/(app)/geoportal/WORKFLOW.md)** | Do Mapbox Studio ao Geoportal: passo a passo para adicionar layers |
-| **[Layer Styles Guide](../src/app/(app)/geoportal/LAYER_STYLES_GUIDE.md)** | Como configurar estilos visuais Mapbox |
+| **[Geoportal README](../src/app/(app)/mapas/README.md)** | Visão completa do módulo: features, URL state, camadas, comparação |
+| **[Workflow de Layers](../src/app/(app)/mapas/WORKFLOW.md)** | Do Mapbox Studio ao Geoportal: passo a passo para adicionar layers |
+| **[Layer Styles Guide](../src/app/(app)/mapas/LAYER_STYLES_GUIDE.md)** | Como configurar estilos visuais Mapbox |
 
 ---
 
@@ -51,7 +51,7 @@ src/app/api/catalog/route.ts     — API de filtros e busca
 
 ---
 
-### Geoportal (`/geoportal`)
+### Geoportal (`/mapas`)
 
 Mapa interativo baseado em Mapbox GL JS. Permite explorar camadas geoespaciais por cidade, comparar camadas lado a lado e compartilhar visualizações via URL.
 
@@ -66,9 +66,9 @@ Mapa interativo baseado em Mapbox GL JS. Permite explorar camadas geoespaciais p
 
 **Arquivos-chave:**
 ```
-src/app/(app)/geoportal/components/property-map.tsx        — orquestrador principal
-src/app/(app)/geoportal/lib/city-layers.ts                 — config de camadas + mapeamento catálogo
-src/app/(app)/geoportal/lib/layer-styles.ts                — estilos visuais Mapbox
+src/app/(app)/mapas/components/property-map.tsx        — orquestrador principal
+src/app/(app)/mapas/lib/city-layers.ts                 — config de camadas + mapeamento catálogo
+src/app/(app)/mapas/lib/layer-styles.ts                — estilos visuais Mapbox
 ```
 
 ---
@@ -88,7 +88,7 @@ graph LR
     end
 
     GL -->|"/catalogo-de-dados?item=8"| C
-    CB -->|"/geoportal?city=...&layers=..."| G
+    CB -->|"/mapas?city=...&layers=..."| G
 ```
 
 Veja a documentação completa em **[CATALOG_GEOPORTAL_INTEGRATION.md](./CATALOG_GEOPORTAL_INTEGRATION.md)**.

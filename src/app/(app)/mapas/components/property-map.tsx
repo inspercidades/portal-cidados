@@ -237,7 +237,7 @@ export default function PropertyMap() {
     if (vp.lat !== null) params.set("lat", vp.lat.toFixed(5));
     if (vp.lng !== null) params.set("lng", vp.lng.toFixed(5));
 
-    router.replace(`/geoportal?${params.toString()}`, { scroll: false });
+    router.replace(`/mapas?${params.toString()}`, { scroll: false });
   }, [
     router,
     selectedCity,

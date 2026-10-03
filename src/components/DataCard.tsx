@@ -3,7 +3,7 @@
 import { ExternalLink, MapIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { getLayersForCatalogItem } from "@/app/(app)/geoportal/lib/city-layers";
+import { getLayersForCatalogItem } from "@/app/(app)/mapas/lib/city-layers";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -242,7 +242,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                   return (
                     <Link
                       key={city}
-                      href={`/geoportal?${params}`}
+                      href={`/mapas?${params}`}
                       className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
                     >
                       <MapIcon className="w-4 h-4" />

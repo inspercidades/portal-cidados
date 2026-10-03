@@ -193,7 +193,6 @@ export default async function RootLayout({
     <html
       lang="pt-BR"
       className="dark"
-      data-theme-default="dark"
       nonce={nonce}
       suppressHydrationWarning
     >

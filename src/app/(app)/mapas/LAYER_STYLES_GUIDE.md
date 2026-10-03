@@ -43,7 +43,7 @@ The application supports custom layer styles from Mapbox Studio. When a layer ha
 
 ### 2. Add Style to layer-styles.ts
 
-Add your layer style to the `layerStyles` object in `src/app/(app)/geoportal/lib/layer-styles.ts`:
+Add your layer style to the `layerStyles` object in `src/app/(app)/mapas/lib/layer-styles.ts`:
 
 ```typescript
 export const layerStyles: Record<string, LayerStyle> = {
@@ -68,7 +68,7 @@ export const layerStyles: Record<string, LayerStyle> = {
 
 ### 3. Update City Layer Configuration
 
-In `src/app/(app)/geoportal/lib/city-layers.ts`, register the layer. Make sure `sourceLayer` matches the key you used in `layerStyles` exactly. Keeping `hasCustomStyle: true` is a documentation convention (it is not read at runtime):
+In `src/app/(app)/mapas/lib/city-layers.ts`, register the layer. Make sure `sourceLayer` matches the key you used in `layerStyles` exactly. Keeping `hasCustomStyle: true` is a documentation convention (it is not read at runtime):
 
 ```typescript
 {

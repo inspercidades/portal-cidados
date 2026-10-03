@@ -102,7 +102,7 @@ O detalhamento do fluxo de estado e loading está em
   automaticamente. Por isso a página é envolta em `<Suspense>`.
 - **Catálogo → Geoportal:** o `DataCard` chama `getLayersForCatalogItem(item.id)`
   e renderiza um link "Ver dados no mapa" por cidade
-  (`/geoportal?city=...&layers=...`).
+  (`/mapas?city=...&layers=...`).
 - **Geoportal → Catálogo:** camadas com `catalogItemId` mostram "Acessar base de
   dados" (`/catalogo-de-dados?item=ID`).
 
