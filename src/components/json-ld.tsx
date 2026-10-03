@@ -14,6 +14,7 @@ export function JsonLd({ data, nonce }: JsonLdProps) {
     <script
       type="application/ld+json"
       nonce={nonce}
+      suppressHydrationWarning
       // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD precisa ser injetado como texto no script.
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(data).replace(/</g, "\\u003c"),

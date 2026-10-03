@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
-import Script from "next/script";
 import { Toaster } from "sonner";
 import { CookieConsent } from "@/components/cookie-consent";
 import { JsonLd } from "@/components/json-ld";
@@ -193,12 +192,13 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR" nonce={nonce} suppressHydrationWarning>
       <head>
-        <Script
+        <script
           id="ga-consent-default"
-          strategy="beforeInteractive"
           nonce={nonce}
-        >
-          {`
+          suppressHydrationWarning
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: o consentimento padrão do Analytics precisa existir antes de qualquer script de audiência.
+          dangerouslySetInnerHTML={{
+            __html: `
             window.dataLayer = window.dataLayer || [];
             window.gtag = window.gtag || function gtag(){window.dataLayer.push(arguments);};
             window.gtag('consent', 'default', {
@@ -207,8 +207,9 @@ export default async function RootLayout({
               ad_personalization: 'denied',
               analytics_storage: 'denied'
             });
-          `}
-        </Script>
+          `,
+          }}
+        />
         <JsonLd data={organizationJsonLd()} nonce={nonce} />
         <JsonLd data={websiteJsonLd()} nonce={nonce} />
       </head>
