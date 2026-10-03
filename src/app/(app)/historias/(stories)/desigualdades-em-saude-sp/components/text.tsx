@@ -69,7 +69,7 @@ export default function Text() {
             saneamento básico. Assim, os desafios de saúde atingem a população
             de forma desigual e{" "}
             <span className="font-semibold">
-              intervenções direcionadas a regiões de maior risco tem o potencial
+              intervenções direcionadas a regiões de maior risco têm o potencial
               de reduzir o risco de morte
             </span>{" "}
             na maioria das faixas etárias.
@@ -95,7 +95,7 @@ export default function Text() {
             </span>
             , além de investigar as regiões prioritárias para intervenções.
             Essas análises visam subsidiar políticas direcionadas para a saúde
-            pública no Brasil, devida à sua alta prevalência, mortalidade e
+            pública no Brasil, devido à sua alta prevalência, mortalidade e
             impactos na qualidade de vida e saúde.
           </p>
         </div>

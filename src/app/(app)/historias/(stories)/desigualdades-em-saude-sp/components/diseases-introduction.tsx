@@ -68,7 +68,7 @@ export default function DiseasesIntroduction() {
 
           <p>
             No entanto, os desafios de saúde atingem a população de forma
-            desigual. Pesquisa Portanto, a intervenção direcionada às populações
+            desigual. Portanto, a intervenção direcionada às populações
             em áreas de maior risco tem o potencial de reduzir o risco de morte
             na maioria das faixas etárias.
           </p>

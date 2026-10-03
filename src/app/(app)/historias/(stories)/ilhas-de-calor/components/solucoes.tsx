@@ -34,28 +34,28 @@ const solucoesItems: SolucaoItem[] = [
     image: s3, // Substitua pela imagem da solução 3
     text: "REMODELAGEM DO SOLO URBANO",
     description:
-      " Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
+      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
     textPosition: "top-right",
   },
   {
     image: s4, // Substitua pela imagem da solução 4
     text: "REMODELAGEM DO SOLO URBANO",
     description:
-      " Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
+      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
     textPosition: "top-right",
   },
   {
     image: s5, // Substitua pela imagem da solução 5
     text: "AÇÕES DE ADAPTAÇÃO CLIMÁTICA",
     description:
-      "Projetar e desenvolver mecanismos que garantam o pleno acesso a melhores habitações: estratégias de combate ao calor extremo, utilizar o uso de materiais de construção sustentáveis, rever tecnologias como telhados verdes, fachadas permeáveis, entre outras.",
+      "Projetar e desenvolver mecanismos que garantam o pleno acesso a melhores habitações: estratégias de combate ao calor extremo, uso de materiais de construção sustentáveis, rever tecnologias como telhados verdes, fachadas permeáveis, entre outras.",
     textPosition: "top-left",
   },
   {
     image: s6, // Substitua pela imagem da solução 6
     text: "AÇÕES DE ADAPTAÇÃO CLIMÁTICA",
     description:
-      "Projetar e desenvolver mecanismos que garantam o pleno acesso a melhores habitações: estratégias de combate ao calor extremo, utilizar o uso de materiais de construção sustentáveis, rever tecnologias como telhados verdes, fachadas permeáveis, entre outras.",
+      "Projetar e desenvolver mecanismos que garantam o pleno acesso a melhores habitações: estratégias de combate ao calor extremo, uso de materiais de construção sustentáveis, rever tecnologias como telhados verdes, fachadas permeáveis, entre outras.",
     textPosition: "top-left",
   },
   {

@@ -196,7 +196,7 @@ export default function MediaSection() {
               de uso facultativo, para motociclistas
             </strong>
             . Em São Paulo, ela costuma ser implantada entre as duas faixas mais
-            à esquerda da via. Sinalização por meio de placas também acompanham
+            à esquerda da via. Sinalização por meio de placas também acompanha
             a intervenção.
           </p>
         </ScrollCard>

@@ -699,7 +699,7 @@ export function IntroMare() {
             Os Primeiros Anos (1940-1960)
           </h2>
           <p className="text-base md:text-lg leading-relaxed">
-            A primeira favela da região foi a <strong>Morro do Timbau</strong>,
+            A primeira favela da região foi o <strong>Morro do Timbau</strong>,
             que surgiu nos anos 1940. Nos anos seguintes, outras ocupações
             espontâneas surgiram, muitas delas sobre terrenos alagadiços,
             impulsionadas pelo crescimento da cidade e a necessidade de moradia

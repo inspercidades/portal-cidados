@@ -253,7 +253,7 @@ export function CollaboratorsSection() {
                 tem de controlar a densidade habitacional
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
-                Gustado Theil
+                Gustavo Theil
               </p>
             </div>
 

@@ -157,7 +157,7 @@ export default function Conclusion() {
           <p>
             Neste contexto, são necessárias{" "}
             <span className="font-semibold">
-              novas abordagens sobre campo da saúde
+              novas abordagens no campo da saúde
             </span>
             . Não se trata apenas de tratar problemas de saúde das pessoas que
             vivem nas cidades, mas de expandir o olhar para as condições urbanas
@@ -260,7 +260,7 @@ export default function Conclusion() {
               <p className="leading-relaxed">
                 Ela desempenha um papel essencial na prevenção do diabetes
                 mellitus na vida adulta, promovendo hábitos saudáveis desde
-                cedo, controlando o consumo de açúcares e ultra processados e
+                cedo, controlando o consumo de açúcares e ultraprocessados e
                 incentivando uma alimentação equilibrada. Estudos mostram que
                 escolhas nutricionais adequadas na infância reduzem
                 significativamente o risco de resistência à insulina, obesidade

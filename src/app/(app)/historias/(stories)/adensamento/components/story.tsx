@@ -508,7 +508,7 @@ export default function AdensamentoStory() {
             público de média e alta capacidade, tais como corredores de ônibus e
             estações de metrô e trem.
             <br />
-            <br />A seguir exploramos{" "}
+            <br />A seguir, exploramos{" "}
             <strong className="font-bold">
               quais dos parâmetros construtivos regulados e incentivados pelo
               Plano Diretor são de fato capazes de estimular o adensamento
@@ -1070,7 +1070,7 @@ export default function AdensamentoStory() {
               definir a{" "}
               <strong className="font-bold">densidade populacional</strong> de
               uma região?
-              <strong className="font-bold"> verticalização</strong> está
+              <strong className="font-bold"> A verticalização</strong> está
               necessariamente associada a uma maior densidade?
             </CardText>
           </MapCard>

@@ -243,7 +243,7 @@ export default function ScrollyCards() {
         <>
           A seguir, contaremos a <strong>história de Maria</strong>, que{" "}
           <strong>mora no Jardim Helena</strong>. Este é um caso hipotético, mas
-          muito comum na realidade Palistana.
+          muito comum na realidade Paulistana.
         </>
       ),
     },

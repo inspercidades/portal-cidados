@@ -190,8 +190,23 @@ export default async function RootLayout({
 }>) {
   const nonce = (await headers()).get("x-nonce") ?? "";
   return (
-    <html lang="pt-BR" nonce={nonce} suppressHydrationWarning>
+    <html
+      lang="pt-BR"
+      className="dark"
+      data-theme-default="dark"
+      nonce={nonce}
+      suppressHydrationWarning
+    >
       <head>
+        <script
+          id="theme-init"
+          nonce={nonce}
+          suppressHydrationWarning
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: o tema precisa ser aplicado antes da primeira pintura; o script do next-themes só roda depois e o CSP bloqueia inline sem nonce.
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme")||"dark";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.classList.remove("light","dark");d.classList.add(t);d.style.colorScheme=t}catch(e){}})();`,
+          }}
+        />
         <script
           id="ga-consent-default"
           nonce={nonce}
@@ -221,6 +236,7 @@ export default async function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
+          nonce={nonce}
         >
           <Toaster />
           <WebVitals />
