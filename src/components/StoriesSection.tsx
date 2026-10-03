@@ -51,7 +51,7 @@ export function StoriesSection() {
     return () => window.removeEventListener("resize", calculateOffset);
   }, [isReady]);
 
-  // Effect para gerenciar a animação de imagens no hover 
+  // Effect para gerenciar a animação de imagens no hover  
   useEffect(() => {
     // Limpa qualquer intervalo existente antes de criar um novo
     if (intervalRef.current) {
