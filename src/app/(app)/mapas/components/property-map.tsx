@@ -8,7 +8,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -18,6 +17,7 @@ import { CityAccordion } from "./city-accordion";
 import { CityLayers } from "./city-layers";
 import { CityLayersComparison } from "./city-layers-comparison";
 import { CollapsibleLegend } from "./collapsible-legend";
+import { SiteMenu } from "@/components/SiteMenu";
 
 // Dynamic import for mapbox-gl-compare to avoid SSR issues
 type MapboxCompareInstance = {
@@ -177,6 +177,7 @@ export default function PropertyMap() {
     initialParamsRef.current.city,
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [selectedLayers, setSelectedLayers] = useState<string[]>(
     initialParamsRef.current.layers,
   );
@@ -1495,25 +1496,21 @@ export default function PropertyMap() {
         mapTheme={mapTheme}
         onThemeToggle={handleThemeToggle}
       />
+      <SiteMenu isOpen={isNavMenuOpen} onClose={() => setIsNavMenuOpen(false)} />
+
       <div className="absolute top-4 right-4 z-9 flex flex-col gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               type="button"
-              onClick={() => router.push("/")}
+              onClick={() => setIsNavMenuOpen(true)}
               className="p-3 rounded-full outline-none transition-colors bg-white hover:bg-gray-50 cursor-pointer"
             >
-              <Image
-                src="/favicon.ico"
-                alt="Home"
-                width={20}
-                height={20}
-                className="w-5 h-5"
-              />
+              <Menu className="w-5 h-5 text-gray-900" />
             </button>
           </TooltipTrigger>
           <TooltipContent side="left">
-            <p>Página Inicial do Portal Cidados</p>
+            <p>Menu de Navegação</p>
           </TooltipContent>
         </Tooltip>
 
