@@ -43,7 +43,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const assetsToPreload = [
-  "/arq_futuro_icon.png",
+  "/centro_estudos_cidades.png",
   portalLogo.src,
   faixaChartImage,
   chuvaImage,

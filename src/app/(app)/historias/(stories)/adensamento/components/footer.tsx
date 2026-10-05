@@ -16,9 +16,10 @@ export default function Footer() {
       }}
       realizacao={[
         {
-          src: "/arq_futuro_icon.png",
-          alt: "Insper Logo",
+          src: "/centro_estudos_cidades.png",
+          alt: "Centro de Estudos das Cidades",
           href: "https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades",
+          className: "h-14 lg:h-18 w-auto brightness-0 invert",
         },
         {
           src: "/portal_cidados_icon.png",

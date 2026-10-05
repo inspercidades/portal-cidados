@@ -107,7 +107,7 @@ export function Header() {
               </div>
             </Link>
 
-            {/* Logo Arq Futuro - visível apenas no mobile (junto com Portal Cidados) */}
+            {/* Logo Centro de Estudos das Cidades - visível apenas no mobile (junto com Portal Cidados) */}
             <Link
               href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
               target="_blank"
@@ -116,11 +116,11 @@ export function Header() {
             >
               <div className="relative w-[120px] h-[40px] sm:w-[120px] sm:h-[46px]">
                 <Image
-                  src="/arq_futuro_icon.png"
-                  alt="Arquitetura do Futuro"
+                  src="/centro_estudos_cidades.png"
+                  alt="Centro de Estudos das Cidades"
                   fill
                   sizes="(max-width: 640px) 120px, 120px"
-                  className="object-contain object-left dark:invert"
+                  className="object-contain object-left brightness-0 dark:brightness-100"
                   priority
                   quality={100}
                 />
@@ -128,7 +128,7 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Centro - Logo Arq Futuro (visível apenas no desktop) */}
+          {/* Centro - Logo Centro de Estudos das Cidades (visível apenas no desktop) */}
           <Link
             href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
             target="_blank"
@@ -137,11 +137,11 @@ export function Header() {
           >
             <div className="relative w-[160px] h-[48px] lg:w-[180px] lg:h-[60px]">
               <Image
-                src="/arq_futuro_icon.png"
-                alt="Arquitetura do Futuro"
+                src="/centro_estudos_cidades.png"
+                alt="Centro de Estudos das Cidades"
                 fill
                 sizes="(max-width: 1024px) 160px, 180px"
-                className="object-contain dark:invert"
+                className="object-contain brightness-0 dark:brightness-100"
                 priority
                 quality={100}
               />

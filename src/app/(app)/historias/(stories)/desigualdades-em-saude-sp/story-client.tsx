@@ -44,7 +44,7 @@ export default function DesigualdadesEmSaudeSp() {
     () => [
       // Cover component
       { src: coverImage },
-      { src: "/arq_futuro_icon.png" },
+      { src: "/centro_estudos_cidades.png" },
       { src: portalLogo },
       // Text component
       { src: textBackground },
@@ -69,7 +69,7 @@ export default function DesigualdadesEmSaudeSp() {
       // MortalidadeMaterna component (usa chart1, chart2, chart3, icon1)
       // DiseasesIntroduction component (usa textBackground)
       // Conclusion component (usa textBackground)
-      // Footer component (usa /arq_futuro_icon.png)
+      // Footer component (usa /centro_estudos_cidades.png)
     ],
     [],
   );

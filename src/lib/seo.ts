@@ -63,7 +63,7 @@ export const siteConfig = {
   locale: "pt_BR",
   description:
     "Plataforma do Centro de Estudos das Cidades do Insper que apresenta estudos e pesquisas sobre políticas urbanas por meio de narrativas baseadas em dados, um geoportal interativo e um catálogo de dados abertos.",
-  defaultOgImage: "/arq_futuro_icon.png",
+  defaultOgImage: "/centro_estudos_cidades.png",
   keywords: [
     "dados urbanos",
     "cidades",

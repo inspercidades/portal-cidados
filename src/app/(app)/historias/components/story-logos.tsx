@@ -22,6 +22,9 @@ export function StoryLogos({
 
   const invertClass = inverted ? "brightness-0 invert" : "";
   const filterClass = imageClassName ?? invertClass;
+  // Centro de Estudos das Cidades logo is white — needs brightness-0 to stay
+  // visible on light backgrounds; when inverted (dark bg) it uses brightness-0 invert.
+  const insperFilterClass = imageClassName ?? (inverted ? "brightness-0 invert" : "brightness-0");
 
   const insperScale = hoverable
     ? hoveredLogo === "insper"
@@ -52,11 +55,11 @@ export function StoryLogos({
         })}
       >
         <Image
-          src="/arq_futuro_icon.png"
-          alt="Insper Logo"
+          src="/centro_estudos_cidades.png"
+          alt="Centro de Estudos das Cidades"
           width={384}
           height={128}
-          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${filterClass} ${insperScale}`}
+          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${insperFilterClass} ${insperScale}`}
           priority
         />
       </Link>
