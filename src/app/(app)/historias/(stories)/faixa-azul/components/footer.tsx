@@ -8,9 +8,9 @@ export default function Footer() {
           "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
         descriptionHref:
           "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/22b8cdce-8168-45ea-afba-14aaa1fd7b46/content",
-        organization: "Lorem ipsum",
-        documentType: "Lorem ipsum dolor sit amet",
-        year: 2024,
+        organization: "Relatório Técnico de Pesquisa",
+        documentType: "Insper Instituto de Ensino e Pesquisa",
+        year: 2025,
       }}
       realizacao={[
         {
@@ -37,30 +37,26 @@ export default function Footer() {
           title: "Equipe do estudo",
           members: [
             {
-              role: "Coordenação geral",
-              names: "Lorem ipsum",
+              role: "Autores",
+              names:
+                "Adriano Borges Costa, Adriano Dutra, Gustavo Theil, Júlio Mugnol",
             },
             {
-              role: "Pesquisador e coordenador de campo",
-              names: "Lorem ipsum",
+              role: "Equipe do Observatório Nacional de Mobilidade Sustentável",
+              names: "Sérgio Avelleda, Helena Coelho",
             },
             {
-              role: "Pesquisadores consultores",
-              names: "Lorem ipsum",
+              role: "Assistência de Pesquisa",
+              names: "Mariah Gomes",
             },
-            {
-              role: "Sistematização do conteúdo e produção dos mapas",
-              names: "Lorem ipsum",
-            },
-            { role: "Analista de dados", names: "Lorem ipsum" },
           ],
         },
         {
           title: "Equipe do dataviz",
           members: [
+            { role: "Coordenador Executivo", names: "Maurício Bouskela" },
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
-            { role: "Cientista de dados", names: "Vinicius Oike" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
           ],
         },
