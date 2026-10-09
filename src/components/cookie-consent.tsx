@@ -145,7 +145,7 @@ function CookieConsentCard({
             href="/privacidade"
             className="text-xs text-foreground underline underline-offset-4 hover:no-underline"
           >
-            Política de privacidade
+            Aviso de privacidade
           </Link>
         </CardContent>
         <CardFooter className="flex gap-2 pt-2">

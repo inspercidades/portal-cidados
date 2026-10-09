@@ -174,6 +174,8 @@ Duas ferramentas rodam em paralelo, ambas integradas no layout raiz:
 
 Documentação completa: [`docs/ANALYTICS.md`](../ANALYTICS.md).
 
+O aviso que descreve esse tratamento é a página local `/privacidade` (rodapé e banner usam o rótulo **Aviso de privacidade**). O **Portal da Privacidade do Insper** é outro documento: o canal do controlador para exercer direitos. Os dois não se substituem; o detalhe está em [Analytics — Aviso de privacidade e canal do Insper](../ANALYTICS.md#aviso-de-privacidade-e-canal-do-insper).
+
 ## SEO, metadados e dados estruturados
 
 O SEO vive no App Router (Metadata API nativa), não em `react-helmet` nem

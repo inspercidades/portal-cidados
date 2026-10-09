@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CookiePreferencesLink } from "@/components/cookie-consent";
+import { ExternalLink } from "@/components/external-link";
 import { Header } from "@/components/Header";
 import { PageJsonLd } from "@/components/page-json-ld";
 import { buildMetadata } from "@/lib/seo";
+import { EXTERNAL_LINKS } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   path: "/privacidade",
@@ -43,16 +45,16 @@ export default function PrivacidadePage() {
               controlador dos dados pessoais tratados aqui.
             </p>
             <p>
-              Dúvidas sobre este aviso ou pedidos relacionados a dados pessoais
-              podem ser encaminhados pelos canais institucionais indicados na
-              página{" "}
+              Dúvidas sobre este aviso podem ser encaminhadas pelos canais
+              indicados na página{" "}
               <Link
                 href="/sobre"
                 className="underline underline-offset-2 hover:text-foreground"
               >
                 Sobre
               </Link>
-              .
+              . Pedidos relacionados a dados pessoais seguem o caminho da seção
+              Seus direitos.
             </p>
           </section>
 
@@ -160,8 +162,15 @@ export default function PrivacidadePage() {
               Nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018),
               você pode pedir confirmação do tratamento, acesso, correção,
               anonimização, eliminação ou informação sobre o compartilhamento
-              dos seus dados, além de revogar o consentimento. Use os canais
-              institucionais do Insper para esses pedidos.
+              dos seus dados, além de revogar o consentimento. Esses pedidos são
+              feitos no{" "}
+              <ExternalLink
+                href={EXTERNAL_LINKS.privacyPortal}
+                className="underline underline-offset-2 hover:text-foreground"
+              >
+                Portal da Privacidade do Insper
+              </ExternalLink>
+              .
             </p>
           </section>
         </div>

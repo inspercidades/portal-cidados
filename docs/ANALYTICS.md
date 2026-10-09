@@ -2,6 +2,35 @@
 
 O portal utiliza duas ferramentas de analytics em paralelo: **Google Analytics 4** para métricas de tráfego e **Microsoft Clarity** para análise de comportamento do usuário (heatmaps e gravações de sessão).
 
+As duas só carregam depois que a pessoa clica em **Aceitar** no banner de cookies. O cookie que guarda essa escolha é necessário e funciona sem o banner. Recusar ou retirar o consentimento não impede o uso do site.
+
+---
+
+## Aviso de privacidade e canal do Insper
+
+O Portal Cidados é uma iniciativa do Insper. Dois documentos coexistem e não se substituem.
+
+| O quê | Onde | Para que serve |
+| --- | --- | --- |
+| **Aviso de privacidade** | Página local [`/privacidade`](../src/app/(app)/privacidade/page.tsx) | Descreve o tratamento deste site: cookie de consentimento, Google Analytics 4 e Microsoft Clarity, com finalidade, duração, controlador e com quem os dados são compartilhados |
+| **Portal da Privacidade do Insper** | [`EXTERNAL_LINKS.privacyPortal`](../src/lib/site.ts) | Canal do controlador para pedidos de acesso, correção e eliminação, e onde o contato do encarregado fica publicado |
+
+O aviso de `insper.edu.br` descreve o site da instituição. Ele não lista Analytics e Clarity deste portal, então o rótulo **Aviso de privacidade** não aponta para lá. A LGPD (art. 9º) pede informação do tratamento concreto. O guia da Controladoria Geral do Município de São Paulo separa o aviso do site do aviso institucional e recomenda aviso e política de cookies próprios em cada subdomínio, porque cookies e finalidades mudam de uma propriedade para outra.
+
+O Portal da Privacidade do Insper permanece como link externo. É o canal de direitos do controlador (LGPD, art. 41), não um segundo aviso. No próprio site do Insper, o banner de cookies diz que o aviso institucional está dentro desse portal — por isso os dois links do rodapé não podem ir para o mesmo destino.
+
+O Insper é o controlador dos dados tratados aqui. Dúvidas sobre o texto do aviso seguem os contatos da página `/sobre`. Pedidos sobre dados pessoais seguem o Portal da Privacidade.
+
+### Onde isso aparece
+
+- Rodapé ([`Footer.tsx`](../src/components/Footer.tsx)): **Aviso de privacidade** é link interno para `/privacidade`. **Portal da Privacidade do Insper** continua externo.
+- Banner ([`cookie-consent.tsx`](../src/components/cookie-consent.tsx)): o mesmo nome, **Aviso de privacidade**, com o mesmo destino `/privacidade`.
+- Página local, seção **Seus direitos**: link direto para `EXTERNAL_LINKS.privacyPortal`.
+
+Não existe `privacyNotice` em [`src/lib/site.ts`](../src/lib/site.ts). Só `privacyPortal`.
+
+Se uma ferramenta nova passar a gravar cookies ou identificadores, atualize a página `/privacidade` (tabela de cookies, finalidade e com quem os dados são compartilhados) junto com a integração técnica abaixo. O aviso institucional do Insper não substitui essa atualização.
+
 ---
 
 ## Google Analytics 4

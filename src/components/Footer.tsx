@@ -159,12 +159,9 @@ export function Footer() {
           </ExternalLink>
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <ExternalLink
-            href={EXTERNAL_LINKS.privacyNotice}
-            className={footerLink()}
-          >
+          <Link href="/privacidade" className={footerLink()}>
             Aviso de privacidade
-          </ExternalLink>
+          </Link>
           <ExternalLink
             href={EXTERNAL_LINKS.privacyPortal}
             className={footerLink()}

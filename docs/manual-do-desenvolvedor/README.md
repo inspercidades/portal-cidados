@@ -56,7 +56,7 @@ repositório:
 
 - [Índice geral da documentação](../INDEX.md)
 - [Arquitetura do sistema](../ARCHITECTURE.md)
-- [Analytics (GA4 + Clarity)](../ANALYTICS.md)
+- [Analytics (GA4 + Clarity) e aviso de privacidade](../ANALYTICS.md)
 - [Documentação da API](../API_DOCUMENTATION.md) · [Exemplos de API](../API_EXAMPLES.md)
 - [Integração Frontend ↔ API](../FRONTEND_INTEGRATION.md)
 - [Integração Catálogo ↔ Geoportal](../CATALOG_GEOPORTAL_INTEGRATION.md)

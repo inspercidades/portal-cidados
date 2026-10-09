@@ -9,8 +9,8 @@ export const EXTERNAL_LINKS = {
   linkedin:
     "https://www.linkedin.com/company/centro-de-estudos-das-cidades-laborat%C3%B3rio-arq-futuro-do-insper",
   github: "https://github.com/inspercidades",
-  privacyNotice: "https://www.insper.edu.br/aviso-de-privacidade/",
-  privacyPortal: "https://www.insper.edu.br/pt/atendimento/portal-da-privacidade",
+  privacyPortal:
+    "https://www.insper.edu.br/pt/atendimento/portal-da-privacidade",
   insperMap:
     "https://www.google.com/maps/search/?api=1&query=Insper+Rua+Quat%C3%A1+300+S%C3%A3o+Paulo",
 };

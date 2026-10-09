@@ -11,7 +11,7 @@ Documentação técnica completa do Portal Cidados para desenvolvedores, arquite
 | **[Manual do Desenvolvedor](./manual-do-desenvolvedor/README.md)** | Manual completo de onboarding e padrões: home, menu, histórias, geoportal, catálogo, boas práticas, deploy e SEO | Desenvolvedores (início aqui) |
 | **[README](./README.md)** | Visão geral, tecnologias e configuração | Todos |
 | **[Arquitetura](./ARCHITECTURE.md)** | Arquitetura do sistema e padrões de design | Desenvolvedores / Arquitetos |
-| **[Analytics](./ANALYTICS.md)** | Google Analytics 4 + Microsoft Clarity: integração, CSP e ambientes | Desenvolvedores / Produto |
+| **[Analytics](./ANALYTICS.md)** | Google Analytics 4 + Microsoft Clarity, consentimento de cookies, aviso local `/privacidade` e Portal da Privacidade do Insper | Desenvolvedores / Produto |
 | **[API Documentation](./API_DOCUMENTATION.md)** | Especificação completa da API REST | Desenvolvedores Backend/Frontend |
 | **[Frontend Integration](./FRONTEND_INTEGRATION.md)** | Como o frontend se integra com a API | Desenvolvedores Frontend |
 | **[API Examples](./API_EXAMPLES.md)** | Exemplos práticos de uso da API | Desenvolvedores |
