@@ -29,30 +29,28 @@ function hidesFooter(pathname: string) {
   return pathname === "/mapas" || pathname === "/historias";
 }
 
-function footerLabel(label: string) {
-  return label.replace(/\n/g, " ");
-}
-
 function SitemapLink({ child }: { child: NavChild }) {
-  const label = footerLabel(child.label);
+  const className = cn(footerLink(), "whitespace-pre-line");
 
   if (isExternalHref(child.href)) {
     return (
-      <ExternalLink href={child.href} className={footerLink()}>
-        {label}
+      <ExternalLink href={child.href} className={className}>
+        {child.label}
       </ExternalLink>
     );
   }
 
   return (
-    <Link href={child.href} className={footerLink()}>
-      {label}
+    <Link href={child.href} className={className}>
+      {child.label}
     </Link>
   );
 }
 
 export function Footer() {
   const pathname = usePathname();
+  const projectsItem = NAV_ITEMS.find((item) => item.label === "Projetos");
+  const sitemapItems = NAV_ITEMS.filter((item) => item !== projectsItem);
 
   if (hidesFooter(pathname)) return null;
 
@@ -60,7 +58,7 @@ export function Footer() {
     <footer className="border-t border-border bg-background font-gt-ultra-fine text-foreground">
       <div
         className={cn(
-          "grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))]",
+          "grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(5,minmax(0,1fr))]",
           SITE_GUTTER,
         )}
       >
@@ -76,7 +74,7 @@ export function Footer() {
         <nav aria-label="Mapa do site">
           <h2 className={footerHeading()}>Mapa do site</h2>
           <ul className="space-y-2 text-sm text-foreground/70">
-            {NAV_ITEMS.map((item) => (
+            {sitemapItems.map((item) => (
               <li key={item.label}>
                 {item.href ? (
                   <Link href={item.href} className={footerLink()}>
@@ -98,6 +96,19 @@ export function Footer() {
             ))}
           </ul>
         </nav>
+
+        {projectsItem?.children ? (
+          <nav aria-label="Projetos">
+            <h2 className={footerHeading()}>Projetos</h2>
+            <ul className="space-y-2 text-sm text-foreground/70">
+              {projectsItem.children.map((child) => (
+                <li key={child.href}>
+                  <SitemapLink child={child} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
 
         <div>
           <h2 className={footerHeading()}>Endereço</h2>
