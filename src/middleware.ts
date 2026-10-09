@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isHabitacaoStoryEnabled, isHabitacaoStoryPath } from "@/lib/features";
 import { isProductionHostname } from "@/lib/seo";
 
 function applySecurityHeaders(
@@ -49,22 +50,37 @@ function applySecurityHeaders(
   return response;
 }
 
+function finish(response: NextResponse, nonce: string, host: string) {
+  applySecurityHeaders(response, nonce);
+  // Só o host institucional deve ser indexado. Vercel (*.vercel.app),
+  // localhost e qualquer outro host recebem noindex no header (independente
+  // do NEXT_PUBLIC_SITE_URL do build).
+  if (!isProductionHostname(host)) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
-  applySecurityHeaders(response, nonce);
-
-  // Só o host institucional deve ser indexado. Vercel (*.vercel.app),
-  // localhost e qualquer outro host recebem noindex no header (independente
-  // do NEXT_PUBLIC_SITE_URL do build).
   const host = request.headers.get("host") ?? "";
-  if (!isProductionHostname(host)) {
-    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+
+  if (
+    !isHabitacaoStoryEnabled() &&
+    isHabitacaoStoryPath(request.nextUrl.pathname)
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/404";
+    const response = NextResponse.rewrite(url, {
+      request: { headers: requestHeaders },
+    });
+    return finish(response, nonce, host);
   }
 
-  return response;
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  return finish(response, nonce, host);
 }
 
 export const config = {

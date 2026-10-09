@@ -1,3 +1,5 @@
+import { HABITACAO_STORY_PATH, isHabitacaoStoryEnabled } from "@/lib/features";
+
 export interface Story {
   id: string;
   title: string;
@@ -82,11 +84,12 @@ const STORY_LISTINGS: readonly StoryListing[] = [
 ];
 
 export function getStoryListings(): readonly StoryListing[] {
-  return STORY_LISTINGS;
+  if (isHabitacaoStoryEnabled()) return STORY_LISTINGS;
+  return STORY_LISTINGS.filter((story) => story.href !== HABITACAO_STORY_PATH);
 }
 
 export function isInternalStoryHref(href: string): href is StoryHref {
-  return STORY_LISTINGS.some((story) => story.href === href);
+  return getStoryListings().some((story) => story.href === href);
 }
 
 export function getStoriesForHome(): Story[] {
@@ -159,5 +162,7 @@ export function getStoriesForHome(): Story[] {
       ],
       href: "/historias/adensamento",
     },
-  ];
+  ].filter(
+    (story) => isHabitacaoStoryEnabled() || story.href !== HABITACAO_STORY_PATH,
+  );
 }

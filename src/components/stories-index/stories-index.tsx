@@ -74,7 +74,7 @@ export function StoriesIndex() {
     centerRow(next);
   };
 
-  const handleCardWheel = (event: WheelEvent<HTMLDivElement>) => {
+  const handleCardWheel = (event: WheelEvent<HTMLButtonElement>) => {
     const lineHeight = event.deltaMode === 1 ? 16 : 1;
     scrollerRef.current?.scrollBy({ top: event.deltaY * lineHeight });
   };
@@ -99,7 +99,12 @@ export function StoriesIndex() {
         />
       </div>
 
-      <StoryCard story={story} cardRef={cardRef} onWheel={handleCardWheel} />
+      <StoryCard
+        story={story}
+        cardRef={cardRef}
+        onOpen={() => openStory(story.href)}
+        onWheel={handleCardWheel}
+      />
     </div>
   );
 }

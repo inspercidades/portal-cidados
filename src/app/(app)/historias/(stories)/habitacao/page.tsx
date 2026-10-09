@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { StoryJsonLd } from "@/components/story-json-ld";
+import { isHabitacaoStoryEnabled } from "@/lib/features";
 import { buildMetadata } from "@/lib/seo";
 
 const title =
   "Levar transporte até a periferia, ou deixar mais gente morar no centro?";
-const description = "O que é melhor pra cidade?";
+const description = "Em desenvolvimento";
 const path = "/historias/habitacao";
 const image = "/assets/viz5/habitacao.png";
 
@@ -19,6 +21,8 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function HabitacaoPage() {
+  if (!isHabitacaoStoryEnabled()) notFound();
+
   return (
     <>
       <StoryJsonLd

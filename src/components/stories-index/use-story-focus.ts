@@ -28,7 +28,7 @@ export function useStoryFocus(count: number) {
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLButtonElement>(null);
   const rowRefs = useRef<(HTMLLIElement | null)[]>([]);
   const activeIndexRef = useRef(activeIndex);
 
