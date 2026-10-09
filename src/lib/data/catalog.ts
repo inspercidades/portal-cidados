@@ -33,7 +33,7 @@ export const catalogData: DataCatalogItem[] = [
       "Novas edificações",
       "Incorporação imobiliária",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Habitação e Mercado Imobiliário",
       "São Paulo",
@@ -62,7 +62,7 @@ export const catalogData: DataCatalogItem[] = [
     id: "2",
     title: "Densidade Populacional e Verticalização [2022,2024]",
     description:
-      "Informações gerais sobre os imóveis formais de uso residencial, comercial e outros.\nConjunto de dados tratados e enriquecidos pelo Centro de Estudos das Cidades.",
+      'Dados de densidade populacional, densidade habitacional e verticalização em São Paulo, a partir do Censo (2022) e do IPTU (2024).\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
     theme: "Habitação e Mercado Imobiliário",
     region: "São Paulo",
     accessMethod: "Disponível para download",
@@ -72,17 +72,17 @@ export const catalogData: DataCatalogItem[] = [
       "Cadastro imobiliário",
       "Valor venal",
       "Imposto",
-      "CENSO",
+      "Censo",
       "IBGE",
-      "Densidade Populacional",
-      "São Paulo",
+      "Densidade populacional",
+      "Demografia",
       "População",
       "Habitação",
       "Moradia",
       "Verticalização",
       "IPTU São Paulo",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Habitação e Mercado Imobiliário",
       "São Paulo",
@@ -92,7 +92,7 @@ export const catalogData: DataCatalogItem[] = [
       {
         dataset_title: "IPTU e Verticalização, São Paulo [2024]",
         dataset_description:
-          "Informações gerais sobre os imóveis formais de uso residencial, comercial e outros.\nConjunto de dados tratados e enriquecidos pelo Centro de Estudos das Cidades.",
+          "Dados do IPTU agregados por lote para o município de São Paulo, com métricas de potencial construtivo e índice de verticalização.\nConjunto de dados tratados e enriquecidos pelo Centro de Estudos das Cidades.",
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TOXCRF",
       },
@@ -100,12 +100,13 @@ export const catalogData: DataCatalogItem[] = [
         dataset_title:
           "População, Domicílios e Densidade Populacional por Setor Censitário [2022]",
         dataset_description:
-          'Dados provisórios do Censo (2022) em formato shapefile (gpkg), agregados por setor censitário para o município de São Paulo.\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
+          'Dados provisórios do Censo (2022) em formato GeoPackage (gpkg), agregados por setor censitário para o município de São Paulo.\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/GTO7DD",
       },
       {
-        dataset_title: "IPTU e Verticalização em São Paulo [2024]",
+        dataset_title:
+          "Grade de densidade populacional e habitacional, São Paulo [2022, 2024]",
         dataset_description:
           'Dados demográficos e habitacionais agregados em um raster de 800x800m, resultado de interpolação (por área) de informações do Censo (2022) e do IPTU de São Paulo. Contém medidas de densidade populacional e de informalidade dos imóveis.\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
         dataset_link:
@@ -115,7 +116,7 @@ export const catalogData: DataCatalogItem[] = [
         dataset_title:
           "Densidade Populacional e Verticalização de Imóveis em São Paulo [2022,2024]",
         dataset_description:
-          'Cruzamento entre os lotes do IPTU de São Paulo com dados do CENSO, via interpolação de área, agregada por setor censitário. Conjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
+          'Cruzamento entre os lotes do IPTU de São Paulo com dados do Censo, via interpolação de área, agregado por setor censitário. Conjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/90SSHM",
       },
@@ -124,7 +125,7 @@ export const catalogData: DataCatalogItem[] = [
   {
     id: "3",
     title:
-      "Embarques nas Estação de Trem/Metrô operados pela Motiva [2012-2026]",
+      "Embarques nas Estações de Trem/Metrô operados pela Motiva [2012-2026]",
     description:
       "Total de embarques por estação de trem/metrô dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca.",
     theme: "Mobilidade",
@@ -138,12 +139,11 @@ export const catalogData: DataCatalogItem[] = [
       "VLT",
       "Integração de modais",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Mobilidade", "Brasil", "Disponível para download"],
     dataset_info: [
       {
-        dataset_title:
-          "Embarques a cada hora (horários) nas estações [2012-2026]",
+        dataset_title: "Embarques por hora nas estações [2012-2026]",
         dataset_description:
           "Embarques diários por hora do dia e estação de trem/metrô dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro e VLT Carioca.",
         dataset_link:
@@ -164,7 +164,7 @@ export const catalogData: DataCatalogItem[] = [
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/BPYHFB",
       },
       {
-        dataset_title: "Embarques mensais por modo de integração [2022-2026]",
+        dataset_title: "Embarques mensais por modo de integração [2019-2026]",
         dataset_description:
           "Embarques mensais por modo de integração do Metrô Bahia.",
         dataset_link:
@@ -184,24 +184,24 @@ export const catalogData: DataCatalogItem[] = [
     title:
       "Ganhos e horas trabalhadas dos entregadores parceiros do iFood [2022-2026]",
     description:
-      "Informações sobre hora trabalhada e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
-    theme: "Trabalho e renda",
+      "Informações sobre horas trabalhadas e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+    theme: "Trabalho e Renda",
     region: "São Paulo",
     accessMethod: "Sala segura do Insper",
     keywords: [
       "Motociclistas",
       "Entregas por aplicativo",
-      "Logistica urbana",
+      "Logística urbana",
       "Ganhos financeiros",
     ],
-    createdAt: "2026-08-07",
-    tags: ["Trabalho e renda", "São Paulo", "Sala segura do Insper"],
+    createdAt: "2026-09-25",
+    tags: ["Trabalho e Renda", "São Paulo", "Sala segura do Insper"],
     dataset_info: [
       {
         dataset_title:
           "Ganhos e horas trabalhadas dos entregadores parceiros do iFood [2022-2026]",
         dataset_description:
-          "Informações sobre hora trabalhada e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+          "Informações sobre horas trabalhadas e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
         dataset_link:
           "https://www.insper.edu.br/pt/pesquisa/centro-de-dados-e-ia",
       },
@@ -222,7 +222,7 @@ export const catalogData: DataCatalogItem[] = [
       "Transações imobiliárias",
       "Imposto",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Habitação e Mercado Imobiliário",
       "São Paulo",
@@ -243,20 +243,20 @@ export const catalogData: DataCatalogItem[] = [
     id: "7",
     title: "Loft [2019-2026]",
     description:
-      "Dados detalhados sobre anúncios e contratos de venda imobiliários, incluindo características dos imóveis nas cidades com atuação da Loft.",
+      "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação da Loft.",
     theme: "Habitação e Mercado Imobiliário",
     region: "Brasil",
-    accessMethod: "Disponível para download",
+    accessMethod: "Sala segura do Insper",
     keywords: ["Imóveis", "Transações imobiliárias", "Residências", "Moradia"],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Habitação e Mercado Imobiliário",
       "Brasil",
-      "Disponível para download",
+      "Sala segura do Insper",
     ],
     dataset_info: [
       {
-        dataset_title: "Contratos e Anúncios Imobiliários, Loft [2019-]",
+        dataset_title: "Contratos e Anúncios Imobiliários, Loft [2019-2026]",
         dataset_description:
           "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação da Loft.",
         dataset_link:
@@ -269,18 +269,18 @@ export const catalogData: DataCatalogItem[] = [
     title:
       "Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023]",
     description:
-      "Estatísticas descritivas de coletas de temperatura, umidade e qualidade do ar feitas nas 16 favelas da Maré em 2023. Dados foram coletados no período de março a setembro de 2023, na última semana de cada mês.\nConjunto de dados preparado para o estudo Respira Maré, da Redes da Maré.",
+      "Estatísticas descritivas de coletas de temperatura, umidade e qualidade do ar feitas nas 16 favelas da Maré em 2023. Dados foram coletados de março a setembro de 2023.\nConjunto de dados preparado para o estudo Respira Maré, da Redes da Maré.",
     theme: "Clima e Meio Ambiente",
     region: "Rio de Janeiro",
     accessMethod: "Disponível para download",
     keywords: [
-      "Qualidade do Ar",
+      "Qualidade do ar",
       "Desigualdade urbana",
       "Urbanismo",
       "Ilhas de calor",
       "Habitação",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Clima e Meio Ambiente",
       "Rio de Janeiro",
@@ -291,7 +291,7 @@ export const catalogData: DataCatalogItem[] = [
         dataset_title:
           "Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023]",
         dataset_description:
-          "Estatísticas sobre ilhas de calor e qualidade do ar na Favela da Maré. Informações incluem: temperatura, umidade, dióxido de carbono, formaldeído (HCHO) e material particulado. Dados foram coletados no período de março a setembro de 2023, na última semana de cada mês (segunda à sexta).",
+          "Estatísticas sobre ilhas de calor e qualidade do ar na Favela da Maré. Informações incluem: temperatura, umidade, dióxido de carbono, formaldeído (HCHO) e material particulado. Temperatura e umidade foram coletadas em diferentes turnos e dias da semana; a qualidade do ar, na última semana de cada mês (de segunda a sexta). Coletas feitas de março a setembro de 2023.",
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TONMVQ",
       },
@@ -299,20 +299,26 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "9",
-    title: "Mortalidade prematura por distrito [2019]",
+    title: "Indicadores de mortalidade por distrito [2010-2019]",
     description:
-      'Medidas de mortalidade prematuras por distrito administrativo de São Paulo. Levantamento considera: mortalidade materna, mortalidade prematura por doenças cardiovasculares e mortalidade prematura por Diabetes Mellitus.\nConjunto de dados preparado para o relatório "Síntese de evidências sobre saúde no município de São Paulo" [2024].',
+      'Indicadores de mortalidade (óbitos observados, esperados e risco relativo) por distrito administrativo de São Paulo, de 2010 a 2019. Considera quatro causas: diabetes, doenças cerebrovasculares, doenças isquêmicas do coração e mortalidade materna.\nConjunto de dados preparado para o relatório "Síntese de evidências sobre saúde no município de São Paulo" [2024].',
     theme: "Saúde",
     region: "São Paulo",
     accessMethod: "Disponível para download",
-    keywords: ["Mortalidade prematura", "Mortalidade", "Desigualdade urbana"],
-    createdAt: "2026-08-07",
+    keywords: [
+      "Mortalidade prematura",
+      "Mortalidade",
+      "Desigualdade urbana",
+      "Saúde pública",
+      "Mortalidade materna",
+    ],
+    createdAt: "2026-09-25",
     tags: ["Saúde", "São Paulo", "Disponível para download"],
     dataset_info: [
       {
-        dataset_title: "Mortalidade prematura por distrito [2019]",
+        dataset_title: "Indicadores de mortalidade por distrito [2010-2019]",
         dataset_description:
-          "Medidas de mortalidade prematuras por distrito administrativo de São Paulo. Levantamento considera: mortalidade materna, mortalidade prematura por doenças cardiovasculares e mortalidade prematura por Diabetes Mellitus.",
+          "Indicadores de mortalidade (óbitos observados, esperados e risco relativo) por distrito administrativo de São Paulo, de 2010 a 2019. Considera quatro causas: diabetes, doenças cerebrovasculares, doenças isquêmicas do coração e mortalidade materna.",
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/CDXI9B",
       },
@@ -322,18 +328,18 @@ export const catalogData: DataCatalogItem[] = [
     id: "10",
     title: "Pesquisa Nacional de Mobilidade Urbana (PEMOB) [2019-2024]",
     description:
-      "Questionário de mobilidade urbana municipal e intermunicipal preenchido por gestores de transporte público em cidades brasileiras. Inclui dados sobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade.",
+      "Questionário de mobilidade urbana municipal e intermunicipal preenchido por gestores de transporte público em cidades brasileiras com mais de 100 mil habitantes. Inclui dados sobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade.",
     theme: "Mobilidade",
     region: "Brasil",
     accessMethod: "Disponível para download",
     keywords: [
-      "Mobilidade Urbana",
-      "Gestão de Transportes",
+      "Mobilidade urbana",
+      "Gestão de transportes",
       "Transporte público",
       "SIMU",
-      "Políticas de Mobilidade",
+      "Políticas de mobilidade",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Mobilidade", "Brasil", "Disponível para download"],
     dataset_info: [
       {
@@ -350,24 +356,24 @@ export const catalogData: DataCatalogItem[] = [
     id: "11",
     title: "Programas educacionais do iFood [2022-2026]",
     description:
-      "Informações sobre participação entregadores parceiros do iFood nos programas Decola e Meu Diploma do Ensino Médio (MDEM).\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+      "Informações sobre participação dos entregadores parceiros do iFood nos programas Decola e Meu Diploma do Ensino Médio (MDEM).\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
     theme: "Educação",
     region: "São Paulo",
     accessMethod: "Sala segura do Insper",
     keywords: [
       "Motociclistas",
       "Entregas por aplicativo",
-      "Logistica urbana",
+      "Logística urbana",
       "Qualificação profissional",
       "Ensino Médio",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Educação", "São Paulo", "Sala segura do Insper"],
     dataset_info: [
       {
         dataset_title: "Programas educacionais do iFood [2022-2026]",
         dataset_description:
-          "Informações sobre participação entregadores parceiros do iFood nos programas Decola e Meu Diploma do Ensino Médio (MDEM).\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+          "Informações sobre participação dos entregadores parceiros do iFood nos programas Decola e Meu Diploma do Ensino Médio (MDEM).\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
         dataset_link:
           "https://www.insper.edu.br/pt/pesquisa/centro-de-dados-e-ia",
       },
@@ -380,13 +386,13 @@ export const catalogData: DataCatalogItem[] = [
       "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação do QuintoAndar.",
     theme: "Habitação e Mercado Imobiliário",
     region: "Brasil",
-    accessMethod: "Disponível para download",
+    accessMethod: "Sala segura do Insper",
     keywords: ["Imóveis", "Transações imobiliárias", "Residências", "Moradia"],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
       "Habitação e Mercado Imobiliário",
       "Brasil",
-      "Disponível para download",
+      "Sala segura do Insper",
     ],
     dataset_info: [
       {
@@ -403,24 +409,24 @@ export const catalogData: DataCatalogItem[] = [
     id: "13",
     title: "Rotas dos entregadores parceiros do iFood [2022-2026]",
     description:
-      "Registros de velocidade e fluxo das rotas de entregas feita pelos entregadores parceiros do iFood nas vias principais.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+      "Registros de velocidade e fluxo das rotas de entregas feitas pelos entregadores parceiros do iFood nas vias principais.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
     theme: "Mobilidade",
     region: "São Paulo",
     accessMethod: "Sala segura do Insper",
     keywords: [
       "Motociclistas",
       "Entregas por aplicativo",
-      "Logistica urbana",
+      "Logística urbana",
       "Velocidade",
       "Fluxo",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Mobilidade", "São Paulo", "Sala segura do Insper"],
     dataset_info: [
       {
         dataset_title: "Rotas dos entregadores parceiros do iFood [2022-2026]",
         dataset_description:
-          "Registros de velocidade e fluxo das rotas de entregas feita pelos entregadores parceiros do iFood nas vias principais.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
+          "Registros de velocidade e fluxo das rotas de entregas feitas pelos entregadores parceiros do iFood nas vias principais.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
         dataset_link:
           "https://www.insper.edu.br/pt/pesquisa/centro-de-dados-e-ia",
       },
@@ -435,22 +441,23 @@ export const catalogData: DataCatalogItem[] = [
     region: "São Paulo",
     accessMethod: "Disponível para download",
     keywords: [
-      "Sinistros de Trânsito",
-      "Segurança Viária",
-      "Mobilidade Urbana",
+      "Sinistros de trânsito",
+      "Segurança viária",
+      "Mobilidade urbana",
       "Faixa Azul",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Mobilidade", "São Paulo", "Disponível para download"],
     dataset_info: [
       {
         dataset_title: "Sinistros de Trânsito [2022-2025]",
-        dataset_description: "Sinistros de trânsito no período de 2022 a 2025.",
+        dataset_description:
+          "Sinistros de trânsito em São Paulo (SP) no período de 2022 a 2025, extraídos do InfoSiga.",
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IRGJPX",
       },
       {
-        dataset_title: "Sinistros de Trânsito Agregados por Via  [2022-2025]",
+        dataset_title: "Sinistros de Trânsito Agregados por Via [2022-2025]",
         dataset_description:
           "Localização de trechos com sinistros de trânsito entre 2022 e 2025. Sinistros individuais foram agregados em trechos de vias.",
         dataset_link:
@@ -461,24 +468,24 @@ export const catalogData: DataCatalogItem[] = [
   {
     id: "15",
     title:
-      "Trechos com Faixas Dedicadas a Mociclistas (Faixa Azul) [2022-2025]",
+      "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2022-2025]",
     description:
       "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
     theme: "Mobilidade",
     region: "São Paulo",
     accessMethod: "Disponível para download",
     keywords: [
-      "Mobilidade Urbana",
-      "Motocicleta",
+      "Mobilidade urbana",
+      "Motociclistas",
       "Faixa Azul",
-      "Políticas de Mobilidade",
+      "Políticas de mobilidade",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: ["Mobilidade", "São Paulo", "Disponível para download"],
     dataset_info: [
       {
         dataset_title:
-          "Trechos com Faixas Dedicadas a Mociclistas (Faixa Azul) [2025]",
+          "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2022-2025]",
         dataset_description:
           "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
         dataset_link:
@@ -490,8 +497,8 @@ export const catalogData: DataCatalogItem[] = [
     id: "16",
     title: "Índice GeoSES [2010]",
     description:
-      "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. Índice pondera dimensões de educação, renda, saúde, habitação e mobilidade, usando dados da Amostra do Censo Demográfico de 2010.",
-    theme: "Multidisciplinar e transversal",
+      "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. O índice pondera dimensões de educação, mobilidade, pobreza, privação material, riqueza, renda e segregação, usando dados da Amostra do Censo Demográfico de 2010.",
+    theme: "Multidisciplinar e Transversal",
     region: "São Paulo",
     accessMethod: "Disponível para download",
     keywords: [
@@ -500,9 +507,9 @@ export const catalogData: DataCatalogItem[] = [
       "Estrutura socioeconômica urbana",
       "Vulnerabilidade social",
     ],
-    createdAt: "2026-08-07",
+    createdAt: "2026-09-25",
     tags: [
-      "Multidisciplinar e transversal",
+      "Multidisciplinar e Transversal",
       "São Paulo",
       "Disponível para download",
     ],
@@ -510,7 +517,7 @@ export const catalogData: DataCatalogItem[] = [
       {
         dataset_title: "Índice GeoSES [2010]",
         dataset_description:
-          "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. Índice pondera dimensões de educação, renda, saúde, habitação e mobilidade, usando dados da Amostra do Censo Demográfico de 2010.",
+          "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. O índice pondera dimensões de educação, mobilidade, pobreza, privação material, riqueza, renda e segregação, usando dados da Amostra do Censo Demográfico de 2010.",
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/7IXFPX",
       },

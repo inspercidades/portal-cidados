@@ -78,7 +78,7 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 | Rio de Janeiro | `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
 | Rio de Janeiro | `quali_area-1ci0wo` | Qualidade do Ar | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
 | Rio de Janeiro | `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
-| São Paulo | `faixa-azul-trechos-spo` | Faixa Azul | **15** | Trechos com Faixas Dedicadas a Mociclistas (Faixa Azul) [2022-2025] |
+| São Paulo | `faixa-azul-trechos-spo` | Faixa Azul | **15** | Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2022-2025] |
 | São Paulo | `sinistros-por-distrito-spo` | Sinistros por Distrito | **14** | Sinistros de Trânsito [2022-2025] |
 | São Paulo | `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | **14** | Sinistros de Trânsito [2022-2025] |
 | São Paulo | `densidade-hab-setor` | Densidade Hab. (setor censitário) | **2** | Densidade Populacional e Verticalização [2022,2024] |
@@ -91,13 +91,13 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 | São Paulo | `populacao-por-distrito-spo` | População Feminina (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
 | São Paulo | `geoses-spo` | GeoSES | **16** | Índice GeoSES [2010] |
 | São Paulo | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | — | *(sem correspondência no catálogo)* |
-| São Paulo | `mortalidade_materna_fem` | Mortalidade Materna (femi.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `isquemicas_coracao_masc` | Doenças Isquêmicas do Coração (masc.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `isquemicas_coracao_fem` | Doenças Isquêmicas do Coração (femi.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `cerebrovasculares_masc` | Doenças Cerebrovasculares (masc.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `cerebrovasculares_fem` | Doenças Cerebrovasculares (femi.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `diabetes_masc` | Diabetes Mellitus (masc.) | **9** | Mortalidade prematura por distrito [2019] |
-| São Paulo | `diabetes_fem` | Diabetes Mellitus (femi.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `mortalidade_materna_fem` | Mortalidade Materna (femi.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `isquemicas_coracao_masc` | Doenças Isquêmicas do Coração (masc.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `isquemicas_coracao_fem` | Doenças Isquêmicas do Coração (femi.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `cerebrovasculares_masc` | Doenças Cerebrovasculares (masc.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `cerebrovasculares_fem` | Doenças Cerebrovasculares (femi.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `diabetes_masc` | Diabetes Mellitus (masc.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
+| São Paulo | `diabetes_fem` | Diabetes Mellitus (femi.) | **9** | Indicadores de mortalidade por distrito [2010-2019] |
 | Brasil | `tarifa_zero` | Tarifa Zero | — | *(sem correspondência no catálogo)* |
 
 > **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 2 com 8 layers de SP), o botão "Ver dados no mapa" ativa **todas** essas camadas simultaneamente.
