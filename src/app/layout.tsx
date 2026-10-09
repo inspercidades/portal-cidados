@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { Toaster } from "sonner";
 import { CookieConsent } from "@/components/cookie-consent";
+import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/json-ld";
 import { LenisProvider } from "@/components/lenis-provider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -234,12 +235,14 @@ export default async function RootLayout({
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
           nonce={nonce}
         >
           <Toaster />
           <WebVitals />
-          <LenisProvider>{children}</LenisProvider>
+          <LenisProvider>
+            {children}
+            <Footer />
+          </LenisProvider>
           <CookieConsent nonce={nonce} />
         </ThemeProvider>
       </body>

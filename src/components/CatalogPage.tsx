@@ -115,7 +115,7 @@ export function CatalogPage() {
   // Show initial loading skeleton
   if (initialLoading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen pb-16">
         <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left sidebar skeleton */}
@@ -181,7 +181,7 @@ export function CatalogPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-32">
       <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Left Sidebar */}
