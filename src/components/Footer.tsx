@@ -26,7 +26,7 @@ const footerTextLink = cva(
 );
 
 function hidesFooter(pathname: string) {
-  return pathname === "/mapas";
+  return pathname === "/mapas" || pathname === "/historias";
 }
 
 function footerLabel(label: string) {
@@ -125,8 +125,15 @@ export function Footer() {
         <div>
           <h2 className={footerHeading()}>Redes</h2>
           <div className="flex items-center gap-4 text-foreground/70">
-            <ExternalLink href={EXTERNAL_LINKS.linkedin} className={footerLink()}>
-              <Linkedin className="size-5" strokeWidth={1.5} aria-hidden="true" />
+            <ExternalLink
+              href={EXTERNAL_LINKS.linkedin}
+              className={footerLink()}
+            >
+              <Linkedin
+                className="size-5"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
               <span className="sr-only">
                 LinkedIn do Centro de Estudos das Cidades
               </span>

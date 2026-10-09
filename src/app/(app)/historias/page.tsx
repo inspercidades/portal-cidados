@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { PageJsonLd } from "@/components/page-json-ld";
-import { StoriesList } from "@/components/StoriesList";
+import { StoriesIndex } from "@/components/stories-index/stories-index";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -14,7 +14,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function Historias() {
   return (
-    <div>
+    <div className="flex h-dvh flex-col overflow-hidden bg-background text-foreground">
       <PageJsonLd
         breadcrumbs={[
           { name: "Início", path: "/" },
@@ -22,7 +22,7 @@ export default function Historias() {
         ]}
       />
       <Header />
-      <StoriesList />
+      <StoriesIndex />
     </div>
   );
 }
