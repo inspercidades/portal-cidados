@@ -3,12 +3,10 @@
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { DesktopNav } from "@/components/desktop-nav";
 import { ExternalLink } from "@/components/external-link";
 import { SiteMenu } from "@/components/SiteMenu";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS, SITE_GUTTER } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -16,9 +14,7 @@ import { cn } from "@/lib/utils";
 const DESKTOP_QUERY = "(min-width: 1024px)";
 
 export function Header() {
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const showThemeToggle = pathname === "/historias";
 
   useEffect(() => {
     const query = window.matchMedia(DESKTOP_QUERY);
@@ -78,7 +74,6 @@ export function Header() {
 
           <div className="z-10 flex items-center gap-2 md:gap-4 lg:gap-6">
             <DesktopNav />
-            {showThemeToggle ? <ThemeToggle /> : null}
             <Button
               type="button"
               variant="ghost"
