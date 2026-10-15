@@ -64,19 +64,27 @@ const navigationMenuTriggerStyle = cva(
 function NavigationMenuTrigger({
   className,
   children,
+  showChevron = true,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> & {
+  showChevron?: boolean
+}) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={cn(navigationMenuTriggerStyle(), "group", className)}
       {...props}
     >
-      {children}{" "}
-      <ChevronDownIcon
-        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-        aria-hidden="true"
-      />
+      {children}
+      {showChevron && (
+        <>
+          {" "}
+          <ChevronDownIcon
+            className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+            aria-hidden="true"
+          />
+        </>
+      )}
     </NavigationMenuPrimitive.Trigger>
   )
 }

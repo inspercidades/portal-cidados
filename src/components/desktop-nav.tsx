@@ -23,7 +23,7 @@ const navItemClass = cva(
         false: "text-gray-400",
       },
       openable: {
-        true: "flex items-center [&_svg]:top-0 data-[state=open]:bg-transparent data-[state=open]:text-foreground data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent",
+        true: "flex items-center data-[state=open]:bg-transparent data-[state=open]:text-foreground data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent",
         false: "",
       },
     },
@@ -52,6 +52,7 @@ export function DesktopNav() {
           item.children ? (
             <NavigationMenuItem key={item.label}>
               <NavigationMenuTrigger
+                showChevron={false}
                 className={navItemClass({ active: false, openable: true })}
               >
                 {item.label}

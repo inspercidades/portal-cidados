@@ -98,7 +98,7 @@ export function Footer() {
         </nav>
 
         {projectsItem?.children ? (
-          <nav aria-label="Projetos">
+          <nav aria-label={projectsItem.label}>
             <h2 className={footerHeading()}>Projetos</h2>
             <ul className="space-y-2 text-sm text-foreground/70">
               {projectsItem.children.map((child) => (
