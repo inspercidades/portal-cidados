@@ -193,7 +193,7 @@ export default async function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className="dark"
+      className="light"
       nonce={nonce}
       suppressHydrationWarning
     >
@@ -204,7 +204,7 @@ export default async function RootLayout({
           suppressHydrationWarning
           // biome-ignore lint/security/noDangerouslySetInnerHtml: o tema precisa ser aplicado antes da primeira pintura; o script do next-themes só roda depois e o CSP bloqueia inline sem nonce.
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme")||"dark";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.classList.remove("light","dark");d.classList.add(t);d.style.colorScheme=t}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem("theme")||"light";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}var d=document.documentElement;d.classList.remove("light","dark");d.classList.add(t);d.style.colorScheme=t}catch(e){}})();`,
           }}
         />
         <script
@@ -233,7 +233,7 @@ export default async function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           nonce={nonce}
         >
