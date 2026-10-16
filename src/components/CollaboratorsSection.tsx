@@ -1,9 +1,11 @@
 "use client";
 
+import { Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ExternalLink } from "@/components/external-link";
 import { getCollaborators } from "@/lib/data/collaborators";
 
 // Import Swiper styles
@@ -158,9 +160,22 @@ export function CollaboratorsSection() {
                       <h3 className="text-md font-bold text-foreground mb-1 leading-tight">
                         {collaborator.name}
                       </h3>
-                      <p className="text-sm text-foreground/50 mb-5">
+                      <p className="text-sm text-foreground/50">
                         {collaborator.function}
                       </p>
+                      <ExternalLink
+                        href={collaborator.linkedin}
+                        aria-label={`LinkedIn de ${collaborator.name}`}
+                        className="swiper-no-swiping mt-2 mb-5 inline-flex text-foreground/70 transition-colors hover:text-foreground"
+                        style={{ cursor: "pointer" }}
+                        onPointerDown={(event) => event.stopPropagation()}
+                      >
+                        <Linkedin
+                          className="size-5"
+                          strokeWidth={1.5}
+                          aria-hidden="true"
+                        />
+                      </ExternalLink>
                       <p className="text-sm text-foreground/50">
                         {collaborator.email}
                       </p>
