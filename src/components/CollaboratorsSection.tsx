@@ -212,9 +212,9 @@ export function CollaboratorsSection() {
                     Catálogo de dados
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um GeoPortal interativo que permite explorar espacialmente
-                    os dados apresentados nas histórias e em outros estudos,
-                    tornando visíveis desigualdades e dinâmicas urbanas.
+                    Um catálogo de conjuntos de dados urbanos que disponibiliza
+                    informações abertas e estruturadas para consulta e
+                    reutilização.
                   </p>
                 </div>
 
@@ -223,9 +223,9 @@ export function CollaboratorsSection() {
                     GeoPortal
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um catálogo de conjuntos de dados urbanos que disponibiliza
-                    informações abertas e estruturadas para consulta e
-                    reutilização.
+                    Um GeoPortal interativo que permite explorar espacialmente
+                    os dados apresentados nas histórias e em outros estudos,
+                    tornando visíveis desigualdades e dinâmicas urbanas.
                   </p>
                 </div>
               </div>

@@ -104,47 +104,47 @@ export const MAP_POSITIONS: Record<string, ChapterMapConfig> = {
   // },
   mapa_zero: {
     desktop: { center: [-46.6383, -23.565], zoom: 10.2, duration: 2 },
-    mobile: { center: [-46.6083, -23.595], zoom: 9.7, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_um: {
     desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 2 },
-    mobile: { center: [-46.6383, -23.565], zoom: 10.0, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_mais_um: {
     desktop: { center: [-46.6683, -23.551], zoom: 12.8, duration: 3 },
-    mobile: { center: [-46.6483, -23.545], zoom: 12.0, duration: 3 },
+    mobile: { center: [-46.6544, -23.574], zoom: 11.8, duration: 3 },
   },
   mapa_dois: {
     desktop: { center: [-46.7311, -23.6156], zoom: 14.8, duration: 3 },
-    mobile: { center: [-46.7259, -23.6159], zoom: 14.0, duration: 3 },
+    mobile: { center: [-46.726, -23.6205], zoom: 13.6, duration: 3 },
   },
   mapa_dois_helio: {
     desktop: { center: [-46.6108, -23.6109], zoom: 13.9, duration: 3 },
-    mobile: { center: [-46.5926, -23.61], zoom: 13.2, duration: 3 },
+    mobile: { center: [-46.5919, -23.6157], zoom: 12.8, duration: 3 },
   },
   mapa_tres: {
     desktop: { center: [-46.7993, -23.595], zoom: 10, duration: 3 },
-    mobile: { center: [-46.6083, -23.645], zoom: 10, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_quatro: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 3 },
-    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   cep_capitulo: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 2 },
-    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_cinco: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 3 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_seis: {
     desktop: { center: [-46.7333, -23.5805], zoom: 10.8, duration: 3 },
-    mobile: { center: [-46.6183, -23.555], zoom: 10.0, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_sete: {
     desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 3 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
 };
 

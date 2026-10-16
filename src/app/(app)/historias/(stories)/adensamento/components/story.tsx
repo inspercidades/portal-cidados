@@ -80,7 +80,17 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 const MAPBOX_STYLE =
   "mapbox://styles/observatorio-nacional/cmmqkrnvl00be01qtcfoibtnb";
 
-const INITIAL_VIEW = { longitude: -46.6383, latitude: -23.565, zoom: 10.2 };
+function getOpeningView() {
+  const pos =
+    typeof window !== "undefined" && window.innerWidth < 768
+      ? MAP_POSITIONS.mapa_zero.mobile
+      : MAP_POSITIONS.mapa_zero.desktop;
+  return {
+    longitude: pos.center[0],
+    latitude: pos.center[1],
+    zoom: pos.zoom,
+  };
+}
 
 const DENS_CONSTRUTIVA_SPO_LAYER_ID = "dens-construtiva-spo" as const;
 
@@ -171,6 +181,7 @@ export default function AdensamentoStory() {
   const [showHelioPin, setShowHelioPin] = useState(false);
   const [ca, setCa] = useState(1);
   const [to, setTo] = useState(100);
+  const [initialView] = useState(getOpeningView);
   const signalMapReady = useContext(MapReadyContext);
   const handleShare = useCallback(async () => {
     const shareData = {
@@ -360,21 +371,6 @@ export default function AdensamentoStory() {
       );
     });
 
-    // 3D container fade-in with cep_capitulo4b
-    const tl3dIn = gsap.timeline();
-    tl3dIn
-      .set("#container3d", { opacity: 0 })
-      .to("#container3d", { opacity: 1 });
-    triggers.push(
-      ScrollTrigger.create({
-        animation: tl3dIn,
-        trigger: "#cep_capitulo4b",
-        start: "top bottom",
-        end: "bottom bottom",
-        scrub: true,
-      }),
-    );
-
     // Image fade-out triggers (scrubbed)
     Object.entries(IMAGE_FADE_OUTS).forEach(([blankId, overlayIds]) => {
       const targets = overlayIds.map((id) => `#${id}`).join(", ");
@@ -391,19 +387,6 @@ export default function AdensamentoStory() {
         }),
       );
     });
-
-    // 3D container fade-out when cep_capitulo4b scrolls off the top
-    const tl3dOut = gsap.timeline();
-    tl3dOut.to("#container3d", { opacity: 0 });
-    triggers.push(
-      ScrollTrigger.create({
-        animation: tl3dOut,
-        trigger: "#cep_capitulo4b",
-        start: "center top",
-        end: "bottom top",
-        scrub: true,
-      }),
-    );
 
     return () => {
       for (const t of triggers) {
@@ -539,9 +522,9 @@ export default function AdensamentoStory() {
           <MapboxMap
             ref={mapRef}
             initialViewState={{
-              longitude: INITIAL_VIEW.longitude,
-              latitude: INITIAL_VIEW.latitude,
-              zoom: INITIAL_VIEW.zoom,
+              longitude: initialView.longitude,
+              latitude: initialView.latitude,
+              zoom: initialView.zoom,
               pitch: 0,
               bearing: 0,
             }}
@@ -557,6 +540,15 @@ export default function AdensamentoStory() {
             onLoad={(e) => {
               const map = e.target;
               const run = () => {
+                if (window.innerWidth < 768) {
+                  const pos = MAP_POSITIONS.mapa_zero.mobile;
+                  map.jumpTo({
+                    center: pos.center,
+                    zoom: pos.zoom,
+                    pitch: 0,
+                    bearing: 0,
+                  });
+                }
                 applyDensConstrutivaSpoLayerStyle(map);
                 // Set every managed layer to a near-zero opacity so Mapbox
                 // fetches their tiles for the current viewport while the
