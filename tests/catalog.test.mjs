@@ -20,6 +20,22 @@ const { catalogData, filterOptions } = await loadTypescript(
   "../src/lib/data/catalog.ts",
 );
 
+test("archived datasets are absent from the public catalog", () => {
+  const byId = new Map(catalogData.map((item) => [item.id, item]));
+  assert.equal(byId.has("6"), false, "ITBI collection must be hidden");
+  const permits = byId.get("1");
+  assert.equal(
+    permits?.title,
+    "Alvarás de licenciamento de novas edificações [2004-2021]",
+  );
+  assert.equal(permits?.periodEnd, 2021);
+  assert.deepEqual(
+    permits?.dataset_info.map((dataset) => dataset.dataset_title),
+    ["Alvarás de licenciamento de novas edificações [2004-2021]"],
+  );
+  assert.match(permits.dataset_info[0].dataset_link, /FK2\/7A3HSJ$/);
+});
+
 test("catalog collections keep the GeoPortal links and filter values", () => {
   const byId = new Map(catalogData.map((item) => [item.id, item]));
   assert.equal(byId.size, catalogData.length);

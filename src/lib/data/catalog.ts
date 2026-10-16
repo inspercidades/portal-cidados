@@ -30,7 +30,7 @@ export interface DataCatalogItem {
 export const catalogData: DataCatalogItem[] = [
   {
     id: "1",
-    title: "Alvarás de licenciamento de novas edificações [2004-2024]",
+    title: "Alvarás de licenciamento de novas edificações [2004-2021]",
     description:
       "Informações sobre novas edificações formais a partir de dados dos alvarás de licenciamento.\nConjunto de dados tratado e enriquecido pelo Centro de Estudos das Cidades.",
     theme: "Habitação e Mercado Imobiliário",
@@ -51,7 +51,7 @@ export const catalogData: DataCatalogItem[] = [
     ],
     sources: ["Prefeitura de São Paulo (SISACOE)"],
     periodStart: 2004,
-    periodEnd: 2024,
+    periodEnd: 2021,
     formats: ["Parquet", "XLSX", "GeoJSON", "GeoPackage"],
     isSpatial: true,
     dataset_info: [
@@ -65,19 +65,6 @@ export const catalogData: DataCatalogItem[] = [
         source: "Prefeitura de São Paulo (SISACOE)",
         period_start: 2004,
         period_end: 2021,
-        formats: ["Parquet", "XLSX", "GeoJSON", "GeoPackage"],
-        is_spatial: true,
-      },
-      {
-        dataset_title:
-          "Alvarás de licenciamento de novas edificações [2010-2024]",
-        dataset_description:
-          "Informações sobre novas edificações formais a partir de dados dos alvarás de licenciamento.\nConjunto de dados tratado e enriquecido pelo Centro de Estudos das Cidades.",
-        dataset_link:
-          "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/FPCIDI",
-        source: "Prefeitura de São Paulo (SISACOE)",
-        period_start: 2010,
-        period_end: 2024,
         formats: ["Parquet", "XLSX", "GeoJSON", "GeoPackage"],
         is_spatial: true,
       },
@@ -294,48 +281,6 @@ export const catalogData: DataCatalogItem[] = [
         period_end: 2026,
         formats: [],
         is_spatial: null,
-      },
-    ],
-  },
-  {
-    id: "6",
-    title: "Imposto sobre Transmissão de Bens Imóveis (ITBI) [2006-2025]",
-    description:
-      "Registros de arrecadação e valores de transferências de imóveis no município de São Paulo.\nConjunto de dados tratado e enriquecido pelo Centro de Estudos das Cidades.",
-    theme: "Habitação e Mercado Imobiliário",
-    region: "São Paulo",
-    accessMethod: "Disponível para download",
-    keywords: [
-      "Residências",
-      "Imóveis",
-      "Preço de imóveis",
-      "Transações imobiliárias",
-      "Imposto",
-    ],
-    createdAt: "2025-12-06",
-    tags: [
-      "Habitação e Mercado Imobiliário",
-      "São Paulo",
-      "Disponível para download",
-    ],
-    sources: ["Prefeitura de São Paulo (Secretaria da Fazenda)"],
-    periodStart: 2006,
-    periodEnd: 2025,
-    formats: ["CSV", "Parquet", "XLSX", "RDS"],
-    isSpatial: false,
-    dataset_info: [
-      {
-        dataset_title:
-          "Imposto sobre Transmissão de Bens Imóveis (ITBI) [2006-2025]",
-        dataset_description:
-          "Registros de arrecadação e valores de transferências de imóveis no município de São Paulo.\nConjunto de dados tratado e enriquecido pelo Centro de Estudos das Cidades.",
-        dataset_link:
-          "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/AOLEOI",
-        source: "Prefeitura de São Paulo (Secretaria da Fazenda)",
-        period_start: 2006,
-        period_end: 2025,
-        formats: ["CSV", "Parquet", "XLSX", "RDS"],
-        is_spatial: false,
       },
     ],
   },
