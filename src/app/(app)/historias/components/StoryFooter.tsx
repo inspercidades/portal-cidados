@@ -52,7 +52,7 @@ export interface StoryFooterProps {
 
 function IconGroup({ icons }: { icons: FooterIcon[] }) {
   return (
-    <div className="flex justify-start  gap-4 lg:gap-6">
+    <div className="flex items-center justify-start gap-4 lg:gap-6">
       {icons.map((icon) => (
         <a
           key={icon.src}
