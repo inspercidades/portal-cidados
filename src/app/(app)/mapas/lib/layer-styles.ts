@@ -389,6 +389,7 @@ export const layerStyles: Record<string, LayerStyle> = {
         814,
         "#014636",
       ],
+      "fill-outline-color": "#000000",
     },
     layout: {
       visibility: "none",
@@ -400,7 +401,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "mortalidade_materna_fem",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-color": [
         "case",
         ["==", ["typeof", ["get", "risk.2019"]], "number"],
@@ -437,7 +438,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "isquemicas_coracao_masc",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-opacity": 0.7,
       "fill-color": [
         "case",
@@ -475,7 +476,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "isquemicas_coracao_fem",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-opacity": 0.7,
       "fill-color": [
         "case",
@@ -513,7 +514,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "cerebrovasculares_masc",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-opacity": 0.7,
       "fill-color": [
         "case",
@@ -551,7 +552,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "cerebrovasculares_fem",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-color": [
         "case",
         ["==", ["typeof", ["get", "risk.2019"]], "number"],
@@ -588,7 +589,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "diabetes_masc",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-opacity": 0.7,
       "fill-color": [
         "case",
@@ -626,7 +627,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     source: "composite",
     "source-layer": "diabetes_fem",
     paint: {
-      "fill-outline-color": "#ffffff",
+      "fill-outline-color": "#000000",
       "fill-opacity": 0.7,
       "fill-color": [
         "case",
