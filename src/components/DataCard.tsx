@@ -180,11 +180,10 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
               </div>
             )}
 
-            {/* Data de criação */}
             {item.createdAt && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Data de criação
+                  Disponível desde
                 </h4>
                 <p className="text-sm text-muted-foreground">
                   {new Date(item.createdAt).toLocaleDateString("pt-BR", {
