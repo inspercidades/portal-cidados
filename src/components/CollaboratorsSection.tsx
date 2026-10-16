@@ -198,12 +198,13 @@ export function CollaboratorsSection() {
               <div className="lg:w-1/2 space-y-6">
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Data storytelling
+                    Histórias
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Narrativas visuais baseadas em pesquisas do Insper, que
-                    combinam dados, design e storytelling para explicar
-                    fenômenos urbanos de forma clara e envolvente.
+                    Narrativas visuais baseadas em pesquisas e estudos
+                    desenvolvidos pelo Insper, que combinam dados, design e
+                    storytelling para explicar fenômenos urbanos de forma clara
+                    e compreensível.
                   </p>
                 </div>
 
@@ -220,10 +221,10 @@ export function CollaboratorsSection() {
 
                 <div className="pb-6">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    GeoPortal
+                    Mapas
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um GeoPortal interativo que permite explorar espacialmente
+                    Uma ferramenta interativa que permite explorar espacialmente
                     os dados apresentados nas histórias e em outros estudos,
                     tornando visíveis desigualdades e dinâmicas urbanas.
                   </p>
