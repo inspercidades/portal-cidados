@@ -36,6 +36,18 @@ test("archived datasets are absent from the public catalog", () => {
   assert.match(permits.dataset_info[0].dataset_link, /FK2\/7A3HSJ$/);
 });
 
+test("combined Census and IPTU datasets credit both sources", () => {
+  const density = catalogData.find((item) => item.id === "2");
+  const combined = density.dataset_info.filter((item) =>
+    item.dataset_title.includes("[2022, 2024]"),
+  );
+  assert.equal(combined.length, 2);
+  for (const dataset of combined) {
+    assert.match(dataset.source, /IBGE/);
+    assert.match(dataset.source, /Prefeitura de São Paulo/);
+  }
+});
+
 test("catalog collections keep the GeoPortal links and filter values", () => {
   const byId = new Map(catalogData.map((item) => [item.id, item]));
   assert.equal(byId.size, catalogData.length);

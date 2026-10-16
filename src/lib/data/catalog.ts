@@ -138,7 +138,7 @@ export const catalogData: DataCatalogItem[] = [
           'Dados demográficos e habitacionais agregados em um raster de 800 × 800 m, resultado de interpolação (por área) de informações do Censo (2022) e do IPTU de São Paulo. Contém medidas de densidade populacional e de informalidade dos imóveis.\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/4QNTOT",
-        source: "IBGE",
+        source: "IBGE; Prefeitura de São Paulo",
         period_start: 2022,
         period_end: 2024,
         formats: ["Parquet", "XLSX", "GeoJSON", "GeoPackage"],
@@ -151,7 +151,7 @@ export const catalogData: DataCatalogItem[] = [
           'Cruzamento dos lotes do IPTU de São Paulo com dados do Censo, via interpolação por área, agregado por setor censitário.\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
         dataset_link:
           "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/90SSHM",
-        source: "IBGE",
+        source: "IBGE; Prefeitura de São Paulo",
         period_start: 2022,
         period_end: 2024,
         formats: ["Parquet", "XLSX", "GeoJSON", "GeoPackage"],
