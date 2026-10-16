@@ -187,6 +187,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                 </h4>
                 <p className="text-sm text-muted-foreground">
                   {new Date(item.createdAt).toLocaleDateString("pt-BR", {
+                    timeZone: "UTC",
                     year: "numeric",
                     month: "long",
                     day: "numeric",
