@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function Sobre() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <PageJsonLd
         breadcrumbs={[
           { name: "Início", path: "/" },
