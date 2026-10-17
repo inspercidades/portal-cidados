@@ -89,7 +89,7 @@ export function LayerLegend({
               {/* <span className="text-xs font-medium text-gray-700">
                 {item.label}
               </span> */}
-              {item.value && (
+              {item.value !== undefined && item.value !== "" && (
                 <Badge
                   variant="outline"
                   className="ml-2 text-xs text-gray-900!"
