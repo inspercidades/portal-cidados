@@ -324,7 +324,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "populacao-por-distrito-spo",
-      name: "População feminina (distrito)",
+      name: "População feminina de 35 a 39 anos (distrito)",
       summary: "Mulheres de 35 a 39 anos em cada distrito.",
       description:
         "Habitantes do sexo feminino de 35 a 39 anos, por distrito, em 2020. Fonte: SEADE (2020).",
@@ -369,7 +369,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary: "Risco de morte materna em cada distrito, em 2019.",
       description:
         "Risco relativo de mortalidade materna, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "mortalidade_materna_fem",
       layerType: "fill",
       hasCustomStyle: true,
@@ -389,7 +389,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary: "Risco de morte por doenças do coração entre homens, em 2019.",
       description:
         "Risco relativo de mortalidade por doenças isquêmicas do coração em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "isquemicas_coracao_masc",
       layerType: "fill",
       hasCustomStyle: true,
@@ -409,7 +409,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary: "Risco de morte por doenças do coração entre mulheres, em 2019.",
       description:
         "Risco relativo de mortalidade por doenças isquêmicas do coração em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "isquemicas_coracao_fem",
       layerType: "fill",
       hasCustomStyle: true,
@@ -430,7 +430,7 @@ export const cityLayersConfig: CityLayersConfig = {
         "Risco de morte por AVC e outras doenças cerebrovasculares entre homens, em 2019.",
       description:
         "Risco relativo de mortalidade por doenças cerebrovasculares em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "cerebrovasculares_masc",
       layerType: "fill",
       hasCustomStyle: true,
@@ -451,7 +451,7 @@ export const cityLayersConfig: CityLayersConfig = {
         "Risco de morte por AVC e outras doenças cerebrovasculares entre mulheres, em 2019.",
       description:
         "Risco relativo de mortalidade por doenças cerebrovasculares em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "cerebrovasculares_fem",
       layerType: "fill",
       hasCustomStyle: true,
@@ -471,7 +471,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary: "Risco de morte por diabetes entre homens, em 2019.",
       description:
         "Risco relativo de mortalidade por diabetes mellitus em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "diabetes_masc",
       layerType: "fill",
       hasCustomStyle: true,
@@ -491,7 +491,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary: "Risco de morte por diabetes entre mulheres, em 2019.",
       description:
         "Risco relativo de mortalidade por diabetes mellitus em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva, P. H. N. et al. (2026).",
-      tilesetId: "observatorio-nacional.historia_2_risco",
+      tilesetId: "observatorio-nacional.mapas_saude",
       sourceLayer: "diabetes_fem",
       layerType: "fill",
       hasCustomStyle: true,
