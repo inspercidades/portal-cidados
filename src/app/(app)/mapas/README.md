@@ -8,7 +8,7 @@ Mapa interativo baseado em **Mapbox GL JS** que permite visualizar camadas de da
 
 | Funcionalidade | Descrição |
 |---|---|
-| **Seleção de cidade** | Rio de Janeiro, São Paulo e Brasil (visão nacional) |
+| **Seleção de cidade** | Rio de Janeiro e São Paulo |
 | **Camadas temáticas** | Toggle de layers vetoriais por cidade com opacidade ajustável |
 | **Modo comparação** | Visualização lado a lado de duas camadas com slider divisório |
 | **Estado na URL** | Toda a visualização é serializável e compartilhável via URL |
@@ -111,45 +111,40 @@ sequenceDiagram
 
 ## Camadas disponíveis
 
-### Brasil
-
-| ID | Nome | Catálogo |
-|---|---|---|
-| `tarifa_zero` | Tarifa Zero | — |
+As camadas vêm do registro `portal/geoportal/data/geoportal_layers.csv`, no repositório [portalcidados-data](https://github.com/inspercidades/portalcidados-data).
 
 ### Rio de Janeiro
 
 | ID | Nome | Catálogo |
 |---|---|---|
-| `ic_areas-3ii8xj` | Ilhas de Calor | [Item 8](/catalogo-de-dados?item=8) |
-| `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | [Item 8](/catalogo-de-dados?item=8) |
-| `quali_area-1ci0wo` | Qualidade do Ar | [Item 8](/catalogo-de-dados?item=8) |
-| `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | [Item 8](/catalogo-de-dados?item=8) |
+| `ic_areas-3ii8xj` | Ilhas de calor | [Item 8](/catalogo-de-dados?item=8) |
+| `ic_pontos-90vwh4` | Ilhas de calor (pontos de medição) | [Item 8](/catalogo-de-dados?item=8) |
+| `quali_area-1ci0wo` | Qualidade do ar | [Item 8](/catalogo-de-dados?item=8) |
+| `quali_pontos-b424eh` | Qualidade do ar (pontos de medição) | [Item 8](/catalogo-de-dados?item=8) |
 
 ### São Paulo
 
 | ID | Nome | Catálogo |
 |---|---|---|
 | `faixa-azul-trechos-spo` | Faixa Azul | [Item 15](/catalogo-de-dados?item=15) |
-| `sinistros-por-distrito-spo` | Sinistros por Distrito | [Item 14](/catalogo-de-dados?item=14) |
-| `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | [Item 14](/catalogo-de-dados?item=14) |
-| `densidade-hab-setor` | Densidade Hab. (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
-| `densidade-hab-distrito-spo` | Densidade Hab. (distrito) | [Item 2](/catalogo-de-dados?item=2) |
-| `densidade-pop-setor-spo` | Densidade Pop. (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
-| `densidade-pop-distrito-spo` | Densidade Pop. (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `sinistros-por-distrito-spo` | Sinistros por distrito | [Item 14](/catalogo-de-dados?item=14) |
+| `sinistros-por-trecho-spo` | Sinistros por trecho de via | [Item 14](/catalogo-de-dados?item=14) |
+| `densidade-hab-setor` | Densidade habitacional (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-hab-distrito-spo` | Densidade habitacional (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-pop-setor-spo` | Densidade populacional (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-pop-distrito-spo` | Densidade populacional (distrito) | [Item 2](/catalogo-de-dados?item=2) |
 | `verticalizacao-setor` | Verticalização (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
 | `verticalizacao-distrito-spo` | Verticalização (distrito) | [Item 2](/catalogo-de-dados?item=2) |
-| `raster-dbiubd` | Verticalização (grid) | [Item 2](/catalogo-de-dados?item=2) |
-| `populacao-por-distrito-spo` | População Feminina (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `raster-dbiubd` | Verticalização (grade) | [Item 2](/catalogo-de-dados?item=2) |
+| `populacao-por-distrito-spo` | População feminina de 35 a 39 anos (distrito) | [Item 2](/catalogo-de-dados?item=2) |
 | `geoses-spo` | GeoSES | [Item 16](/catalogo-de-dados?item=16) |
-| `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | Sem correspondência no catálogo |
-| `mortalidade_materna_fem` | Mortalidade Materna (femi.) | [Item 9](/catalogo-de-dados?item=9) |
-| `isquemicas_coracao_masc` | Doenças Isquêmicas do Coração (masc.) | [Item 9](/catalogo-de-dados?item=9) |
-| `isquemicas_coracao_fem` | Doenças Isquêmicas do Coração (femi.) | [Item 9](/catalogo-de-dados?item=9) |
-| `cerebrovasculares_masc` | Doenças Cerebrovasculares (masc.) | [Item 9](/catalogo-de-dados?item=9) |
-| `cerebrovasculares_fem` | Doenças Cerebrovasculares (femi.) | [Item 9](/catalogo-de-dados?item=9) |
-| `diabetes_masc` | Diabetes Mellitus (masc.) | [Item 9](/catalogo-de-dados?item=9) |
-| `diabetes_fem` | Diabetes Mellitus (femi.) | [Item 9](/catalogo-de-dados?item=9) |
+| `mortalidade_materna_fem` | Mortalidade materna (fem.) | [Item 9](/catalogo-de-dados?item=9) |
+| `isquemicas_coracao_masc` | Doenças isquêmicas do coração (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `isquemicas_coracao_fem` | Doenças isquêmicas do coração (fem.) | [Item 9](/catalogo-de-dados?item=9) |
+| `cerebrovasculares_masc` | Doenças cerebrovasculares (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `cerebrovasculares_fem` | Doenças cerebrovasculares (fem.) | [Item 9](/catalogo-de-dados?item=9) |
+| `diabetes_masc` | Diabetes mellitus (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `diabetes_fem` | Diabetes mellitus (fem.) | [Item 9](/catalogo-de-dados?item=9) |
 
 ---
 
@@ -188,19 +183,23 @@ Quando uma camada está selecionada e possui `catalogItemId` definido em `city-l
 
 ---
 
-## Adicionando um novo layer
+## Adicionando uma camada
 
-Siga o guia completo em [`WORKFLOW.md`](./WORKFLOW.md). Em resumo:
+As camadas, os textos e as cores são gerados no repositório [portalcidados-data](https://github.com/inspercidades/portalcidados-data). Não edite `lib/city-layers.ts` nem `lib/layer-styles.ts` à mão: a próxima geração sobrescreve as mudanças.
 
-1. Fazer upload do tileset no Mapbox Studio (`observatorio-nacional`)
-2. Definir o estilo visual em `lib/layer-styles.ts`
-3. Registrar os metadados em `lib/city-layers.ts`:
+1. Lá, adicione uma linha ao registro `portal/geoportal/data/geoportal_layers.csv`, com cidade, nome, textos, tileset, `source-layer`, variável, item do catálogo e enquadramento.
+2. Gere o tileset e o estilo com o pipeline em R (`geoportal/R/mapbox.R`). Ele escreve `layer-styles-*.ts`.
+3. Rode `portal/geoportal/R/create_city_layers.R`, que escreve `city-layers.ts`.
+4. Copie os dois arquivos gerados para `lib/` e abra um PR aqui.
+
+Cada camada de `cityLayersConfig` segue a interface `CityLayer`:
 
 ```ts
 {
   id: "meu-layer-id",
   name: "Nome na UI",
-  description: "Aparece no tooltip de info.",
+  summary: "Texto curto do tooltip (i) no painel.",
+  description: "Texto da legenda, com unidade, período e fonte.",
   tilesetId: "observatorio-nacional.XXXXXXXX",
   sourceLayer: "nome_do_source_layer", // DEVE bater com a chave em layer-styles.ts
   layerType: "fill",          // fill | line | circle | symbol
@@ -214,6 +213,8 @@ Siga o guia completo em [`WORKFLOW.md`](./WORKFLOW.md). Em resumo:
   },
 }
 ```
+
+O tooltip mostra `summary` e, na falta dele, `description`.
 
 > O estilo customizado é resolvido pela **chave `sourceLayer`** em
 > `lib/layer-styles.ts` (via `createStyledLayer`). O campo `hasCustomStyle`

@@ -259,7 +259,7 @@ export function CityLayersComparison({
                                 {layer.name}
                               </span>
                             </div>
-                            {layer.description && (
+                            {(layer.summary ?? layer.description) && (
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <Info className="w-4 h-4" />
@@ -269,7 +269,7 @@ export function CityLayersComparison({
                                   className="max-w-xs bg-black text-white"
                                   arrowClassName="bg-black fill-black"
                                 >
-                                  <p>{layer.description}</p>
+                                  <p>{layer.summary ?? layer.description}</p>
                                 </TooltipContent>
                               </Tooltip>
                             )}
@@ -381,7 +381,7 @@ export function CityLayersComparison({
                                 {layer.name}
                               </span>
                             </div>
-                            {layer.description && (
+                            {(layer.summary ?? layer.description) && (
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                   <Info className="w-4 h-4" />
@@ -391,7 +391,7 @@ export function CityLayersComparison({
                                   className="max-w-xs bg-black text-white"
                                   arrowClassName="bg-black fill-black"
                                 >
-                                  <p>{layer.description}</p>
+                                  <p>{layer.summary ?? layer.description}</p>
                                 </TooltipContent>
                               </Tooltip>
                             )}

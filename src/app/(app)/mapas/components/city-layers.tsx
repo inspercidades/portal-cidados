@@ -122,7 +122,7 @@ export function CityLayers({
                             className={`inline ${isSelected ? "font-semibold" : "font-medium"}`}
                           >
                             <span className="break-words">{layer.name}</span>
-                            {layer.description && (
+                            {(layer.summary ?? layer.description) && (
                               <>
                                 {" "}
                                 <Tooltip>
@@ -134,7 +134,7 @@ export function CityLayers({
                                     className="max-w-xs bg-black text-white"
                                     arrowClassName="bg-black fill-black"
                                   >
-                                    <p>{layer.description}</p>
+                                    <p>{layer.summary ?? layer.description}</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </>
