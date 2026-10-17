@@ -376,41 +376,6 @@ export const layerStyles: Record<string, LayerStyle> = {
     },
     slot: "",
   },
-  "iptu-21rwvx": {
-    type: "fill",
-    source: "composite",
-    id: "iptu-21rwvx",
-    slot: "",
-    "source-layer": "iptu-21rwvx",
-    paint: {},
-    layout: {
-      visibility: "none",
-    },
-  },
-  "censo-ap4r5h": {
-    type: "fill",
-    source: "composite",
-    id: "censo-ap4r5h",
-    paint: {
-      "fill-outline-color": "#000000",
-    },
-    slot: "",
-    "source-layer": "censo-ap4r5h",
-    layout: {
-      visibility: "none",
-    },
-  },
-  "censo_iptu-0z08hq": {
-    type: "fill",
-    source: "composite",
-    id: "censo-iptu-0z08hq",
-    slot: "",
-    "source-layer": "censo_iptu-0z08hq",
-    paint: {},
-    layout: {
-      visibility: "none",
-    },
-  },
   "populacao-por-distrito-spo": {
     id: "populacao-por-distrito-spo",
     type: "fill",
@@ -442,34 +407,6 @@ export const layerStyles: Record<string, LayerStyle> = {
       visibility: "none",
     },
     slot: "",
-  },
-  "gastos_ubs_distritos-c6rpx4": {
-    type: "fill",
-    source: "composite",
-    id: "gastos-ubs-distritos-c6rpx4",
-    slot: "",
-    "source-layer": "gastos_ubs_distritos-c6rpx4",
-    paint: {
-      "fill-color": [
-        "interpolate",
-        ["linear"],
-        ["get", "Gastos UBS per capita (R$)"],
-        0,
-        "#ece2f0",
-        100,
-        "#a6bddb",
-        200,
-        "#3690c0",
-        400,
-        "#016c59",
-        814,
-        "#014636",
-      ],
-      "fill-outline-color": "#000000",
-    },
-    layout: {
-      visibility: "none",
-    },
   },
   mortalidade_materna_fem: {
     id: "mortalidade_materna_fem",
