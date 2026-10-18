@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { cityLayersConfig, resolveLayerMapView } from "../lib/city-layers";
-import { createStyledLayer } from "../lib/layer-styles";
+import { createStyledLayer, formatNumber } from "../lib/layer-styles";
 import { CityAccordion } from "./city-accordion";
 import { CityLayers } from "./city-layers";
 import { CityLayersComparison } from "./city-layers-comparison";
@@ -333,9 +333,7 @@ export default function PropertyMap() {
               .map(([key, value]) => {
                 const formattedValue =
                   typeof value === "number"
-                    ? Number.isInteger(value)
-                      ? value.toLocaleString()
-                      : value.toFixed(2)
+                    ? formatNumber(value)
                     : String(value);
                 return `
                   <div class="flex justify-between items-center text-xs">
@@ -1496,7 +1494,10 @@ export default function PropertyMap() {
         mapTheme={mapTheme}
         onThemeToggle={handleThemeToggle}
       />
-      <SiteMenu isOpen={isNavMenuOpen} onClose={() => setIsNavMenuOpen(false)} />
+      <SiteMenu
+        isOpen={isNavMenuOpen}
+        onClose={() => setIsNavMenuOpen(false)}
+      />
 
       <div className="absolute top-4 right-4 z-9 flex flex-col gap-2">
         <Tooltip>

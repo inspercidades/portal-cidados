@@ -884,6 +884,19 @@ export function extractLegendFromPaint(
   return null;
 }
 
+// Format a number the way the site writes it: decimal comma, thousands dot,
+// at most one decimal place.
+const numberFormat = new Intl.NumberFormat("pt-BR", {
+  maximumFractionDigits: 1,
+});
+
+export function formatNumber(value: number): string {
+  return numberFormat.format(value);
+}
+
+const formatStop = (value: unknown): string =>
+  typeof value === "number" ? formatNumber(value) : String(value);
+
 // Extract legend from Mapbox expression
 function extractLegendFromExpression(expression: unknown): LegendItem[] | null {
   if (!Array.isArray(expression)) {
@@ -974,7 +987,7 @@ function extractFromStepExpression(expression: unknown[]): LegendItem[] {
     legendItems.push({
       color: fallback,
       label: getReadableLabel(input, null),
-      value: `< ${stops[0]}`,
+      value: `< ${formatStop(stops[0])}`,
     });
   }
 
@@ -988,7 +1001,10 @@ function extractFromStepExpression(expression: unknown[]): LegendItem[] {
       legendItems.push({
         color,
         label: getReadableLabel(input, value),
-        value: nextValue ? `${value} - ${nextValue}` : `${value}+`,
+        value:
+          nextValue !== undefined
+            ? `${formatStop(value)} a ${formatStop(nextValue)}`
+            : `${formatStop(value)}+`,
       });
     }
   }
@@ -1010,10 +1026,7 @@ function extractFromInterpolateExpression(expression: unknown[]): LegendItem[] {
       legendItems.push({
         color,
         label: getReadableLabel(input, value),
-        value:
-          typeof value === "string" || typeof value === "number"
-            ? value
-            : String(value),
+        value: formatStop(value),
       });
     }
   }
@@ -1032,11 +1045,20 @@ function extractFromCaseExpression(expression: unknown[]): LegendItem[] {
     const condition = caseConditions[i];
     const output = caseConditions[i + 1];
 
-    // Nested color scale (e.g. typeof check wrapping an interpolate)
+    // Nested color scale (e.g. typeof check wrapping an interpolate). The
+    // case fallback then colors the features without a value.
     if (Array.isArray(output)) {
       const nested = extractLegendFromExpression(output);
       if (nested?.length) {
         legendItems.push(...nested);
+        const fallback = expression[expression.length - 1];
+        if (typeof fallback === "string" && fallback.startsWith("#")) {
+          legendItems.push({
+            color: fallback,
+            label: "Sem dado",
+            value: "Sem dado",
+          });
+        }
         continue;
       }
     }
