@@ -81,7 +81,7 @@ export default function Footer() {
               names: "Maurício Bouskela e Adriano Borges Costa",
             },
             { role: "Roteirista", names: "Caio Jacintho" },
-            { role: "Tratamento de dados", names: "Vinicius Oike" },
+            { role: "Cientista de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
           ],
@@ -89,12 +89,9 @@ export default function Footer() {
       ]}
       databases={[
         {
-          title: "Qualidade do Ar - Favela da Maré [2023]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/OICDGN",
-        },
-        {
-          title: "Ilhas de Calor - Favela da Maré [2023]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/NQA7LY",
+          title:
+            "Medições de ilhas de calor e qualidade do ar na Maré, Rio de Janeiro [2023]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TONMVQ",
         },
       ]}
     />

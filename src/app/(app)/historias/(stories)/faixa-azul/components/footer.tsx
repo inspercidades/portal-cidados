@@ -57,6 +57,7 @@ export default function Footer() {
           members: [
             { role: "Coordenador Executivo", names: "Maurício Bouskela" },
             { role: "Roteirista", names: "Caio Jacintho" },
+            { role: "Cientista de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
           ],
@@ -64,17 +65,17 @@ export default function Footer() {
       ]}
       databases={[
         {
-          title: "Sinistros de Trânsito [2022-2025]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/A4AC1I",
+          title: "Sinistros de trânsito [2022-2025]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IRGJPX",
         },
         {
-          title: "Sinistros de Trânsito Agregados por Via [2022-2025]",
+          title: "Sinistros de trânsito agregados por via [2022-2025]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/XA5PFG",
         },
         {
           title:
-            "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2025]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IRGJPX",
+            "Trechos com faixas dedicadas a motociclistas (Faixa Azul) [2022-2025]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/A4AC1I",
         },
       ]}
     />

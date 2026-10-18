@@ -16,12 +16,12 @@ export default function Footer() {
       }}
       databases={[
         {
-          title: "Mortalidade prematura por distrito de São Paulo [2019]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JJ8JIN",
+          title: "Indicadores de mortalidade por distrito [2010-2019]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/CDXI9B",
         },
         {
-          title: "Gastos com UBS por distrito de São Paulo [2019]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/YZBSBF",
+          title: "Índice GeoSES [2010]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/7IXFPX",
         },
       ]}
       realizacao={[
@@ -64,6 +64,7 @@ export default function Footer() {
               names: "Maurício Bouskela e Adriano Borges Costa",
             },
             { role: "Roteirista", names: "Caio Jacintho" },
+            { role: "Cientista de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
             {

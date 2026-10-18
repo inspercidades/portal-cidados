@@ -40,6 +40,7 @@ export default function Footer() {
           members: [
             { role: "Coordenador Executivo", names: "Maurício Bouskela" },
             { role: "Roteirista", names: "Caio Jacintho" },
+            { role: "Cientista de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             {
               role: "Desenvolvimento",
@@ -50,24 +51,22 @@ export default function Footer() {
       ]}
       databases={[
         {
-          title: "IPTU Residencial por Lote, São Paulo [2024]",
+          title: "IPTU e verticalização, São Paulo [2024]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TOXCRF",
         },
         {
-          title: "Cruzamento de lotes do IPTU com o CENSO - São Paulo [2020]",
+          title:
+            "Densidade populacional e verticalização de imóveis em São Paulo [2022, 2024]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/90SSHM",
         },
         {
           title:
-            "Densidade Populacional e Verticalização de Imóveis em São Paulo [2022]",
+            "Grade de densidade populacional e habitacional, São Paulo [2022, 2024]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/4QNTOT",
         },
         {
-          title: "IPTU e Verticalização em São Paulo [2020]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/HEK6TH",
-        },
-        {
-          title: "População e Domicílios, São Paulo [2022]",
+          title:
+            "População, domicílios e densidade populacional por setor censitário [2022]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/GTO7DD",
         },
       ]}
