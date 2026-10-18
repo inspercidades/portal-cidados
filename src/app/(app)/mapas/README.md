@@ -136,7 +136,6 @@ As camadas vêm do registro `portal/geoportal/data/geoportal_layers.csv`, no rep
 | `verticalizacao-setor` | Verticalização (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
 | `verticalizacao-distrito-spo` | Verticalização (distrito) | [Item 2](/catalogo-de-dados?item=2) |
 | `raster-dbiubd` | Verticalização (grade) | [Item 2](/catalogo-de-dados?item=2) |
-| `populacao-por-distrito-spo` | População feminina de 35 a 39 anos (distrito) | [Item 2](/catalogo-de-dados?item=2) |
 | `geoses-spo` | GeoSES | [Item 16](/catalogo-de-dados?item=16) |
 | `mortalidade_materna_fem` | Mortalidade materna (fem.) | [Item 9](/catalogo-de-dados?item=9) |
 | `isquemicas_coracao_masc` | Doenças isquêmicas do coração (masc.) | [Item 9](/catalogo-de-dados?item=9) |

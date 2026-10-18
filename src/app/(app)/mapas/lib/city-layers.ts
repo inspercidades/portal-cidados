@@ -88,7 +88,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary:
         "Poluição por material particulado em áreas da Maré, de março a setembro de 2023.",
       description:
-        "Material particulado PM10, média por área de coleta, medida na última semana de cada mês, de março a setembro de 2023. Fonte: Dias, C. et al. (2026).",
+        "Material particulado PM10 (µg/m³), média por área de coleta, medida na última semana de cada mês, de março a setembro de 2023. Fonte: Dias, C. et al. (2026).",
       tilesetId: "observatorio-nacional.1dkglesm",
       sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
@@ -107,7 +107,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary:
         "Poluição por material particulado em cada ponto de medição da Maré, de março a setembro de 2023.",
       description:
-        "Material particulado PM10, média por ponto de medição, medida na última semana de cada mês, de março a setembro de 2023. Fonte: Dias, C. et al. (2026).",
+        "Material particulado PM10 (µg/m³), média por ponto de medição, medida na última semana de cada mês, de março a setembro de 2023. Fonte: Dias, C. et al. (2026).",
       tilesetId: "observatorio-nacional.18m3jaqa",
       sourceLayer: "quali_pontos-b424eh",
       layerType: "circle",
@@ -273,7 +273,7 @@ export const cityLayersConfig: CityLayersConfig = {
       summary:
         "Número médio de pavimentos das construções em cada setor censitário, em 2024.",
       description:
-        "Índice de verticalização, por setor censitário, em 2024: área construída dividida pela área ocupada pelas construções no terreno, segundo o IPTU. Equivale ao número médio de pavimentos. Fonte: Theil, G. (2025).",
+        "Índice de verticalização, por setor censitário, em 2024: área construída dividida pela área ocupada pelas construções no terreno, segundo o IPTU. Equivale ao número médio de pavimentos. Setores sem cor não têm dado do IPTU. Fonte: Theil, G. (2025).",
       tilesetId: "observatorio-nacional.verticalizacao-setor",
       sourceLayer: "verticalizacao_setor",
       layerType: "fill",
@@ -326,26 +326,6 @@ export const cityLayersConfig: CityLayersConfig = {
         zoom: 10.0221,
         centerMobile: [-46.59624, -23.59489],
         zoomMobile: 9.0572,
-        bearing: 0,
-        pitch: 0,
-      },
-    },
-    {
-      id: "populacao-por-distrito-spo",
-      name: "População feminina de 35 a 39 anos (distrito)",
-      summary: "Mulheres de 35 a 39 anos em cada distrito, em 2020.",
-      description:
-        "Habitantes do sexo feminino de 35 a 39 anos, por distrito, em 2020. Fonte: SEADE (2020).",
-      tilesetId: "observatorio-nacional.populacao-distrito",
-      sourceLayer: "populacao-por-distrito-spo",
-      layerType: "fill",
-      hasCustomStyle: true,
-      catalogItemId: "2",
-      mapView: {
-        center: [-46.73413, -23.67986],
-        zoom: 9.6236,
-        centerMobile: [-46.60054, -23.67075],
-        zoomMobile: 9.093,
         bearing: 0,
         pitch: 0,
       },
