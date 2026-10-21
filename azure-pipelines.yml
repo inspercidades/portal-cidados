@@ -40,6 +40,8 @@ stages:
           $(tag)
         arguments: >-
           --build-arg NEXT_PUBLIC_MAPBOX_TOKEN="$(NEXT_PUBLIC_MAPBOX_TOKEN)"
+          --build-arg NEXT_PUBLIC_GOOGLE_ANALYTICS_ID="$(NEXT_PUBLIC_GOOGLE_ANALYTICS_ID)"
+          --build-arg NEXT_PUBLIC_CLARITY_ID="$(NEXT_PUBLIC_CLARITY_ID)"
 
     - task: Docker@2
       displayName: 'Push Docker image'

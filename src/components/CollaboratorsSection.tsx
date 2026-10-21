@@ -1,10 +1,12 @@
 "use client";
 
-import { getCollaborators } from "@/lib/data/collaborators";
+import { Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ExternalLink } from "@/components/external-link";
+import { getCollaborators } from "@/lib/data/collaborators";
 
 // Import Swiper styles
 import "swiper/css";
@@ -158,9 +160,22 @@ export function CollaboratorsSection() {
                       <h3 className="text-md font-bold text-foreground mb-1 leading-tight">
                         {collaborator.name}
                       </h3>
-                      <p className="text-sm text-foreground/50 mb-5">
+                      <p className="text-sm text-foreground/50">
                         {collaborator.function}
                       </p>
+                      <ExternalLink
+                        href={collaborator.linkedin}
+                        aria-label={`LinkedIn de ${collaborator.name}`}
+                        className="swiper-no-swiping mt-2 mb-5 inline-flex text-foreground/70 transition-colors hover:text-foreground"
+                        style={{ cursor: "pointer" }}
+                        onPointerDown={(event) => event.stopPropagation()}
+                      >
+                        <Linkedin
+                          className="size-5"
+                          strokeWidth={1.5}
+                          aria-hidden="true"
+                        />
+                      </ExternalLink>
                       <p className="text-sm text-foreground/50">
                         {collaborator.email}
                       </p>
@@ -183,12 +198,13 @@ export function CollaboratorsSection() {
               <div className="lg:w-1/2 space-y-6">
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Data storytelling
+                    Histórias
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Narrativas visuais baseadas em pesquisas do Insper, que
-                    combinam dados, design e storytelling para explicar
-                    fenômenos urbanos de forma clara e envolvente.
+                    Narrativas visuais baseadas em pesquisas e estudos
+                    desenvolvidos pelo Insper, que combinam dados, design e
+                    storytelling para explicar fenômenos urbanos de forma clara
+                    e compreensível.
                   </p>
                 </div>
 
@@ -197,20 +213,20 @@ export function CollaboratorsSection() {
                     Catálogo de dados
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um GeoPortal interativo que permite explorar espacialmente
-                    os dados apresentados nas histórias e em outros estudos,
-                    tornando visíveis desigualdades e dinâmicas urbanas.
+                    Um catálogo de conjuntos de dados urbanos que disponibiliza
+                    informações abertas e estruturadas para consulta e
+                    reutilização.
                   </p>
                 </div>
 
                 <div className="pb-6">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    GeoPortal
+                    Mapas
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um catálogo de conjuntos de dados urbanos que disponibiliza
-                    informações abertas e estruturadas para consulta e
-                    reutilização.
+                    Uma ferramenta interativa que permite explorar espacialmente
+                    os dados apresentados nas histórias e em outros estudos,
+                    tornando visíveis desigualdades e dinâmicas urbanas.
                   </p>
                 </div>
               </div>
@@ -253,7 +269,7 @@ export function CollaboratorsSection() {
                 tem de controlar a densidade habitacional
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
-                Gustado Theil
+                Gustavo Theil
               </p>
             </div>
 

@@ -31,16 +31,32 @@ export interface ManagedLayer {
 
 /** All Mapbox layers controlled by the scrollytelling (set to opacity 0 in Studio). */
 export const MANAGED_LAYERS: ManagedLayer[] = [
-  { id: "dens-demografica-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
+  {
+    id: "dens-demografica-spo",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
   { id: "highlight", opacityProperty: "fill-opacity", activeOpacity: 0.35 },
   { id: "favelas-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
-  { id: "lotes-irregulares", opacityProperty: "fill-opacity", activeOpacity: 1 },
-  { id: "pop-hab-nao-cadastrada", opacityProperty: "heatmap-opacity", activeOpacity: 1 },
+  {
+    id: "lotes-irregulares",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
+  {
+    id: "pop-hab-nao-cadastrada",
+    opacityProperty: "heatmap-opacity",
+    activeOpacity: 0.85,
+  },
   { id: "zoning-zeu-eetu", opacityProperty: "fill-opacity", activeOpacity: 1 },
   { id: "linha-trem", opacityProperty: "line-opacity", activeOpacity: 1 },
   { id: "linha-metro", opacityProperty: "line-opacity", activeOpacity: 1 },
   { id: "corredor-onibus", opacityProperty: "line-opacity", activeOpacity: 1 },
-  { id: "dens-construtiva-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
+  {
+    id: "dens-construtiva-spo",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
 ];
 
 /**
@@ -73,7 +89,7 @@ export const DENS_CONSTRUTIVA_SPO_LAYER_PATCH = {
     18,
     "#1d7a5d",
   ],
-  fillOutlineColor: "#000000",
+  fillOutlineColor: "transparent",
   filter: ["has", "densidade_construtiva"],
 } as const;
 
@@ -87,48 +103,48 @@ export const MAP_POSITIONS: Record<string, ChapterMapConfig> = {
   //   mobile: { center: [-46.6333, -23.5505], zoom: 11, duration: 6 },
   // },
   mapa_zero: {
-    desktop: { center: [-46.6383, -23.565], zoom: 10.2, duration: 6 },
-    mobile: { center: [-46.6083, -23.595], zoom: 9.7, duration: 6 },
+    desktop: { center: [-46.6383, -23.565], zoom: 10.2, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_um: {
-    desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 4 },
-    mobile: { center: [-46.6383, -23.565], zoom: 10.0, duration: 4 },
+    desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_mais_um: {
-    desktop: { center: [-46.6683, -23.551], zoom: 12.8, duration: 4 },
-    mobile: { center: [-46.6483, -23.545], zoom: 12.0, duration: 4 },
+    desktop: { center: [-46.6683, -23.551], zoom: 12.8, duration: 3 },
+    mobile: { center: [-46.6544, -23.574], zoom: 11.8, duration: 3 },
   },
   mapa_dois: {
-    desktop: { center: [-46.7311, -23.6156], zoom: 14.8, duration: 4 },
-    mobile: { center: [-46.7259, -23.6159], zoom: 14.0, duration: 4 },
+    desktop: { center: [-46.7311, -23.6156], zoom: 14.8, duration: 3 },
+    mobile: { center: [-46.726, -23.6205], zoom: 13.6, duration: 3 },
   },
   mapa_dois_helio: {
-    desktop: { center: [-46.6028, -23.6109], zoom: 14.7, duration: 4 },
-    mobile: { center: [-46.5926, -23.61], zoom: 14.2, duration: 4 },
+    desktop: { center: [-46.6108, -23.6109], zoom: 13.9, duration: 3 },
+    mobile: { center: [-46.5919, -23.6157], zoom: 12.8, duration: 3 },
   },
   mapa_tres: {
-    desktop: { center: [-46.7993, -23.595], zoom: 10, duration: 4 },
-    mobile: { center: [-46.6083, -23.645], zoom: 10, duration: 4 },
+    desktop: { center: [-46.7993, -23.595], zoom: 10, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_quatro: {
-    desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 4 },
-    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 4 },
+    desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   cep_capitulo: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 2 },
-    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 2 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 2 },
   },
   mapa_cinco: {
-    desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 4 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 4 },
+    desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_seis: {
-    desktop: { center: [-46.7333, -23.5805], zoom: 10.8, duration: 4 },
-    mobile: { center: [-46.6183, -23.555], zoom: 10.0, duration: 4 },
+    desktop: { center: [-46.7333, -23.5805], zoom: 10.8, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
   mapa_sete: {
-    desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 4 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 4 },
+    desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 3 },
+    mobile: { center: [-46.6102, -23.6808], zoom: 9.0, duration: 3 },
   },
 };
 
@@ -146,7 +162,12 @@ export const MAP_FLY_TRIGGERS: {
   // { id: "capa", legend: null, layers: [] },
   // { id: "mapa_capitulo", legend: null, layers: [] },
   // ── Chapter 1 – densidade populacional
-  { id: "mapa_zero", mapKey: "mapa_zero", legend: "density-pop", layers: ["dens-demografica-spo"] },
+  {
+    id: "mapa_zero",
+    mapKey: "mapa_zero",
+    legend: "density-pop",
+    layers: ["dens-demografica-spo"],
+  },
   {
     id: "mapa_um",
     mapKey: "mapa_um",
@@ -157,19 +178,19 @@ export const MAP_FLY_TRIGGERS: {
     id: "mapa_mais_um",
     mapKey: "mapa_mais_um",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   {
     id: "mapa_dois",
     mapKey: "mapa_dois",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   {
     id: "mapa_dois_helio",
     mapKey: "mapa_dois_helio",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   // ── Chapter 2 – informalidade ────────────────────────────────────────────
   {
@@ -210,19 +231,19 @@ export const MAP_FLY_TRIGGERS: {
   {
     id: "cep_capitulo5",
     legend: null,
-    layers: ["dens-construtiva-spo"],
+    layers: [],
   },
   {
     id: "cep_capitulo6b",
     legend: null,
-    layers: ["dens-construtiva-spo"],
+    layers: [],
   },
   // ── Chapter 5 – research results ────────────────────────────────────────
   {
     id: "mapa_sete",
     mapKey: "mapa_sete",
-    legend: null,
-    layers: [],
+    legend: "density-pop",
+    layers: ["dens-demografica-spo"],
   },
   { id: "cep_capitulo7", legend: null, layers: [] },
   { id: "capitulo_final", legend: null, layers: [] },

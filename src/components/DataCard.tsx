@@ -1,6 +1,9 @@
 "use client";
 
-import type { DataCatalogItem } from "@/lib/data/catalog";
+import { ExternalLink, MapIcon } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { getLayersForCatalogItem } from "@/app/(app)/mapas/lib/city-layers";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,15 +12,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import type { DataCatalogItem } from "@/lib/data/catalog";
 
 interface DataCardProps {
   item: DataCatalogItem;
+  initialOpen?: boolean;
 }
 
-export function DataCard({ item }: DataCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export function DataCard({ item, initialOpen = false }: DataCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(initialOpen);
+  const geoportalLinks = getLayersForCatalogItem(item.id);
 
   const formatTags = (tags: string[]) => {
     return tags.map((tag) => {
@@ -176,14 +180,14 @@ export function DataCard({ item }: DataCardProps) {
               </div>
             )}
 
-            {/* Data de criação */}
             {item.createdAt && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Data de criação
+                  Disponível desde
                 </h4>
                 <p className="text-sm text-muted-foreground">
                   {new Date(item.createdAt).toLocaleDateString("pt-BR", {
+                    timeZone: "UTC",
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -225,6 +229,27 @@ export function DataCard({ item }: DataCardProps) {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {geoportalLinks.length > 0 && (
+              <div className="flex flex-col gap-2">
+                {geoportalLinks.map(({ city, layerIds }) => {
+                  const params = new URLSearchParams({
+                    city,
+                    layers: layerIds.join(","),
+                  });
+                  return (
+                    <Link
+                      key={city}
+                      href={`/mapas?${params}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
+                    >
+                      <MapIcon className="w-4 h-4" />
+                      Ver dados no mapa
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>

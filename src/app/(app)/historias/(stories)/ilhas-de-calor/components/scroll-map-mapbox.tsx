@@ -1,16 +1,19 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura.png";
-import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
-import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
+import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
+import novaMareSvg from "../assets/nova-mare.svg";
 import novaMareMobileSvg from "../assets/nova-mare-mobile.svg";
+import piscinaoSvg from "../assets/piscinao.svg";
+import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
+import ruaAriLeaoSvg from "../assets/rua-ari-leao.svg";
+import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +36,7 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
     mobile: { lng: -43.245305, lat: -22.850732, zoom: 14.17 },
   },
   {
-    desktop: { lng: -43.244029, lat: -22.861132, zoom: 14.6 },
+    desktop: { lng: -43.244029, lat: -22.863132, zoom: 14.6 },
     mobile: { lng: -43.241559, lat: -22.861132, zoom: 13.9 },
   },
   {
@@ -52,37 +55,67 @@ const TRIGGER_LAYERS: string[][] = [
   ["rua-ari-leao-0eidsa", "rua-ari-leao-0eidsa copy"],
   ["nova-mare-7a103m", "nova-mare-7a103m copy"],
   ["conjunto-bento-ribeiro-19jhxj"],
-  ["conclusao-icone-e-texto-dbjh3k"],
+  [],
 ];
 
 const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
 
 const CARD_HEIGHTS = ["100vh", "100vh", "100vh", "100vh", "100vh"];
 
-const MOBILE_OVERLAYS = [
+const OVERLAYS = [
   {
-    src: piscinaoMobileSvg.src,
-    lng: -43.250499,
-    lat: -22.8393554,
-    width: 300,
-    offsetX: 15,
-    offsetY: 40,
+    desktop: {
+      src: piscinaoSvg.src,
+      width: 500,
+      offsetX: 114,
+      offsetY: 44,
+      lng: -43.250499,
+      lat: -22.8393554,
+    },
+    mobile: {
+      src: piscinaoMobileSvg.src,
+      width: 300,
+      offsetX: 15,
+      offsetY: 40,
+      lng: -43.250499,
+      lat: -22.8393554,
+    },
   },
   {
-    src: ruaAriLeaoMobileSvg.src,
-    lng: -43.2442508,
-    lat: -22.8504434,
-    width: 340,
-    offsetX: -23,
-    offsetY: 0,
+    desktop: {
+      src: ruaAriLeaoSvg.src,
+      width: 540,
+      offsetX: -119,
+      offsetY: 56,
+      lng: -43.2442508,
+      lat: -22.8504434,
+    },
+    mobile: {
+      src: ruaAriLeaoMobileSvg.src,
+      width: 340,
+      offsetX: -23,
+      offsetY: 0,
+      lng: -43.2442508,
+      lat: -22.8504434,
+    },
   },
   {
-    src: novaMareMobileSvg.src,
-    lng: -43.2411912,
-    lat: -22.8625694,
-    width: 320,
-    offsetX: 0,
-    offsetY: 0,
+    desktop: {
+      src: novaMareSvg.src,
+      width: 600,
+      offsetX: -238,
+      offsetY: 66,
+      lng: -43.2401912,
+      lat: -22.8595,
+    },
+    mobile: {
+      src: novaMareMobileSvg.src,
+      width: 320,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.2411912,
+      lat: -22.8555694,
+    },
   },
 ];
 
@@ -115,7 +148,11 @@ function animateLayerOpacity(
     for (const id of layerIds) {
       const start = startValues.get(id) ?? 0;
       try {
-        map.setPaintProperty(id, "icon-opacity", start + (targetOpacity - start) * t);
+        map.setPaintProperty(
+          id,
+          "icon-opacity",
+          start + (targetOpacity - start) * t,
+        );
       } catch {
         // Layer not found in the current style — skip silently
       }
@@ -133,9 +170,8 @@ export function ScrollMapMapbox() {
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
-  const card4Ref = useRef<HTMLDivElement>(null);
   const card5Ref = useRef<HTMLDivElement>(null);
-  const [activeMobileOverlay, setActiveMobileOverlay] = useState<number | null>(null);
+  const [activeOverlay, setActiveOverlay] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
@@ -146,7 +182,7 @@ export function ScrollMapMapbox() {
 
     const getMap = () => {
       const map = mapRef.current?.getMap?.();
-      if (map && map.isStyleLoaded()) return map;
+      if (map?.isStyleLoaded()) return map;
       return null;
     };
 
@@ -175,8 +211,13 @@ export function ScrollMapMapbox() {
     };
 
     const showLayers = (idx: number) => {
-      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
-        setActiveMobileOverlay(idx);
+      if (idx < OVERLAYS.length) {
+        setActiveOverlay(idx);
+        if (idx === 2) {
+          const map = getMap();
+          if (map)
+            animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 1);
+        }
         return;
       }
       const map = getMap();
@@ -185,8 +226,13 @@ export function ScrollMapMapbox() {
     };
 
     const hideLayers = (idx: number) => {
-      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
-        setActiveMobileOverlay(null);
+      if (idx < OVERLAYS.length) {
+        setActiveOverlay(null);
+        if (idx === 2) {
+          const map = getMap();
+          if (map)
+            animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 0);
+        }
         return;
       }
       const map = getMap();
@@ -194,7 +240,7 @@ export function ScrollMapMapbox() {
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 0);
     };
 
-    const cardRefs = [card1Ref, card2Ref, card3Ref, card4Ref, card5Ref];
+    const cardRefs = [card1Ref, card2Ref, card3Ref, card5Ref];
 
     const createTriggers = () => {
       if (!cardRefs.every((ref) => ref.current !== null)) return;
@@ -256,36 +302,18 @@ export function ScrollMapMapbox() {
 
       triggers.push(
         ScrollTrigger.create({
-          trigger: card4Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => {
-            flyTo(TRIGGER_POSITIONS[3]);
-            hideLayers(2);
-            showLayers(3);
-          },
-          onLeaveBack: () => {
-            flyTo(TRIGGER_POSITIONS[2]);
-            hideLayers(3);
-            showLayers(2);
-          },
-        }),
-      );
-
-      triggers.push(
-        ScrollTrigger.create({
           trigger: card5Ref.current,
           start: "top center",
           end: "bottom center",
           onEnter: () => {
             flyTo(TRIGGER_POSITIONS[4]);
-            hideLayers(3);
+            hideLayers(2);
             showLayers(4);
           },
           onLeaveBack: () => {
-            flyTo(TRIGGER_POSITIONS[3]);
+            flyTo(TRIGGER_POSITIONS[2]);
             hideLayers(4);
-            showLayers(3);
+            showLayers(2);
           },
         }),
       );
@@ -391,27 +419,49 @@ export function ScrollMapMapbox() {
             doubleClickZoom={false}
             touchZoomRotate={false}
           >
-            {MOBILE_OVERLAYS.map((overlay, idx) => (
-              <Marker
-                key={idx}
-                longitude={overlay.lng}
-                latitude={overlay.lat}
-                anchor="center"
-                style={{ pointerEvents: "none" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={overlay.src}
-                  alt=""
-                  style={{
-                    display: "block",
-                    width: overlay.width,
-                    transform: `translate(${overlay.offsetX}px, ${overlay.offsetY}px)`,
-                    opacity: activeMobileOverlay === idx ? 1 : 0,
-                    transition: "opacity 600ms ease-in-out",
-                  }}
-                />
-              </Marker>
+            {OVERLAYS.map((overlay, idx) => (
+              <Fragment key={overlay.desktop.src}>
+                <Marker
+                  key={`${overlay.desktop.src}-desktop`}
+                  longitude={overlay.desktop.lng}
+                  latitude={overlay.desktop.lat}
+                  anchor="center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={overlay.desktop.src}
+                    alt=""
+                    className="hidden md:block"
+                    style={{
+                      width: overlay.desktop.width,
+                      transform: `translate(${overlay.desktop.offsetX}px, ${overlay.desktop.offsetY}px)`,
+                      opacity: activeOverlay === idx ? 1 : 0,
+                      transition: "opacity 600ms ease-in-out",
+                    }}
+                  />
+                </Marker>
+                <Marker
+                  key={`${overlay.mobile.src}-mobile`}
+                  longitude={overlay.mobile.lng}
+                  latitude={overlay.mobile.lat}
+                  anchor="center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={overlay.mobile.src}
+                    alt=""
+                    className="md:hidden"
+                    style={{
+                      width: overlay.mobile.width,
+                      transform: `translate(${overlay.mobile.offsetX}px, ${overlay.mobile.offsetY}px)`,
+                      opacity: activeOverlay === idx ? 1 : 0,
+                      transition: "opacity 600ms ease-in-out",
+                    }}
+                  />
+                </Marker>
+              </Fragment>
             ))}
           </MapboxMap>
         </div>
@@ -420,20 +470,61 @@ export function ScrollMapMapbox() {
         <div ref={card1Ref} style={{ minHeight: CARD_HEIGHTS[0] }} />
         <div ref={card2Ref} style={{ minHeight: CARD_HEIGHTS[1] }} />
         <div ref={card3Ref} style={{ minHeight: CARD_HEIGHTS[2] }} />
-        <div ref={card4Ref} style={{ minHeight: CARD_HEIGHTS[3] }} />
-        <div ref={card5Ref} style={{ minHeight: CARD_HEIGHTS[4] }} />
+        <div
+          ref={card5Ref}
+          className="flex items-center justify-center p-6 md:p-8 lg:p-10"
+          style={{
+            minHeight: CARD_HEIGHTS[4],
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg w-full">
+            <p className="text-base md:text-lg leading-relaxed mb-6">
+              <strong className="font-bold">Durante o dia</strong>, materiais
+              urbanos, como asfalto e concreto, absorvem calor da radiação
+              solar,{" "}
+              <strong className="font-bold">elevando a temperatura</strong>.{" "}
+              <br />
+              <br />
+              <strong className="font-bold">À noite</strong>, esses materiais
+              liberam gradualmente o calor armazenado,{" "}
+              <strong className="font-bold">
+                mantendo as temperaturas elevadas nas áreas urbanas
+              </strong>
+              .{" "}
+            </p>
+            <div className="flex flex-wrap items-center gap-2 text-base md:text-lg">
+              {[
+                "+ Calor",
+                "+ Ventilador",
+                "Infraestrutura precária",
+                "+ apagões",
+              ].map((item, i, arr) => (
+                <span key={item} className="flex items-center gap-2">
+                  <span>{item}</span>
+                  {i < arr.length - 1 && (
+                    <span className="text-[#E50505] text-xl font-bold">→</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Static temperature map displayed after the scrollytelling section */}
       <div className="bg-white! py-110 h-screen flex items-center justify-center">
         <div className="flex flex-col justify-start items-start px-4">
           <Zoom>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mapaTemperatura.src}
-              alt="Mapa"
-              className="max-h-140 object-fit"
-            />
+            <div className="bg-white overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={mapaTemperatura.src}
+                alt="Mapa"
+                className="max-h-160 object-fit block"
+              />
+            </div>
           </Zoom>
           <p className="text-md block text-[#3A3434] font-bold mt-2.5">
             Mapa de temperatura da Maré

@@ -1,0 +1,26 @@
+Cidade,Layer ID,Nome da Camada no Geoportal,Catalog ID,Título no Catálogo de Dados,Status
+Rio de Janeiro,ic_areas-3ii8xj,Ilhas de Calor,8,Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,ic_pontos-90vwh4,Ilhas de Calor (pontos de captura),8,Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,quali_area-1ci0wo,Qualidade do Ar,8,Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,quali_pontos-b424eh,Qualidade do Ar (pontos de captura),8,Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023],Mapeado
+São Paulo,faixa-azul-trechos-spo,Faixa Azul,15,Trechos com Faixas Dedicadas a Mociclistas (Faixa Azul) [2022-2025],Mapeado
+São Paulo,sinistros-por-distrito-spo,Sinistros por Distrito,14,Sinistros de Trânsito [2022-2025],Mapeado
+São Paulo,sinistros-por-trecho-spo,Sinistros em Trechos de Vias,14,Sinistros de Trânsito [2022-2025],Mapeado
+São Paulo,densidade-hab-setor,Densidade Hab. (setor censitário),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,densidade-hab-distrito-spo,Densidade Hab. (distrito),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,densidade-pop-setor-spo,Densidade Pop. (setor censitário),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,densidade-pop-distrito-spo,Densidade Pop. (distrito),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,verticalizacao-setor,Verticalização (setor censitário),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,verticalizacao-distrito-spo,Verticalização (distrito),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,raster-dbiubd,Verticalização (grid),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,populacao-por-distrito-spo,População Feminina (distrito),2,Densidade Populacional e Verticalização [2022,2024],Mapeado
+São Paulo,geoses-spo,GeoSES,16,Índice GeoSES [2010],Mapeado
+São Paulo,gastos_ubs_distritos-c6rpx4,Gastos UBS (distrito),-,-,Sem correspondência no catálogo
+São Paulo,mortalidade_materna_fem,Mortalidade Materna (femi.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,isquemicas_coracao_masc,Doenças Isquêmicas do Coração (masc.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,isquemicas_coracao_fem,Doenças Isquêmicas do Coração (femi.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,cerebrovasculares_masc,Doenças Cerebrovasculares (masc.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,cerebrovasculares_fem,Doenças Cerebrovasculares (femi.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,diabetes_masc,Diabetes Mellitus (masc.),9,Mortalidade prematura por distrito [2019],Mapeado
+São Paulo,diabetes_fem,Diabetes Mellitus (femi.),9,Mortalidade prematura por distrito [2019],Mapeado
+Brasil,tarifa_zero,Tarifa Zero,-,-,Sem correspondência no catálogo

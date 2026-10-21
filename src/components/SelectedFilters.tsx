@@ -1,8 +1,8 @@
 "use client";
 
-import type { CatalogFilters } from '@/app/api/catalog/route';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
+import { X } from "lucide-react";
+import type { CatalogFilters } from "@/app/api/catalog/route";
+import { Button } from "@/components/ui/button";
 
 interface SelectedFiltersProps {
   filters: CatalogFilters;
@@ -10,23 +10,46 @@ interface SelectedFiltersProps {
   onClearAll: () => void;
 }
 
-export function SelectedFilters({ filters, onRemoveFilter, onClearAll }: SelectedFiltersProps) {
+export function SelectedFilters({
+  filters,
+  onRemoveFilter,
+  onClearAll,
+}: SelectedFiltersProps) {
   const getActiveFilters = () => {
-    const activeFilters: Array<{ type: keyof CatalogFilters; value: string; label: string }> = [];
-    
+    const activeFilters: Array<{
+      type: keyof CatalogFilters;
+      value: string;
+      label: string;
+    }> = [];
+
     if (filters.theme) {
-      activeFilters.push({ type: 'theme', value: filters.theme, label: filters.theme });
+      activeFilters.push({
+        type: "theme",
+        value: filters.theme,
+        label: filters.theme,
+      });
     }
-    
+
     if (filters.region) {
-      activeFilters.push({ type: 'region', value: filters.region, label: filters.region });
+      activeFilters.push({
+        type: "region",
+        value: filters.region,
+        label: filters.region,
+      });
     }
-    
+
     if (filters.accessMethod) {
-      const label = filters.accessMethod === 'Disponível para download' ? 'Sim' : 'Sala segura';
-      activeFilters.push({ type: 'accessMethod', value: filters.accessMethod, label });
+      const label =
+        filters.accessMethod === "Disponível para download"
+          ? "Sim"
+          : "Sala segura";
+      activeFilters.push({
+        type: "accessMethod",
+        value: filters.accessMethod,
+        label,
+      });
     }
-    
+
     return activeFilters;
   };
 
@@ -53,7 +76,7 @@ export function SelectedFilters({ filters, onRemoveFilter, onClearAll }: Selecte
           </button>
         </div>
       ))}
-      
+
       {activeFilters.length > 0 && (
         <Button
           variant="ghost"

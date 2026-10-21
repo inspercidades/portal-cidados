@@ -1,11 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import textBackground from "../assets/text-background.png";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import metro from "../assets/metro.png";
+import textBackground from "../assets/text-background.png";
 
 // Registrar o plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +16,31 @@ export default function Conclusion() {
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const bonusTrackSrc = "/historias/desigualdades-em-saude-sp/saude.wav";
+  const captionsSrc =
+    "/historias/desigualdades-em-saude-sp/bonus-placeholder.vtt";
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+
+    const onEnded = () => setIsPlaying(false);
+    const onPause = () => setIsPlaying(false);
+    const onPlay = () => setIsPlaying(true);
+
+    el.addEventListener("ended", onEnded);
+    el.addEventListener("pause", onPause);
+    el.addEventListener("play", onPlay);
+
+    return () => {
+      el.removeEventListener("ended", onEnded);
+      el.removeEventListener("pause", onPause);
+      el.removeEventListener("play", onPlay);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const cards = [
@@ -92,6 +117,19 @@ export default function Conclusion() {
     };
   }, []);
 
+  const toggleBonusAudio = () => {
+    const el = audioRef.current;
+    if (!el) return;
+
+    if (el.paused) {
+      void el.play().catch(() => {
+        setIsPlaying(false);
+      });
+    } else {
+      el.pause();
+    }
+  };
+
   return (
     <div
       ref={sectionRef}
@@ -102,28 +140,64 @@ export default function Conclusion() {
     >
       <div className="max-w-xl rounded-2xl px-4 md:px-8 ">
         <div className="space-y-6 text-black leading-relaxed">
+          <h2 className="text-2xl font-bold">Conclusão</h2>
+
           <p>
-            O estudo detalhado da distribuição espacial de algumas doenças e
-            problemas de saúde em São Paulo traz importantes contribuições para
-            o manejo e a prevenção das condições investigadas.{" "}
+            A história fictícia da Maria reflete a realidade de muitos
+            brasileiros: acordar cedo, enfrentar ônibus lotados, perder horas no
+            deslocamento até o trabalho, não praticar exercícios e ter pouco ou
+            nenhum tempo para o lazer. Uma{" "}
             <span className="font-semibold">
-              Com base nos dados levantados, através de novos estudos, é
-              possível:
+              rotina exaustiva e repetitiva que impacta diretamente a saúde e a
+              qualidade de vida
+            </span>{" "}
+            das pessoas.
+          </p>
+
+          <p>
+            Neste contexto, são necessárias{" "}
+            <span className="font-semibold">
+              novas abordagens no campo da saúde
             </span>
+            . Não se trata apenas de tratar problemas de saúde das pessoas que
+            vivem nas cidades, mas de expandir o olhar para as condições urbanas
+            de vida dessas populações; bem como reconhecer que o planejamento
+            urbano pode promover uma vida mais saudável para os moradores.
+          </p>
+
+          <p>
+            Nessa perspectiva, consolida-se a ideia de que{" "}
+            <span className="font-semibold">
+              a saúde humana está intrinsecamente ligada à qualidade do meio
+              urbano em que se vive
+            </span>
+            , considerando fatores como o acesso a áreas verdes, disponibilidade
+            de infraestrutura básica e a localização estratégica em relação a
+            serviços essenciais.
+          </p>
+
+          <p>
+            Este estudo explorou a distribuição regional em São Paulo e
+            identificou as áreas de risco relacionadas a{" "}
+            <span className="font-semibold">mortalidade materna</span>{" "}
+            (incluindo mortalidade fetal),{" "}
+            <span className="font-semibold">
+              mortalidade prematura cardiovascular
+            </span>{" "}
+            (subdividida em doenças cerebrovasculares e isquêmicas do coração) e{" "}
+            <span className="font-semibold">
+              mortalidade prematura por Diabetes Mellitus
+            </span>
+            . Com base nos dados levantados, através de novos estudos, é
+            possível:
           </p>
 
           <ul className="space-y-2 ml-3">
             <li className="flex items-start">
               <span className="text-lg mr-2">•</span>
               <span>
-                <span className="font-semibold">
-                  Identificar as áreas onde as ações
-                </span>{" "}
-                do sistema de
-                <span className="font-semibold">
-                  {" "}
-                  saúde devem ser priorizadas.
-                </span>
+                Identificar as áreas onde as ações do sistema de saúde devem ser
+                priorizadas.
               </span>
             </li>
             <li className="flex items-start">
@@ -136,10 +210,8 @@ export default function Conclusion() {
             <li className="flex items-start">
               <span className="text-lg mr-2">•</span>
               <span>
-                <span className="font-semibold">
-                  Mapear políticas locais que trouxeram melhorias na saúde
-                </span>{" "}
-                e qualidade de vida, mesmo em cenários adversos.
+                Mapear políticas locais que trouxeram melhorias na saúde e
+                qualidade de vida, mesmo em cenários adversos.
               </span>
             </li>
             <li className="flex items-start">
@@ -153,19 +225,18 @@ export default function Conclusion() {
 
           <p className="pb-10">
             Além de abrir novas possibilidades para estudar e entender questões
-            de saúde no contexto urbano, o estudo apresenta propostas práticas
-            para enfrentar as desigualdades no acesso aos cuidados médicos.
+            de saúde no contexto urbano, o estudo apresenta{" "}
+            <span className="font-semibold">
+              propostas práticas para enfrentar as desigualdades no acesso aos
+              cuidados médicos
+            </span>
+            .
           </p>
 
-          <p>
-            <span className="font-semibold">Propostas</span>
-          </p>
+          <h2 className="text-2xl font-bold">Propostas</h2>
 
           <div className="space-y-4 pb-16">
-            <div
-              ref={card1Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
-            >
+            <div ref={card1Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 UBS no sistema de transporte
               </h3>
@@ -182,17 +253,14 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div
-              ref={card2Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
-            >
+            <div ref={card2Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 Reeducação alimentar na infância
               </h3>
               <p className="leading-relaxed">
                 Ela desempenha um papel essencial na prevenção do diabetes
                 mellitus na vida adulta, promovendo hábitos saudáveis desde
-                cedo, controlando o consumo de açúcares e ultra processados e
+                cedo, controlando o consumo de açúcares e ultraprocessados e
                 incentivando uma alimentação equilibrada. Estudos mostram que
                 escolhas nutricionais adequadas na infância reduzem
                 significativamente o risco de resistência à insulina, obesidade
@@ -200,10 +268,7 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div
-              ref={card3Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
-            >
+            <div ref={card3Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 Criação do Observatório de Saúde Urbana
               </h3>
@@ -221,37 +286,58 @@ export default function Conclusion() {
             </div>
           </div>
 
-          <p>
-            <span className="font-semibold">Bônus</span>
-          </p>
+          <h2 className="text-2xl font-bold">Bônus</h2>
+
           <p className="mb-16">
-            Ouça uma canção inspirada na história, composta por um dos
-            colaboradores do Insper, que transforma os dados e relatos da
-            reportagem em versos e rimas.
+            Ouça a canção composta por um dos colaboradores do Insper Cidades
+            que <span className="font-bold">transformou os dados</span> e
+            achados deste estudo{" "}
+            <span className="font-bold">em versos e rimas.</span>
           </p>
+
+          <audio
+            ref={audioRef}
+            src={bonusTrackSrc}
+            preload="metadata"
+            className="sr-only"
+          >
+            <track
+              kind="captions"
+              srcLang="pt-BR"
+              label="Português"
+              src={captionsSrc}
+            />
+          </audio>
 
           <button
             type="button"
-            className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
-            onClick={() => {
-              // TODO: Add song.mp3 to src/assets/ and uncomment the import above
-              // const audio = new Audio(songAudio);
-              // audio.play().catch(err => console.log('Error playing audio:', err));
-              console.log(
-                "Audio feature not yet implemented - add song.mp3 to assets",
-              );
-            }}
+            className="flex items-center gap-2 bg-black text-white px-6 py-3  hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
+            onClick={toggleBonusAudio}
+            aria-pressed={isPlaying}
+            aria-label={isPlaying ? "Pausar áudio" : "Reproduzir áudio"}
           >
-            <svg
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-label="Play icon"
-            >
-              <title>Play icon</title>
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Play
+            {isPlaying ? (
+              <svg
+                className="w-5 h-5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <title>Pausar</title>
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            ) : (
+              <svg
+                className="w-5 h-5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <title>Reproduzir</title>
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+            {isPlaying ? "Pausar" : "Play"}
           </button>
         </div>
       </div>

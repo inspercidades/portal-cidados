@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Animação CSS para piscar lentamente
 const blinkAnimation = `
@@ -151,20 +151,20 @@ export function ContinueScrollingHint() {
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <div className="relative">
+      <div className="flex items-center gap-2">
+        <p className="text-black text-base font-normal slow-blink-animation">
+          Continue descendo
+        </p>
         <button
           type="button"
           onClick={handleDismiss}
-          className={`absolute -top-1 -right-6 w-5 h-5 flex items-center justify-center text-black text-lg font-normal hover:opacity-70 transition-opacity focus:outline-none ${
+          className={`flex h-5 w-5 shrink-0 items-center justify-center text-black text-lg font-normal leading-none hover:opacity-70 transition-opacity focus:outline-none ${
             isVisible ? "pointer-events-auto" : "pointer-events-none"
           }`}
           aria-label="Fechar"
         >
           ×
         </button>
-        <p className="text-black text-base font-normal slow-blink-animation">
-          Continue descendo
-        </p>
       </div>
     </div>
   );

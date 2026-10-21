@@ -1,5 +1,7 @@
 "use client";
 
+import { Info } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -7,8 +9,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
-import { useEffect, useState } from "react";
 
 interface FilterOptions {
   themes: string[];
@@ -70,7 +70,7 @@ export function CatalogFilters({
     onFiltersChange(newFilters);
   };
 
-  const clearFilters = () => {
+  const _clearFilters = () => {
     const clearedFilters: FiltersType = {
       theme: undefined,
       region: undefined,

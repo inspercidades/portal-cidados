@@ -3,31 +3,30 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import houseBackground from "../assets/houseBackground.png";
 import houseBackgroundMobile from "../assets/houseBackgroundMobile.png";
+import houseOne from "../assets/houseOne.png";
 import { default as panoramicImage } from "../assets/panoramicImage.png";
 import { default as panoramicImageMobile } from "../assets/panoramicImageMobile.png";
-import houseOne from "../assets/houseOne.png";
-import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Desktop: pixel position of houseOne's top-left corner within houseBackground.png
-const HOUSE_ONE_OFFSET = { x: 531, y: 164 };
-const BG_NATURAL_W = 4711;
-const BG_NATURAL_H = 1067;
+const HOUSE_ONE_OFFSET = { x: 410, y: 150 };
+const BG_NATURAL_W = 4600;
+const BG_NATURAL_H = 900;
 
-// Mobile: houseBackgroundMobile.png has different dimensions (2631x711)
-// Mobile pode ter crop diferente - ajuste fino manual: casa deve ficar na área visível (esquerda)
-const BG_NATURAL_W_MOBILE = 2631;
-const BG_NATURAL_H_MOBILE = 711;
+// Mobile: houseBackgroundMobile.png (2399x643)
+const BG_NATURAL_W_MOBILE = 2450;
+const BG_NATURAL_H_MOBILE = 590;
 const HOUSE_ONE_OFFSET_MOBILE = {
-  x: -151,   // Casa na esquerda do mobile (0% center) - ajuste se precisar
+  x: -138,
   y: 3,
 };
 
-const HOUSE_ONE_NATURAL_W = 633;
+const HOUSE_ONE_NATURAL_W = 551;
 const HOUSE_ONE_DISPLAY_W = 600; // width/height prop on <Image>
 
 function computeMorphDeltasDesktop() {
@@ -51,14 +50,21 @@ function computeMorphDeltasDesktop() {
 function computeMorphDeltasMobile() {
   const viewW = window.innerWidth;
   const viewH = window.innerHeight;
-  const bgScale = Math.max(viewW / BG_NATURAL_W_MOBILE, viewH / BG_NATURAL_H_MOBILE);
+  const bgScale = Math.max(
+    viewW / BG_NATURAL_W_MOBILE,
+    viewH / BG_NATURAL_H_MOBILE,
+  );
   const displayedBgH = BG_NATURAL_H_MOBILE * bgScale;
   const clipX = 0;
   const clipY = Math.max(0, (displayedBgH - viewH) / 2);
   const targetCenterX =
-    HOUSE_ONE_OFFSET_MOBILE.x * bgScale - clipX + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+    HOUSE_ONE_OFFSET_MOBILE.x * bgScale -
+    clipX +
+    (HOUSE_ONE_NATURAL_W * bgScale) / 2;
   const targetCenterY =
-    HOUSE_ONE_OFFSET_MOBILE.y * bgScale - clipY + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+    HOUSE_ONE_OFFSET_MOBILE.y * bgScale -
+    clipY +
+    (HOUSE_ONE_NATURAL_W * bgScale) / 2;
   // No mobile, houseOne não deve crescer - manter scale 1
   return {
     deltaX: targetCenterX - viewW / 2,
@@ -68,7 +74,9 @@ function computeMorphDeltasMobile() {
 }
 
 function computeMorphDeltas() {
-  return window.innerWidth < 768 ? computeMorphDeltasMobile() : computeMorphDeltasDesktop();
+  return window.innerWidth < 768
+    ? computeMorphDeltasMobile()
+    : computeMorphDeltasDesktop();
 }
 
 export default function HouseSection() {
@@ -87,16 +95,21 @@ export default function HouseSection() {
 
   // Morph animation + panoramic visibility triggers
   useGSAP(() => {
-    const firstCard = containerRef.current?.querySelector(`[data-card-index="0"]`);
-    const secondCard = containerRef.current?.querySelector(`[data-card-index="1"]`);
+    const firstCard = containerRef.current?.querySelector(
+      `[data-card-index="0"]`,
+    );
+    const secondCard = containerRef.current?.querySelector(
+      `[data-card-index="2"]`,
+    );
 
-    if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current) return;
+    if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current)
+      return;
 
     // --- Morph: houseOne moves from center into its position in houseBackground ---
     const morphTl = gsap.timeline({
       scrollTrigger: {
         trigger: firstCard,
-        start: "bottom center",
+        start: "bottom top",
         toggleActions: "play none none reverse",
         invalidateOnRefresh: true,
       },
@@ -132,8 +145,12 @@ export default function HouseSection() {
     if (secondCard) {
       ScrollTrigger.create({
         trigger: secondCard,
-        start: "bottom center",
+        start: "top bottom",
         onEnter: () => {
+          // Força o morphTl ao estado final antes de qualquer animação direta.
+          // Isso garante que o tween interno do houseBackground seja "completado"
+          // (não morto por overwrite), preservando a capacidade de reversão do timeline.
+          morphTl.progress(1, true);
           gsap.to(houseBackgroundRef.current, {
             opacity: 0,
             duration: 0.5,
@@ -161,13 +178,15 @@ export default function HouseSection() {
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      for (const t of ScrollTrigger.getAll()) t.kill();
     };
   }, []);
 
   // Panoramic horizontal scroll animation
   useGSAP(() => {
-    const thirdCard = containerRef.current?.querySelector(`[data-card-index="2"]`);
+    const thirdCard = containerRef.current?.querySelector(
+      `[data-card-index="3"]`,
+    );
     if (!thirdCard || !panoramicSliderRef.current) return;
 
     gsap.to(panoramicSliderRef.current, {
@@ -183,14 +202,37 @@ export default function HouseSection() {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      for (const t of ScrollTrigger.getAll()) t.kill();
     };
   }, []);
 
-  // Define the text cards content and positions (removed the third card)
+  // Define the text cards content and positions
   const cards = [
     {
       top: 0,
+      text: (
+        <>
+          O dia começa cedo: às 4h da manhã, Maria já está de pé para preparar o
+          café das crianças e tomar um banho rápido antes de sair.{" "}
+          <strong>
+            Como o tempo é curto, a primeira refeição do dia não é feita como
+            deveria.
+          </strong>{" "}
+          Os alimentos ultraprocessados, como achocolatados e biscoitos
+          recheados dão lugar às frutas, aos ovos e ao suco caseiro.
+          <br />
+          <br />
+          <strong className="block">
+            {" "}
+            Maria tem <strong>Diabetes Mellitus</strong> e precisa medir sua
+            glicose diariamente, mas sua rotina é tão corrida que nem sempre ela
+            consegue fazer isso como deveria.
+          </strong>
+        </>
+      ),
+    },
+    {
+      top: 200,
       text: (
         <>
           Às 5h30, Maria já está no ponto de ônibus. Duas conduções e quase duas
@@ -203,46 +245,23 @@ export default function HouseSection() {
       ),
     },
     {
-      top: 150,
-      text: (
-        <>
-          Durante o trajeto, Maria aproveita para tomar o café da manhã que não
-          conseguiu fazer em casa.{" "}
-          <strong>
-            Um biscoito recheado e um suco de caixinha substituem uma refeição
-            mais nutritiva
-          </strong>
-          , mas é o que o tempo e o orçamento permitem.
-        </>
-      ),
+      top: 230,
+      text: <></>,
     },
-    // {
-    //   top: 300,
-    //   text: (
-    //     <>
-    //       Ao final do dia, Maria retorna para casa às 19h.{" "}
-    //       <strong>
-    //         Entre trabalho, transporte e cuidados domésticos, sobra pouco tempo
-    //         para cuidar da própria saúde
-    //       </strong>
-    //       , perpetuando um ciclo que afeta diretamente o controle de sua
-    //       diabetes.
-    //     </>
-    //   ),
-    // },
     {
       top: 300,
       text: (
         <>
-          Às 5hs, ela pega o ônibus. São duas horas de viagem até o Jardim
-          Paulista, um bairro de classe média alta na área central da cidade.
+          Às 5hs, <strong>Maria pega o ônibus em direção ao trabalho</strong>.
+          São <strong>duas horas de viagem</strong> até o Jardim Paulista, um
+          bairro de classe média alta próximo à Avenida Paulista.
         </>
       ),
     },
   ];
 
   return (
-    <div ref={containerRef} className="h-[600vh]">
+    <div ref={containerRef} className="h-[550vh]">
       <div
         style={{ position: "sticky", top: 0 }}
         className="h-screen w-full overflow-hidden"
@@ -286,17 +305,17 @@ export default function HouseSection() {
       <div className="relative flex flex-col items-center">
         {cards.map((card, index) => (
           <div
-            key={index}
+            key={`card-${card.top}-${index}`}
             data-card-index={index}
             className="absolute bg-[#FFFFFF]/90 h-auto w-[80vw] md:w-[460px] border border-[#000000]/20 px-[30px]
     py-[25px]
     lg:px-[32px]
     lg:py-[25px]
-    rounded-xl shadow-lg
+    shadow-lg
     "
             style={{
               top: `${card.top}vh`,
-              opacity: index === 0 || index === 1 ? 0 : 1,
+              opacity: index === 1 || index === 2 ? 0 : 1,
             }}
           >
             <div className="text-[#000000]">{card.text}</div>

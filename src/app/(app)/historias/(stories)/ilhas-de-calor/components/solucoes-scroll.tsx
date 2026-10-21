@@ -1,10 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import type { StaticImageData } from "next/image";
+import Image from "next/image";
+import { useLayoutEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,7 +64,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
 
       const totalSteps = items.length;
       const stepHeight = window.innerHeight;
-      
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -104,7 +104,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
         // Cada transição ocupa 1 unidade na timeline
         // A posição é baseada no índice (cada imagem aparece em seu próprio "step")
         const startPosition = index - 0.5; // Começa no meio do step anterior para transição suave
-        
+
         // Fade out da imagem anterior
         tl.to(
           [prevImageRef, prevTextRef],
@@ -113,9 +113,9 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
             duration: 1,
             ease: "power2.inOut",
           },
-          startPosition
+          startPosition,
         );
-        
+
         // Fade in da imagem atual (simultâneo)
         tl.to(
           [currentImageRef, currentTextRef],
@@ -124,7 +124,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
             duration: 1,
             ease: "power2.inOut",
           },
-          startPosition
+          startPosition,
         );
       });
     };
@@ -134,7 +134,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
       // Verifica se todas as imagens estão carregadas
       const allImagesLoaded = imageRefs.current.every((imgRef) => {
         if (!imgRef) return false;
-        const img = imgRef.querySelector('img');
+        const img = imgRef.querySelector("img");
         return img?.complete;
       });
 
@@ -143,7 +143,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
       } else {
         // Espera as imagens carregarem
         const images = imageRefs.current
-          .map((ref) => ref?.querySelector('img'))
+          .map((ref) => ref?.querySelector("img"))
           .filter((img): img is HTMLImageElement => img !== null);
 
         let loadedCount = 0;
@@ -216,7 +216,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
     // No desktop (md: e acima), usa a posição especificada
     // Usamos valores arbitrários para resetar propriedades no desktop
     const mobileBase = "top-10 left-4";
-    
+
     switch (position) {
       case "top-left":
         return `${mobileBase} md:top-8 md:left-8 lg:top-12 lg:left-12`;
@@ -256,7 +256,8 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
       >
         {/* Container para todas as imagens */}
         {items.map((item, index) => {
-          const imageSrc = typeof item.image === "string" ? item.image : item.image.src;
+          const imageSrc =
+            typeof item.image === "string" ? item.image : item.image.src;
           const uniqueKey = `image-${imageSrc}-${item.text}`;
           return (
             <div
@@ -291,7 +292,8 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
 
         {/* Container para todos os textos */}
         {items.map((item, index) => {
-          const imageSrc = typeof item.image === "string" ? item.image : item.image.src;
+          const imageSrc =
+            typeof item.image === "string" ? item.image : item.image.src;
           const uniqueKey = `text-${imageSrc}-${item.text}`;
           return (
             <div
@@ -318,4 +320,3 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
     </section>
   );
 };
-

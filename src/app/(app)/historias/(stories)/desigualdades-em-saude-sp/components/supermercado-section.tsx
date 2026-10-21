@@ -3,19 +3,25 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
-import supermercado from "../assets/supermercado.png";
-import supermercadoTwo from "../assets/supermercadoTwo.png";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import condominioOne from "../assets/condominio1.png";
 import condominioOneMobile from "../assets/condominio1Mobile.png";
 import condominioTwo from "../assets/condominio2.png";
 import condominioTwoMobile from "../assets/condominio2Mobile.png";
-import taxaPadronizadaOne from "../assets/taxaPadronizadaOne.png";
-import taxaPadronizadaTwo from "../assets/taxaPadronizadaTwo.png";
-import pontoDeOnibus from "../assets/pontoDeOnibus.png";
-
 import hospitalReception from "../assets/hospitalReception.png";
-import Image from "next/image";
+import pontoDeOnibus from "../assets/pontoDeOnibus.png";
+import supermercado from "../assets/supermercado.png";
+import supermercadoTwo from "../assets/supermercadoTwo.png";
+import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxMap from "react-map-gl/mapbox";
+
+const CEREBROVASCULAR_PEP_LEGEND = [
+  { label: "≤ 10", color: "#2166AC" },
+  { label: "Não significativo", color: "#E6E7E8" },
+  { label: "≥ 80", color: "#B2182B" },
+];
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -28,13 +34,13 @@ export default function SupermercadoSection() {
   const [showCondominioTwoScroll, setShowCondominioTwoScroll] = useState(false);
   const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
   const [showDrawerOne, setShowDrawerOne] = useState(false);
-  const [showDrawerTwo, setShowDrawerTwo] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [legendCollapsed, setLegendCollapsed] = useState(true);
 
   // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1200);
     };
 
     checkMobile();
@@ -97,6 +103,18 @@ export default function SupermercadoSection() {
           setCurrentImage(0);
         },
       });
+
+      // condominioOne appears when "Recentemente, Alice sofreu..." exits the screen
+      ScrollTrigger.create({
+        trigger: secondCardElement,
+        start: "bottom top",
+        onEnter: () => {
+          setCurrentImage(2);
+        },
+        onLeaveBack: () => {
+          setCurrentImage(1);
+        },
+      });
     }
 
     if (thirdCardElement) {
@@ -104,12 +122,12 @@ export default function SupermercadoSection() {
         trigger: thirdCardElement,
         start: "bottom center",
         onEnter: () => {
-          // Switch to condominioOne when entering third card
+          // condominioOne already shown by secondCard exit — keep as fallback for jump-scrolls
           setCurrentImage(2);
         },
         onLeaveBack: () => {
-          // Switch back to second image when leaving third card
-          setCurrentImage(1);
+          // Still between thirdCard and secondCard exit — stay on condominioOne
+          setCurrentImage(2);
         },
       });
     }
@@ -174,52 +192,24 @@ export default function SupermercadoSection() {
       });
     }
 
-    // Drawer One - show when 3rd card exits screen, hide when 4th card touches top
+    // Drawer - open when 3rd card exits, close when the "conforme mostra este mapa" card exits
     if (thirdCardElement && fourthCardElement) {
       ScrollTrigger.create({
         trigger: thirdCardElement,
         start: "bottom top",
         endTrigger: fourthCardElement,
-        end: "top top",
+        end: "bottom top",
         onEnter: () => {
           setShowDrawerOne(true);
-          setShowDrawerTwo(false);
         },
         onLeave: () => {
           setShowDrawerOne(false);
-          setShowDrawerTwo(true);
         },
         onEnterBack: () => {
           setShowDrawerOne(true);
-          setShowDrawerTwo(false);
         },
         onLeaveBack: () => {
           setShowDrawerOne(false);
-        },
-      });
-    }
-
-    // Drawer Two - show when 4th card touches top, hide when 5th card touches top
-    if (fourthCardElement && fifthCardElement) {
-      ScrollTrigger.create({
-        trigger: fourthCardElement,
-        start: "top top",
-        endTrigger: fifthCardElement,
-        end: "top top",
-        onEnter: () => {
-          setShowDrawerTwo(true);
-          setShowDrawerOne(false);
-        },
-        onLeave: () => {
-          setShowDrawerTwo(false);
-        },
-        onEnterBack: () => {
-          setShowDrawerTwo(true);
-          setShowDrawerOne(false);
-        },
-        onLeaveBack: () => {
-          setShowDrawerTwo(false);
-          setShowDrawerOne(true);
         },
       });
     }
@@ -279,19 +269,51 @@ export default function SupermercadoSection() {
       );
 
       if (lastCardElement) {
-        // Animate background-position horizontally until the end of the image
-        // Animation starts after the last card passes (when card bottom reaches top of viewport)
-        gsap.to(pontoDeOnibusSliderRef.current, {
-          scrollTrigger: {
-            trigger: lastCardElement,
-            start: "bottom top",
-            end: "+=100vh", // Continue animation for 100vh after card passes
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-          backgroundPosition: "100% center",
-          ease: "none",
-        });
+        if (isMobile) {
+          // Mobile: pan horizontal simples (comportamento original)
+          gsap.to(pontoDeOnibusSliderRef.current, {
+            scrollTrigger: {
+              trigger: lastCardElement,
+              start: "bottom top",
+              end: "+=100vh",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+            backgroundPosition: "100% center",
+            ease: "none",
+          });
+        } else {
+          // Desktop: animação em duas fases
+          // Garante o estado inicial correto ao (re)entrar na seção
+          gsap.set(pontoDeOnibusSliderRef.current, {
+            backgroundSize: "200%",
+            backgroundPosition: "0% center",
+          });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: lastCardElement,
+              start: "bottom top",
+              end: "+=100vh",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          tl
+            // Fase 1 (0%–50% do scroll): zoom de 200% → 160%, mantendo foco na cena 1
+            .to(pontoDeOnibusSliderRef.current, {
+              backgroundSize: "160%",
+              ease: "none",
+              duration: 0.5,
+            })
+            // Fase 2 (50%–100% do scroll): pan para a cena 2 com zoom fixo em 160%
+            .to(pontoDeOnibusSliderRef.current, {
+              backgroundPosition: "100% center",
+              ease: "none",
+              duration: 0.5,
+            });
+        }
       }
     }
 
@@ -300,7 +322,7 @@ export default function SupermercadoSection() {
         trigger.kill();
       });
     };
-  }, [showPontoDeOnibusScroll]);
+  }, [showPontoDeOnibusScroll, isMobile]);
 
   // Trigger the scroll animation when pontoDeOnibus is shown
   useGSAP(() => {
@@ -317,8 +339,13 @@ export default function SupermercadoSection() {
       top: 0,
       text: (
         <>
-          Lá, Maria trabalha como caixa de supermercado. Todo dia, pontualmente
-          às 8h da manhã, ela recebe dona Alice, cliente de carteirinha da loja.
+          Lá, <strong>Maria trabalha como caixa de supermercado</strong>. Todo
+          dia, pontualmente às 8h da manhã, ela atende a Alice, que vai comprar
+          pão e frutas para seu café da manhã.{" "}
+          <strong>
+            Alice mora no mesmo prédio onde fica a loja em que Maria trabalha
+          </strong>
+          .
         </>
       ),
     },
@@ -326,10 +353,11 @@ export default function SupermercadoSection() {
       top: 150,
       text: (
         <>
-          Recentemente dona Alice sofreu um AVC (acidente vascular cerebral ou
-          derrame), mas felizmente, recebeu atendimento rápido em um hospital de
+          Recentemente, <strong>Alice sofreu um AVC</strong> (acidente vascular
+          cerebral ou derrame), mas felizmente{" "}
+          <strong>recebeu atendimento rápido</strong> em um hospital de
           excelência, localizado a poucos minutos de sua casa. Graças a isso,
-          ela se recuperou sem maiores complicações.
+          ela <strong>se recuperou sem maiores complicações</strong>.
         </>
       ),
     },
@@ -337,8 +365,7 @@ export default function SupermercadoSection() {
       top: 300,
       text: (
         <>
-          Se dona Alice morasse no Jardim Helena, a história poderia ser
-          diferente.{" "}
+          Se Alice morasse no Jardim Helena, a história poderia ser diferente.{" "}
           <strong>
             Este estudo mostra que, em bairros periféricos como o de Maria, a
             chance de um AVC ser fatal é significativamente maior devido à
@@ -351,11 +378,17 @@ export default function SupermercadoSection() {
       top: 450,
       text: (
         <>
-          Os resultados do estudo sobre mortalidade prematura por doenças
-          cerebrovasculares em mulheres ao longo de todo o período analisado
-          apontam um risco relativo significativamente elevado nos distritos do
-          extremo leste e sul da cidade, assim como em Brasilândia e
-          Cachoeirinha.
+          Para a{" "}
+          <strong>
+            mortalidade prematura por doenças cerebrovasculares em mulheres
+          </strong>
+          , o estudo aponta um{" "}
+          <strong>
+            risco relativo significativamente elevado nos distritos do extremo
+            leste e sul
+          </strong>{" "}
+          da cidade, assim como em Brasilândia e Cachoeirinha, conforme mostra
+          este mapa.
         </>
       ),
     },
@@ -363,14 +396,29 @@ export default function SupermercadoSection() {
       top: 600,
       text: (
         <>
-          Enquanto Maria passa o dia trabalhando no mercado, dona Alice
-          aproveita sua manhã para caminhar em um parque próximo de sua casa.
+          Enquanto Maria passa o dia trabalhando no mercado,{" "}
+          <strong>
+            Alice consegue ainda, antes de ir trabalhar, fazer uma caminhada em
+            um parque
+          </strong>{" "}
+          próximo de sua casa.
+          <br />
+          <br />
           Uma pesquisa realizada nas cidades australianas de Sydney, Wollongong
           e Newcastle demonstrou que{" "}
           <strong>
             indivíduos com maior exposição a áreas verdes apresentaram menores
-            prevalências de diabetes e hipertensão arterial.
+            prevalências de diabetes e hipertensão arterial
           </strong>
+          .
+          <br />
+          <br />
+          No Jardim Helena,{" "}
+          <strong>
+            Maria não tem esse privilégio, pois o bairro carece de espaços
+            verdes
+          </strong>{" "}
+          adequados, o que também impacta sua saúde.
         </>
       ),
     },
@@ -378,10 +426,8 @@ export default function SupermercadoSection() {
       top: 750,
       text: (
         <>
-          No Jardim Helena, Maria não tem esse privilégio — o bairro carece de
-          espaços verdes adequados, o que também impacta sua saúde. O dia de
-          trabalho de Maria termina e ela volta para sua casa, mais uma jornada
-          de duas horas no transporte público.
+          O dia de trabalho de Maria termina e ela volta para sua casa com{" "}
+          <strong>mais uma jornada de duas horas no transporte público</strong>.
         </>
       ),
     },
@@ -389,10 +435,14 @@ export default function SupermercadoSection() {
       top: 900,
       text: (
         <>
-          Depois de um dia intenso ela precisa buscar seus medicamentos na
-          Farmácia Popular, um recurso essencial, mas que muitas vezes, devido à
-          falta de tempo, ela não consegue. Ao chegar na Farmácia mais próxima a
-          sua casa ela já se encontra fechada.
+          Depois de um dia intenso, Maria algumas vezes ainda precisa{" "}
+          <strong>buscar os medicamentos para a diabetes</strong> na Farmácia
+          Popular. Mas muitas vezes, devido ao trânsito e à longa distância,
+          quando ela consegue chegar,{" "}
+          <strong>
+            a farmácia mais próxima de sua casa já se encontra fechada
+          </strong>
+          .
         </>
       ),
     },
@@ -400,10 +450,11 @@ export default function SupermercadoSection() {
       top: 1050,
       text: (
         <>
-          Aos sábados o dia é de descanso. Mas não para Maria. Ela tem que ir na
-          Unidade Básica de Saúde (UBS) mais próxima para realizar exames com um
-          endocrinologista. Depois de uma longa fila de espera ela consegue ser
-          atendida e volta para sua casa.
+          <strong>Aos sábados o dia é de descanso. Mas não para Maria</strong>.
+          Ela tem que ir na Unidade Básica de Saúde (UBS) mais próxima para
+          realizar <strong>exames com um endocrinologista</strong>. Depois de
+          uma <strong>longa fila de espera</strong> ela consegue ser atendida e
+          volta para sua casa.
         </>
       ),
     },
@@ -462,11 +513,16 @@ export default function SupermercadoSection() {
           />
 
           {/* Fifth image - pontoDeOnibus with horizontal scroll animation */}
+          {/* Desktop: backgroundSize "200% auto" garante que apenas uma cena */}
+          {/* (metade da imagem) aparece por vez. O pan 0%→100% transita da   */}
+          {/* cena 1 (ponto de ônibus, esquerda) para a cena 2 (farmácia,    */}
+          {/* direita) sem exibir as duas cenas simultaneamente.              */}
           <div
             ref={pontoDeOnibusSliderRef}
-            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity"
+            className="absolute inset-0 bg-center overflow-hidden transition-opacity"
             style={{
               backgroundImage: `url(${pontoDeOnibus.src})`,
+              backgroundSize: isMobile ? "cover" : "200%",
               backgroundPosition: "0% center",
               opacity: currentImage === 4 ? 1 : 0,
             }}
@@ -495,7 +551,7 @@ export default function SupermercadoSection() {
     py-[25px]
     lg:px-[32px]
     lg:py-[25px]
-    rounded-xl shadow-lg
+    shadow-lg
     ${index === 3 || index === 4 ? "z-60" : ""}
     `}
             style={{
@@ -505,12 +561,11 @@ export default function SupermercadoSection() {
             <div className="text-[#000000]">{card.text}</div>
           </div>
         ))}
-
       </div>
 
-      {/* Drawer One */}
+      {/* Drawer */}
       <div
-        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[90vw] md:w-[400px] lg:w-[480px] ${
+        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-full md:w-[630px] ${
           showDrawerOne ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -520,39 +575,60 @@ export default function SupermercadoSection() {
             a 2019: probabilidades de excedência de que o risco em 2019 fosse
             superior a 1
           </h3>
-          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
-            <div className="w-full h-full flex items-center justify-center">
-              <Image
-                src={taxaPadronizadaOne}
-                alt="Taxa padronizada 1"
-                className="w-full h-full object-contain"
-                style={{ maxHeight: "100%" }}
-              />
-            </div>
+          <div className="flex-1 min-h-0 overflow-hidden pb-2">
+            <MapboxMap
+              key={`drawer-one-${isMobile}`}
+              initialViewState={{
+                longitude: -46.657198,
+                latitude: -23.680764,
+                zoom: isMobile ? 8.4 : 9.3,
+              }}
+              mapStyle="mapbox://styles/observatorio-nacional/cmsirtq6800zj01s6ddyhd52v"
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+              style={{ width: "100%", height: "100%" }}
+              dragPan={false}
+              dragRotate={false}
+              scrollZoom={false}
+              keyboard={false}
+              doubleClickZoom={false}
+            />
           </div>
         </div>
-      </div>
-
-      {/* Drawer Two */}
-      <div
-        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[72vw] md:w-[400px] lg:w-[480px] ${
-          showDrawerTwo ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="h-full flex flex-col p-6 md:p-8 lg:p-10">
-          <h3 className="text-lg mb-3 text-[#000000] font-medium flex-shrink-0">
-            Mortalidade por doenças cerebrovasculares entre as mulheres, de 2010
-            a 2019: probabilidades de excedência de que o risco em 2019 fosse
-            superior a 1
-          </h3>
-          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
-            <div className="w-full h-full flex items-center justify-center">
-              <Image
-                src={taxaPadronizadaTwo}
-                alt="Taxa padronizada 2"
-                className="w-full h-full object-contain"
-                style={{ maxHeight: "100%" }}
-              />
+        <div className="absolute bottom-6 md:bottom-20 left-5 md:left-auto md:right-5 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm w-[220px] text-sm">
+          <button
+            type="button"
+            onClick={() => setLegendCollapsed((c) => !c)}
+            className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
+          >
+            <div className="text-left">
+              <h3 className="font-semibold text-base leading-tight">
+                Probabilidade de excedência (2019)
+              </h3>
+              <p
+                className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}
+              >
+                Probabilidade de o risco em 2019 ser superior a 1.
+              </p>
+            </div>
+            <ChevronDown
+              className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
+            />
+          </button>
+          <div
+            className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+          >
+            <div className="overflow-hidden">
+              <ul className="space-y-1 px-4 pb-3">
+                {CEREBROVASCULAR_PEP_LEGEND.map((item) => (
+                  <li key={item.label} className="flex items-center gap-2">
+                    <span
+                      className="w-5 h-5 rounded-sm shrink-0"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <span className="text-sm leading-tight">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

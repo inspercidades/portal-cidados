@@ -1,9 +1,8 @@
-declare module 'mapbox-gl-compare' {
-  
+declare module "mapbox-gl-compare" {
   interface CompareOptions {
-    orientation?: 'vertical' | 'horizontal'
-    mousemove?: boolean
-    touchmove?: boolean
+    orientation?: "vertical" | "horizontal";
+    mousemove?: boolean;
+    touchmove?: boolean;
   }
 
   class Compare {
@@ -11,22 +10,22 @@ declare module 'mapbox-gl-compare' {
       before: mapboxgl.Map,
       after: mapboxgl.Map,
       container: HTMLElement,
-      options?: CompareOptions
-    )
-    
-    setSlider(slider: number): void
-    on(event: string, callback: () => void): void
-    off(event: string, callback: () => void): void
-    remove(): void
+      options?: CompareOptions,
+    );
+
+    setSlider(slider: number): void;
+    on(event: string, callback: () => void): void;
+    off(event: string, callback: () => void): void;
+    remove(): void;
   }
 
-  export = Compare
+  export = Compare;
 }
 
 declare global {
   namespace mapboxgl {
     interface Map {
-      Compare: typeof import('mapbox-gl-compare')
+      Compare: typeof import("mapbox-gl-compare");
     }
   }
 }

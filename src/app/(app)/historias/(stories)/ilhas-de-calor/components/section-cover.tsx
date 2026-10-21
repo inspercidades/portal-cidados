@@ -2,7 +2,7 @@
 
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface SectionCoverProps {
   title: string | React.ReactNode;

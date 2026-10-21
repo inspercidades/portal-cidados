@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DEFAULT_BAR_COLOR = "#C00026";
 
@@ -8,7 +8,9 @@ interface ScrollProgressBarProps {
   barColor?: string;
 }
 
-export function ScrollProgressBar({ barColor = DEFAULT_BAR_COLOR }: ScrollProgressBarProps) {
+export function ScrollProgressBar({
+  barColor = DEFAULT_BAR_COLOR,
+}: ScrollProgressBarProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -74,7 +76,7 @@ export function ScrollProgressBar({ barColor = DEFAULT_BAR_COLOR }: ScrollProgre
         top: 0,
         left: 0,
         right: 0,
-        height: "3px",
+        height: "6px",
         backgroundColor: "transparent",
         zIndex: 9999,
         transform: isVisible ? "translateY(0)" : "translateY(-100%)",

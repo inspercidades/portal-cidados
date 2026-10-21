@@ -50,62 +50,53 @@ export default function Text() {
           </p>
 
           <p>
+            Apesar dos avanços no tratamento e no acesso a medicamentos, a
+            gestão da diabetes ainda enfrenta{" "}
             <span className="font-semibold">
-              Apesar dos avanços no tratamento
-            </span>{" "}
-            e no acesso a medicamentos, a gestão da diabetes ainda enfrenta{" "}
-            <span className="font-semibold">desafios consideráveis</span>,
-            profundamente influenciados pelas desigualdades sociais.
-          </p>
-
-          <p>
-            <span className="font-semibold">
-              A qualidade da saúde da população é um reflexo direto das
-              desigualdades sociais.{" "}
+              desafios consideráveis, profundamente influenciados pelas
+              desigualdades sociais.
             </span>
-            Essa realidade é influenciada por determinantes sociais variados,
-            como condições de habitação (e sua localização geográfica),
-            educação, renda, pobreza, riqueza, mobilidade e saneamento básico.
           </p>
 
           <p>
-            Apesar do panorama desafiador, o setor de saúde brasileiro tem
-            alcançado avanços significativos através do Sistema Único de Saúde
-            (SUS), que tem desempenhado um papel decisivo na melhoria de
-            indicadores, como a redução expressiva da mortalidade infantil e o
-            aumento da expectativa de vida nas últimas décadas. Esses resultados
-            evidenciam a importância do SUS como o principal meio de acesso
-            cuidados integrais de saúde para grande parte da população.
-          </p>
-
-          <p>
-            No entanto, os desafios de saúde atingem a população de forma
-            desigual. Pesquisa Portanto, a intervenção direcionada às populações
-            em áreas de maior risco tem o potencial de reduzir o risco de morte
+            A qualidade da{" "}
+            <span className="font-semibold">
+              saúde da população é influenciada por determinantes sociais e
+              econômicos
+            </span>{" "}
+            variados, como condições de habitação (e sua localização
+            geográfica), educação, renda, pobreza, riqueza, mobilidade e
+            saneamento básico. Assim, os desafios de saúde atingem a população
+            de forma desigual e{" "}
+            <span className="font-semibold">
+              intervenções direcionadas a regiões de maior risco têm o potencial
+              de reduzir o risco de morte
+            </span>{" "}
             na maioria das faixas etárias.
           </p>
 
           <p>
-            Mas o que são áreas de risco mais elevado? Como podemos
-            identificá-las? O estudo que mostramos a seguir responde a essas
-            questões com uma análise detalhada de dados espaço-temporais dos
-            últimos 10 anos (2013-2023) abrangendo os 96 Distritos
-            Administrativos do Município de São Paulo (MSP).
+            <span className="font-semibold">
+              Mas o que são áreas de risco mais elevado?
+            </span>{" "}
+            Como podemos identificá-las? O estudo que mostramos a seguir
+            responde a essas questões com uma análise detalhada de dados
+            espaço-temporais dos últimos 10 anos (2013-2023) abrangendo os 96
+            distritos do município de São Paulo.
           </p>
 
           <p>
-            Para contribuir com a melhoria da saúde no município de São Paulo,{" "}
+            Para contribuir com a melhoria da saúde em São Paulo, este estudo
+            busca{" "}
             <span className="font-semibold">
-              este estudo busca identificar áreas de maior risco epidemiológico
-              para as principais causas de mortalidade materna, doenças cardio e
-              cerebrovasculares e Diabetes Mellitus
+              identificar áreas de maior risco epidemiológico para as principais
+              causas de mortalidade materna, doenças cardio e cerebrovasculares
+              e Diabetes Mellitus
             </span>
-            , além de investigar as regiões prioritárias para intervenções.{" "}
-            <span className="font-semibold">
-              Essas análises visam subsidiar políticas direcionadas para a saúde
-              pública no Brasil, devida à sua alta prevalência, mortalidade e
-              impactos na qualidade de vida e saúde.
-            </span>
+            , além de investigar as regiões prioritárias para intervenções.
+            Essas análises visam subsidiar políticas direcionadas para a saúde
+            pública no Brasil, devido à sua alta prevalência, mortalidade e
+            impactos na qualidade de vida e saúde.
           </p>
         </div>
       </div>
