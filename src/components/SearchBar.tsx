@@ -1,19 +1,21 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useCallback, useState } from "react";
+import { Input } from "@/components/ui/input";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
   placeholder?: string;
+  initialValue?: string;
 }
 
 export function SearchBar({
   onSearch,
   placeholder = "Pesquisar por palavra-chave",
+  initialValue = "",
 }: SearchBarProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(initialValue);
 
   const handleSearch = useCallback(
     (value: string) => {

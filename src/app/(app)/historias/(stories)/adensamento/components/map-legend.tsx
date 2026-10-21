@@ -55,7 +55,7 @@ const LEGENDS: Record<Exclude<LegendType, null>, LegendGroup> = {
   eetu: {
     title: "Zonas de Estruturação Urbana",
     items: [
-      { label: "EETU", color: "#61D6B2" },
+      { label: "Eixos", color: "#1d7a5d" },
       { label: "Metrô / Trem", color: "#E53935" },
       { label: "Corredor de Ônibus", color: "#FFB300" },
     ],
@@ -63,7 +63,7 @@ const LEGENDS: Record<Exclude<LegendType, null>, LegendGroup> = {
   informal: {
     title: "População em áreas sem registro do IPTU",
     items: [
-      { label: "Favelas e Loteamentos irregulares", color: "#61D6B2" },
+      { label: "Favelas e Loteamentos irregulares", color: "#9148b0" },
       { label: "Pessoas fora do cadastro IPTU", color: "#E53935" },
       // { label: "Pessoas dentro do cadastro IPTU", color: "#9E9E9E" },
     ],

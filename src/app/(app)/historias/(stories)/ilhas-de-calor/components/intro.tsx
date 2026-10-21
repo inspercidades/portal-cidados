@@ -115,34 +115,43 @@ export default function Intro() {
               No coração da Zona Norte do Rio de Janeiro, entre o vai e vem das
               vias expressas e o calor do asfalto, um estudo revelou um problema
               invisível a olho nu, mas sentido todos os dias pelos moradores da
-              Maré. O projeto Respira Maré, conduzido pela Redes da Maré, mapeou
-              a qualidade do ar e o impacto das ilhas de calor em uma das
-              maiores favelas do Brasil. O objetivo? Trazer à tona dados que até
-              então não apareciam nos mapas ambientais da cidade e pressionar
-              por políticas públicas que considerem a realidade dos territórios
-              periféricos.
+              Maré. O projeto Respira Maré, conduzido pela Redes da Maré,
+              mapeou&nbsp;
+              <strong>
+                a qualidade do ar e o impacto das ilhas de calor em uma das
+                maiores favelas do Brasil
+              </strong>
+              . O objetivo? Trazer à tona dados que até então não apareciam nos
+              mapas ambientais da cidade e pressionar por políticas públicas que
+              considerem a realidade dos territórios periféricos.
             </p>
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
-              As medições feitas ao longo de sete meses mostram que a
-              temperatura na Maré pode ser até 2°C mais quente do que nas áreas
-              vizinhas, um fenômeno chamado de ilha de calor urbana. O calor não
-              se dissipa nem à noite: em algumas regiões, a temperatura cai
-              menos de 2°C depois do pôr do sol, tornando o sono difícil e
-              aumentando o uso de ventiladores e ar-condicionado.{" "}
+              As medições feitas ao longo de sete meses mostram que&nbsp;
+              <strong>
+                a temperatura na Maré pode ser até 2°C mais quente
+              </strong>{" "}
+              do que nas áreas vizinhas, um fenômeno chamado de ilha de calor
+              urbana. O calor não se dissipa nem à noite: em algumas regiões, a
+              temperatura cai menos de 2°C depois do pôr do sol, tornando o sono
+              difícil e aumentando o uso de ventiladores e ar-condicionado.{" "}
             </p>
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
               Além do calor, os moradores da Maré enfrentam outro desafio
               invisível: a poluição do ar. O estudo monitorou cinco poluentes
               atmosféricos e revelou índices alarmantes. Os dados não deixam
-              dúvidas: o ar que se respira na Maré afeta diretamente a saúde dos
-              moradores. Doenças respiratórias como asma e bronquite são
-              agravadas pela poluição.
+              dúvidas:{" "}
+              <strong>
+                o ar que se respira na Maré afeta diretamente a saúde dos
+                moradores
+              </strong>
+              . Doenças respiratórias como asma e bronquite são agravadas pela
+              poluição.
             </p>
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
-              Para uma compreensão mais profunda dessa realidade, no próximo
-              capítulo trazemos um breve resumo da história da Maré, desde as
-              primeiras ocupações até sua consolidação como um dos maiores
-              conjunto de favelas do Brasil.{" "}
+              Para uma compreensão mais profunda dessa realidade, a seguir
+              trazemos um breve resumo da história da Maré, desde as primeiras
+              ocupações até sua consolidação como um dos maiores conjuntos de
+              favelas do Brasil.{" "}
             </p>
           </div>
         </div>

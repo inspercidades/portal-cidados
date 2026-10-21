@@ -1,38 +1,44 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
+import avbrasilSvg from "../assets/av-brasil.svg";
+import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
+import fiocruzSvg from "../assets/fiocruz.svg";
+import galeaoSvg from "../assets/galeao.svg";
 import imageCard3 from "../assets/image-card-3.png";
 import imageCard4 from "../assets/image-card-4.png";
 import imageCard5 from "../assets/image-card-5.png";
 import imageCard6 from "../assets/image-card-6.png";
 import imageCard7 from "../assets/image-card-7.png";
-import ufrjSvg from "../assets/ufrj.svg";
-import mareSvg from "../assets/mare.svg";
 import lvSvg from "../assets/lv.svg";
-import galeaoSvg from "../assets/galeao.svg";
-import fiocruzSvg from "../assets/fiocruz.svg";
-import avbrasilSvg from "../assets/av-brasil.svg";
 import lvMobileSvg from "../assets/lv-mobile.svg";
-import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
-import Image from "next/image";
-import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
+import mareSvg from "../assets/mare.svg";
+import ufrjSvg from "../assets/ufrj.svg";
+import vilaDoJoaoSvg from "../assets/vila-do-joao.svg";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // ⚠️  Replace with your Mapbox Studio style URL for the Maré map
-const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwdsa26f";
+const MAPBOX_STYLE =
+  "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwdsa26f";
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 // Map positions
 const ORIGINAL_DESKTOP = { lng: -43.240951, lat: -22.856215, zoom: 12.84 };
-const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.80 };
+const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.8 };
 const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
-const MORRO_TIMBAU_MOBILE = { lng: -43.241000, lat: -22.862645, zoom: 15.20 };
-const VILA_PINHEIROS_DESKTOP = { lng: -43.238435, lat: -22.869024, zoom: 14.52 };
-const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.868024, zoom: 14.40 };
+const MORRO_TIMBAU_MOBILE = { lng: -43.241, lat: -22.862645, zoom: 15.2 };
+const VILA_PINHEIROS_DESKTOP = {
+  lng: -43.238435,
+  lat: -22.869024,
+  zoom: 14.52,
+};
+const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.868024, zoom: 14.4 };
 
 type LayerConfig = { id: string; prop: string; value: number };
 
@@ -61,17 +67,17 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: ufrjSvg.src,
     longitude: -43.2354694,
     latitude: -22.8483019,
-    width: 80,
-    height: 38,
+    width: 88,
+    height: 40,
     dotX: 5,
     dotY: 19,
   },
   {
     id: "mare",
     src: mareSvg.src,
-    longitude: -43.2650903,
+    longitude: -43.2698903,
     latitude: -22.8535453,
-    width: 240,
+    width: 300,
     height: 0,
     dotX: 0,
     dotY: 0,
@@ -81,8 +87,8 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: lvSvg.src,
     longitude: -43.2326642,
     latitude: -22.8697329,
-    width: 288,
-    height: 38,
+    width: 290,
+    height: 40,
     dotX: 9,
     dotY: 19,
   },
@@ -91,7 +97,7 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: galeaoSvg.src,
     longitude: -43.2396864,
     latitude: -22.8279646,
-    width: 200,
+    width: 230,
     height: 0,
     dotX: 50,
     dotY: 0,
@@ -99,20 +105,20 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
   {
     id: "fiocruz",
     src: fiocruzSvg.src,
-    longitude: -43.2464299,
+    longitude: -43.2554299,
     latitude: -22.8762657,
-    width: 161,
-    height: 100,
-    dotX: 81,
-    dotY: 9,
+    width: 108,
+    height: 0,
+    dotX: 0,
+    dotY: 0,
   },
   {
     id: "avbrasil",
     src: avbrasilSvg.src,
     longitude: -43.257527,
     latitude: -22.8370439,
-    width: 230,
-    height: 38,
+    width: 250,
+    height: 45,
     dotX: 96,
     dotY: 19,
   },
@@ -135,7 +141,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: mareSvg.src,
     longitude: -43.2630903,
     latitude: -22.8535453,
-    width: 190,
+    width: 200,
     height: 0,
     dotX: -30,
     dotY: 0,
@@ -143,10 +149,10 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
   {
     id: "lv",
     src: lvMobileSvg.src,
-    longitude: -43.2326642,
-    latitude: -22.8697329,
-    width: 138,
-    height: 38,
+    longitude: -43.2328642,
+    latitude: -22.8677329,
+    width: 160,
+    height: 50,
     dotX: 44,
     dotY: -30,
   },
@@ -155,7 +161,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: galeaoSvg.src,
     longitude: -43.2396864,
     latitude: -22.8259646,
-    width: 240,
+    width: 230,
     height: 0,
     dotX: 100,
     dotY: -20,
@@ -165,8 +171,8 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: fiocruzSvg.src,
     longitude: -43.2444299,
     latitude: -22.8762657,
-    width: 121,
-    height: 100,
+    width: 130,
+    height: 110,
     dotX: 60,
     dotY: 9,
   },
@@ -200,17 +206,21 @@ interface ScrollCardProps {
   minHeight?: string;
 }
 
-function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps) {
+function ScrollCard({
+  children,
+  cardRef,
+  minHeight = "200vh",
+}: ScrollCardProps) {
   return (
     <div
       ref={cardRef}
       className={
         children ? "flex items-center justify-center p-6 md:p-8 lg:p-10" : ""
       }
-      style={{ minHeight }}
+      style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       {children ? (
-        <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full">
+        <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg w-full">
           {children}
         </div>
       ) : null}
@@ -225,6 +235,7 @@ export function IntroMare() {
   const [titleOpacity, setTitleOpacity] = useState(1);
   const [showIlhasTitle, setShowIlhasTitle] = useState(false);
   const [showMap1Icons, setShowMap1Icons] = useState(false);
+  const [showVilaJoaoIcon, setShowVilaJoaoIcon] = useState(false);
 
   const [isMobileView, setIsMobileView] = useState(false);
 
@@ -260,7 +271,7 @@ export function IntroMare() {
 
     const getMap = () => {
       const map = mapRef.current?.getMap?.();
-      if (map && map.isStyleLoaded()) return map;
+      if (map?.isStyleLoaded()) return map;
       return null;
     };
 
@@ -399,7 +410,7 @@ export function IntroMare() {
         }),
       );
 
-      // Card 6: Fly to Vila dos Pinheiros + show its layers
+      // Card 6: Fly to Vila dos Pinheiros + show its layers + Vila do João icon
       triggers.push(
         ScrollTrigger.create({
           trigger: card6Ref.current,
@@ -408,15 +419,17 @@ export function IntroMare() {
           onEnter: () => {
             flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
             setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
+            setShowVilaJoaoIcon(true);
           },
           onLeaveBack: () => {
             flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
             setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
+            setShowVilaJoaoIcon(false);
           },
         }),
       );
 
-      // Card 9: Hide vila-dos-pinheiros layers and fly back
+      // Card 9: Hide vila-dos-pinheiros layers, Vila do João icon, and fly back
       triggers.push(
         ScrollTrigger.create({
           trigger: card9Ref.current,
@@ -425,10 +438,12 @@ export function IntroMare() {
           onEnter: () => {
             setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
             flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+            setShowVilaJoaoIcon(false);
           },
           onLeaveBack: () => {
             setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
             flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
+            setShowVilaJoaoIcon(true);
           },
         }),
       );
@@ -506,14 +521,11 @@ export function IntroMare() {
     };
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener(
-      "orientationchange",
-      () => {
-        setTimeout(() => {
-          createTriggers();
-        }, 300);
-      },
-    );
+    window.addEventListener("orientationchange", () => {
+      setTimeout(() => {
+        createTriggers();
+      }, 300);
+    });
 
     return () => {
       clearTimeout(timeoutId);
@@ -598,6 +610,26 @@ export function IntroMare() {
                 />
               </Marker>
             ))}
+            <Marker
+              longitude={-43.2402}
+              latitude={-22.8729}
+              anchor="top-left"
+              style={{ pointerEvents: "none" }}
+            >
+              <img
+                src={vilaDoJoaoSvg.src}
+                width={230}
+                height={35}
+                alt=""
+                style={{
+                  display: "block",
+                  marginLeft: -5,
+                  marginTop: -20,
+                  opacity: showVilaJoaoIcon ? 1 : 0,
+                  transition: "opacity 300ms ease-in-out",
+                }}
+              />
+            </Marker>
           </MapboxMap>
         </div>
 
@@ -632,7 +664,7 @@ export function IntroMare() {
         <div>
           <p className="text-base md:text-lg leading-relaxed">
             A Maré é{" "}
-            <strong>um dos maiores conjunto de favelas do Brasil</strong>, e sua
+            <strong>um dos maiores conjuntos de favelas do Brasil</strong>, e sua
             formação reflete um longo processo de ocupação urbana ligado à
             migração, remoções e políticas habitacionais do Estado.
           </p>
@@ -640,7 +672,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 1: Invisible — triggers map1 layers */}
-      <ScrollCard cardRef={card1Ref} minHeight="10vh"/>
+      <ScrollCard cardRef={card1Ref} minHeight="10vh" />
 
       {/* Card 2: Text with map1 layers visible */}
       <ScrollCard cardRef={card2Ref}>
@@ -667,7 +699,7 @@ export function IntroMare() {
             Os Primeiros Anos (1940-1960)
           </h2>
           <p className="text-base md:text-lg leading-relaxed">
-            A primeira favela da região foi a <strong>Morro do Timbau</strong>,
+            A primeira favela da região foi o <strong>Morro do Timbau</strong>,
             que surgiu nos anos 1940. Nos anos seguintes, outras ocupações
             espontâneas surgiram, muitas delas sobre terrenos alagadiços,
             impulsionadas pelo crescimento da cidade e a necessidade de moradia
@@ -682,7 +714,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 8: Invisible — flies to Morro do Timbau */}
-      <ScrollCard cardRef={card8Ref} minHeight="100vh"/>
+      <ScrollCard cardRef={card8Ref} minHeight="100vh" />
 
       {/* Card 4: Flies back to original */}
       <ScrollCard cardRef={card4Ref}>
@@ -724,10 +756,10 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 6: Invisible — flies to Vila dos Pinheiros */}
-      <ScrollCard cardRef={card6Ref} minHeight="80vh"/>
+      <ScrollCard cardRef={card6Ref} minHeight="80vh" />
 
       {/* Card 9: Invisible — hides Vila dos Pinheiros layers, flies back */}
-      <ScrollCard cardRef={card9Ref} minHeight="100vh"/>
+      <ScrollCard cardRef={card9Ref} minHeight="100vh" />
 
       {/* Card 10: Consolidação e Expansão */}
       <ScrollCard cardRef={card10Ref}>

@@ -1,44 +1,69 @@
-﻿# Portal CiDados
+# Portal Cidados
 
-Plataforma de divulgação científica que transforma pesquisas acadêmicas em narrativas visuais acessíveis ao público, com foco em dados urbanos da cidade de São Paulo.
+Plataforma de divulgação científica do **Centro de Estudos das Cidades –
+Laboratório Arq.Futuro do Insper**. Apresenta estudos urbanos por meio de:
 
-## Funcionalidades
+- **Histórias** — reportagens interativas de *scrollytelling* (mapas e gráficos
+  que reagem à rolagem).
+- **Geoportal** — mapa interativo (Mapbox GL JS) com camadas por cidade,
+  comparação e estado compartilhável via URL.
+- **Catálogo de Dados** — índice pesquisável dos datasets publicados.
 
-- **Histórias de Dados** — narrativas visuais interativas sobre temas como ilhas de calor, adensamento habitacional e desigualdades em saúde
-- **Geoportal** — mapa interativo com camadas geoespaciais por município, com comparação de layers e legendas dinâmicas (Mapbox GL)
-- **Catálogo de Dados** — listagem e busca de datasets com filtros e ordenação
-- **Sobre** — apresentação do projeto e seção de colaboradores
+Construído com **Next.js 15 (App Router)**, **React 19**, **TypeScript**,
+**Tailwind CSS v4**, **Shadcn/UI** e **Mapbox GL JS**.
 
-## Stack
+## Começando
 
-- [Next.js 15](https://nextjs.org) (App Router) + React 19
-- TypeScript + Tailwind CSS v4
-- Radix UI + shadcn/ui
-- Mapbox GL / react-map-gl
-- GSAP + Three.js (animações nas histórias)
-- Biome (lint/format)
+```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Configurar variáveis de ambiente em .env.local
+#    (mínimo: NEXT_PUBLIC_MAPBOX_TOKEN para os mapas)
+
+# 3. Rodar em desenvolvimento
+npm run dev
+```
+
+Acesse [http://localhost:3000](http://localhost:3000).
+
+## Scripts
+
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento (Turbopack) |
+| `npm run build` | Build de produção (`output: standalone`) |
+| `npm run start` | Sobe o build de produção |
+| `npm run lint` | Lint/format check (Biome) |
+| `npm run format` | Formata o código (Biome) |
+
+## Documentação
+
+- **[Manual do Desenvolvedor](./docs/manual-do-desenvolvedor/README.md)** —
+  onboarding completo: arquitetura, histórias (scrollytelling), geoportal,
+  catálogo, boas práticas e deploy. **Comece por aqui.**
+- **[Índice geral da documentação](./docs/INDEX.md)**
+- **[Figma — guia de estilo e protótipos](https://www.figma.com/design/OtdMzKBFGyp11J83d1CEZe/Insper?node-id=622-2&p=f&t=jMWSa84eSwBGp2ii-0)**
 
 ## Variáveis de ambiente
 
-| Variável | Descrição |
-|---|---|
-| `NEXT_PUBLIC_MAPBOX_TOKEN` | Token de acesso à API do Mapbox |
+Defina em `.env.local` (ignorado pelo Git):
 
-## Desenvolvimento
-
-```bash
-npm install
-npm run dev       # http://localhost:3000
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1...          # necessário para os mapas
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXX   # opcional (GA4)
+NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx            # opcional (Microsoft Clarity)
 ```
 
-## Build e lint
+Detalhes em
+[docs/manual-do-desenvolvedor/02-ambiente-de-desenvolvimento.md](./docs/manual-do-desenvolvedor/02-ambiente-de-desenvolvimento.md).
 
-```bash
-npm run build     # build de produção (Turbopack)
-npm run lint      # lint com Biome
-npm run format    # formata com Biome
-```
+## Deploy
 
-## Deploy (Docker / Azure)
+O projeto gera saída `standalone` e inclui um [`Dockerfile`](./Dockerfile)
+multi-stage (`node:20-alpine`). Ver
+[docs/manual-do-desenvolvedor/10-deploy-e-operacao.md](./docs/manual-do-desenvolvedor/10-deploy-e-operacao.md).
 
-A imagem é construída via `Dockerfile` multi-stage e publicada no Azure Container Registry pelo pipeline `azure-pipelines.yml`. O token do Mapbox é injetado em build-time via `--build-arg NEXT_PUBLIC_MAPBOX_TOKEN`.
+---
+
+**Portal Cidados** — Centro de Estudos das Cidades / Laboratório Arq.Futuro do Insper.

@@ -1,18 +1,19 @@
 "use client";
+
 /* eslint-disable @next/next/no-img-element */
 
-import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import Image from "next/image";
 import chart1 from "../assets/chart1.png";
 import chart2 from "../assets/chart2.png";
 import chart3 from "../assets/chart3.png";
 import couple from "../assets/couple.png";
 import icon1 from "../assets/icon1.png";
 import icon4 from "../assets/icon4.png";
-import Image from "next/image";
 
 // Registrar o plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);

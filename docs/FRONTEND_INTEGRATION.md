@@ -14,8 +14,8 @@ CatalogPage (Client Component)
 ├── CatalogFilters (Client Component)
 ├── SelectedFilters (Client Component)
 ├── SortDropdown (Client Component)
-├── DataCard (Server Component)
-└── CardSkeleton (Server Component)
+├── DataCard (Client Component — tem estado de modal)
+└── CardSkeleton (apresentacional)
 ```
 
 ### Responsabilidades dos Componentes
@@ -27,8 +27,8 @@ CatalogPage (Client Component)
 | `CatalogFilters` | Client | Interface de filtros |
 | `SelectedFilters` | Client | Exibição de filtros ativos |
 | `SortDropdown` | Client | Controle de ordenação |
-| `DataCard` | Server | Exibição de dados |
-| `CardSkeleton` | Server | Loading states |
+| `DataCard` | Client | Exibição de dados + modal de detalhes (deep-link `?item=`) |
+| `CardSkeleton` | Apresentacional | Loading states |
 
 ## Fluxo de Dados
 

@@ -1,12 +1,24 @@
 "use client";
 
-import { useState, useLayoutEffect, type ReactNode } from "react";
 import Image from "next/image";
+import {
+  createContext,
+  type ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { StoryLogos } from "../../../components/story-logos";
 import capa from "../images/capa.png";
 import capaMobile from "../images/capa_mobile.png";
 
 const MAX_LOADING_MS = 15_000;
+
+/**
+ * Consumed by AdensamentoStory to signal that all Mapbox tile layers have been
+ * pre-fetched and the map is ready for scrollytelling.
+ */
+export const MapReadyContext = createContext<() => void>(() => {});
 
 interface PreloadWrapperProps {
   children: ReactNode;
@@ -20,7 +32,20 @@ export function PreloadWrapper({
   const [isReady, setIsReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // External promise: resolves when the map signals it's done pre-loading tiles.
+  // Both refs are initialised synchronously before first render:
+  //   1. resolveRef starts as a no-op placeholder.
+  //   2. The Promise constructor immediately overwrites it with the real resolver.
+  const resolveMapReadyRef = useRef<() => void>(() => {});
+  const mapReadyPromiseRef = useRef<Promise<void>>(
+    new Promise<void>((resolve) => {
+      resolveMapReadyRef.current = resolve;
+    }),
+  );
+
   useLayoutEffect(() => {
+    const mapReadyPromise = mapReadyPromiseRef.current;
+
     document.body.style.overflow = "hidden";
     let mounted = true;
 
@@ -58,9 +83,12 @@ export function PreloadWrapper({
     };
 
     Promise.race([
+      // Wait for images, window load, AND Mapbox tiles — whichever finishes
+      // first wins against the hard timeout so slow connections aren't blocked.
       Promise.all([
         ...imageSources.map(preloadImage),
         waitForWindowLoad(),
+        mapReadyPromise,
       ]),
       timeout(MAX_LOADING_MS),
     ]).then(finishLoading);
@@ -69,10 +97,12 @@ export function PreloadWrapper({
       mounted = false;
       document.body.style.overflow = "";
     };
+    // mapReadyPromise is stable (stored in a ref) — no need in deps array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageSources]);
 
   return (
-    <>
+    <MapReadyContext.Provider value={resolveMapReadyRef.current}>
       <div className={isReady ? undefined : "h-screen overflow-hidden"}>
         {children}
       </div>
@@ -131,7 +161,6 @@ export function PreloadWrapper({
           </div>
         </div>
       )}
-    </>
+    </MapReadyContext.Provider>
   );
 }
-

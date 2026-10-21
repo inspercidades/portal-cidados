@@ -1,8 +1,8 @@
 "use client";
 
-import coverImage from "../assets/cover.png";
-import { StoryLogos } from "../../../components/story-logos";
 import { Share2 } from "lucide-react";
+import { StoryLogos } from "../../../components/story-logos";
+import coverImage from "../assets/cover.png";
 
 export default function Loading() {
   const handleShare = async () => {
@@ -63,8 +63,10 @@ export default function Loading() {
       <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-10"></div>
 
       {/* Logos at the top */}
-      <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-        <StoryLogos inverted hoverable={false} />
+      <div className="absolute top-16 left-0 right-0 z-30 flex flex-col items-center px-6 md:px-12 lg:px-24">
+        <div className="mb-6">
+          <StoryLogos inverted hoverable={false} />
+        </div>
       </div>
 
       {/* Loading indicator - animated dots centered in the middle of screen */}

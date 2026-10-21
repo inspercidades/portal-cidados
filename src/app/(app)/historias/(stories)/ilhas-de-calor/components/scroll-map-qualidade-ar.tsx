@@ -1,23 +1,24 @@
 "use client";
+
 /* eslint-disable @next/next/no-img-element */
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
-  useEffect,
-  useCallback,
 } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaDeUmidade from "../assets/mapa-de-umidade.png";
+import type { CSSProperties } from "react";
 import mapaDeCO2 from "../assets/mapa-de-co2.png";
 import mapaDeHCHO from "../assets/mapa-de-hcho.png";
 import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
-import type { CSSProperties } from "react";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -157,7 +158,7 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: () => "+=" + window.innerHeight * totalSteps,
+          end: () => `+=${window.innerHeight * totalSteps}`,
           scrub: true,
           pin: sticky,
           anticipatePin: 1,
@@ -303,11 +304,7 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
           {currentMapSrc && (
             <Zoom>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={currentMapSrc.src}
-                alt="Mapa de Qualidade do Ar"
-                className="rounded-xl"
-              />
+              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" />
             </Zoom>
           )}
           <p className="text-md font-bold mt-2.5">
@@ -320,51 +317,49 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
             <button
               type="button"
               onClick={() => setSelectedMap("PM10")}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM10" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM10" ? "opacity-50" : ""}`}
             >
               PM 10
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("PM25")}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM25" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM25" ? "opacity-50" : ""}`}
             >
               PM 2,5
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("CO2")}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "CO2" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "CO2" ? "opacity-50" : ""}`}
             >
               CO 2
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("HCHO")}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "HCHO" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "HCHO" ? "opacity-50" : ""}`}
             >
               HCHO
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("UMIDADE")}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "UMIDADE" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "UMIDADE" ? "opacity-50" : ""}`}
             >
               UMIDADE
             </button>
           </div>
           <div>
             <p className="text-md text-[#3A3434] my-5">
-              São partículas 5 a 7 vezes mais finas do que um fio de cabelo e
-              podem ser inaladas e chegar até as vias aéreas mais profundas dos
-              pulmões, mas a maioria delas tende a se depositar nas vias aéreas
-              superiores, como traquéia e brônquios.
+              As partículas acima são 5 a 7 vezes mais finas do que um fio de
+              cabelo e podem ser inaladas e chegar até as vias aéreas mais
+              profundas dos pulmões, mas a maioria delas tende a se depositar
+              nas vias aéreas superiores, como traquéia e brônquios.
             </p>
             <p className="text-md text-[#3A3434]">
               Podem causar problemas respiratórios, cardiovasculares e agravar
-              condições de saúde preexistentes. Na Maré, as regiões do Parque
-              Ecológico se destacam na concentração de PM 10 , por motivos
-              diferentes.
+              condições de saúde preexistentes.
             </p>
           </div>
         </div>

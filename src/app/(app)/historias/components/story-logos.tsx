@@ -1,25 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import insperLogo from "../assets/insper-logo.png";
+import { useState } from "react";
 import portalLogo from "../assets/portal_cidados_logo.png";
 
 interface StoryLogosProps {
   inverted?: boolean;
   hoverable?: boolean;
+  imageClassName?: string;
 }
 
 export function StoryLogos({
   inverted = false,
   hoverable = true,
+  imageClassName,
 }: StoryLogosProps) {
   const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
     null,
   );
 
   const invertClass = inverted ? "brightness-0 invert" : "";
+  const filterClass = imageClassName ?? invertClass;
+  // Centro de Estudos das Cidades logo is white — needs brightness-0 to stay
+  // visible on light backgrounds; when inverted (dark bg) it uses brightness-0 invert.
+  const insperFilterClass = imageClassName ?? (inverted ? "brightness-0 invert" : "brightness-0");
 
   const insperScale = hoverable
     ? hoveredLogo === "insper"
@@ -50,11 +55,11 @@ export function StoryLogos({
         })}
       >
         <Image
-          src={insperLogo}
-          alt="Insper Logo"
-          width={88}
-          height={33}
-          className={`h-auto w-20 sm:w-26 transition-transform duration-300 ${invertClass} ${insperScale}`}
+          src="/centro_estudos_cidades.png"
+          alt="Centro de Estudos das Cidades"
+          width={384}
+          height={128}
+          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${insperFilterClass} ${insperScale}`}
           priority
         />
       </Link>
@@ -68,10 +73,10 @@ export function StoryLogos({
       >
         <Image
           src={portalLogo}
-          alt="Portal Cidadãos Logo"
-          width={100}
-          height={33}
-          className={`h-auto w-22 sm:w-34 transition-transform duration-300 ${invertClass} ${portalScale}`}
+          alt="Portal Cidados Logo"
+          width={272}
+          height={90}
+          className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${filterClass} ${portalScale}`}
           priority
         />
       </Link>

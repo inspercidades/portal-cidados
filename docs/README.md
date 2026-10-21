@@ -1,16 +1,25 @@
 # Portal Cidados - Documentação Técnica
 
+> **Para desenvolvedores:** comece pelo **[Manual do Desenvolvedor](./manual-do-desenvolvedor/README.md)**,
+> que cobre onboarding, arquitetura, histórias (scrollytelling), geoportal,
+> catálogo, boas práticas e deploy. Este README foca no módulo de catálogo.
+
 ## Visão Geral
 
-O Portal Cidados é uma aplicação web construída com Next.js 15 que permite aos usuários explorar e filtrar dados públicos através de um catálogo interativo. A aplicação combina uma interface moderna com funcionalidades avançadas de busca e filtros.
+O Portal Cidados é uma aplicação web construída com Next.js 15 que apresenta
+estudos urbanos por meio de histórias (scrollytelling), um geoportal com mapas
+interativos (Mapbox GL JS) e um catálogo de dados pesquisável. Este documento
+detalha, em especial, o módulo de catálogo e busca.
 
 ## Estrutura da Documentação
 
 ### 📚 Documentação Disponível
 
-1. **[API Documentation](./API_DOCUMENTATION.md)** - Documentação completa da API REST
-2. **[Frontend Integration](./FRONTEND_INTEGRATION.md)** - Como o frontend se integra com a API
-3. **[README](./README.md)** - Este arquivo com visão geral
+1. **[Manual do Desenvolvedor](./manual-do-desenvolvedor/README.md)** - Manual completo (onboarding, arquitetura, histórias, geoportal, catálogo, boas práticas, deploy)
+2. **[API Documentation](./API_DOCUMENTATION.md)** - Documentação completa da API REST
+3. **[Frontend Integration](./FRONTEND_INTEGRATION.md)** - Como o frontend se integra com a API
+4. **[Índice geral](./INDEX.md)** - Índice de toda a documentação
+5. **[README](./README.md)** - Este arquivo com visão geral
 
 ## Tecnologias Utilizadas
 
@@ -27,10 +36,20 @@ O Portal Cidados é uma aplicação web construída com Next.js 15 que permite a
 - **Next.js API Routes** - Endpoints REST
 - **Node.js** - Runtime JavaScript
 
+### Mapas e Visualização
+
+- **Mapbox GL JS** / `react-map-gl` - Mapas do geoportal e das histórias
+- **GSAP + ScrollTrigger** - Scrollytelling das histórias
+- **Three.js** - Cena 3D em uma das histórias
+
+### Analytics
+
+- **Google Analytics 4** e **Microsoft Clarity** (ver [ANALYTICS.md](./ANALYTICS.md))
+
 ### Ferramentas de Desenvolvimento
 
-- **Biome** - Linter e formatter
-- **ESLint** - Análise estática de código
+- **Biome** - Linter e formatter (não há ESLint/Prettier no projeto)
+- **Turbopack** - Bundler usado em `dev` e `build`
 
 ## Funcionalidades Principais
 
@@ -104,8 +123,8 @@ graph TD
 
 ### Pré-requisitos
 
-- Node.js 18+
-- npm ou yarn
+- Node.js 20 LTS (mesma versão do Dockerfile)
+- npm (o projeto usa `package-lock.json`)
 
 ### Instalação
 
@@ -136,9 +155,8 @@ npm run format       # Formata o código
 ### Convenções de Código
 
 - **TypeScript**: Tipagem obrigatória
-- **ESLint**: Configurado com regras do Next.js
-- **Biome**: Formatação automática
-- **Imports**: Ordenação automática (absolute paths)
+- **Biome**: Lint e formatação automática (`npm run lint` / `npm run format`)
+- **Imports**: Caminhos absolutos via alias `@/` → `src/`
 
 ### Estrutura de Componentes
 
@@ -181,21 +199,15 @@ export function useCustomHook<T>(value: T, delay: number): T {
 
 ## Testes
 
-### Estrutura de Testes
+> **Estado atual:** o projeto **não possui** suíte de testes configurada (não há
+> scripts `test`/`test:coverage` no `package.json`). As recomendações abaixo são
+> um plano de evolução — ver também o
+> [Manual do Desenvolvedor, cap. 09](./manual-do-desenvolvedor/09-boas-praticas.md#testes-recomendação).
 
-```bash
-# Executar testes
-npm run test
+### Plano recomendado
 
-# Testes com coverage
-npm run test:coverage
-```
-
-### Tipos de Testes
-
-- **Unit Tests**: Componentes individuais
-- **Integration Tests**: Fluxos completos
-- **E2E Tests**: Cenários de usuário
+- **Unit/Component Tests**: Vitest + Testing Library
+- **E2E Tests**: Playwright (busca, deep-link `?item=`, toggle de camadas, histórias)
 
 ## Deploy
 
@@ -215,9 +227,13 @@ npm run start
 
 ### Variáveis de Ambiente
 
+Defina em `.env.local` (ignorado pelo Git). Ver detalhes no
+[Manual do Desenvolvedor, cap. 02](./manual-do-desenvolvedor/02-ambiente-de-desenvolvimento.md#variáveis-de-ambiente).
+
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3000/api
-NODE_ENV=production
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1...        # necessário para mapas
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXX # opcional (GA4)
+NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx          # opcional (Microsoft Clarity)
 ```
 
 ## Monitoramento

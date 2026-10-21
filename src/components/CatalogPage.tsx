@@ -1,9 +1,10 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { DataCatalogItem } from "@/lib/data/catalog";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
 import { DataCard } from "./DataCard";
@@ -22,11 +23,16 @@ interface CatalogResponse {
 }
 
 export function CatalogPage() {
+  const searchParams = useSearchParams();
+  const openItemId = searchParams.get("item") ?? undefined;
+  const initialQuery = searchParams.get("q")?.trim() ?? "";
+
   const [data, setData] = useState<DataCatalogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
   const [filters, setFilters] = useState<FiltersType>({
     sortBy: "newest",
+    search: initialQuery || undefined,
   });
   const [filterOptions, setFilterOptions] = useState<{
     themes: string[];
@@ -69,8 +75,8 @@ export function CatalogPage() {
     fetchData(filters);
   }, [filters, fetchData]);
 
-  // Debounced search
-  const [searchTerm, setSearchTerm] = useState("");
+  // Debounced search (honra ?q= do SearchAction / Schema.org)
+  const [searchTerm, setSearchTerm] = useState(initialQuery);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   // Update filters when debounced search term changes (skip first render)
@@ -109,7 +115,7 @@ export function CatalogPage() {
   // Show initial loading skeleton
   if (initialLoading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen pb-16">
         <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left sidebar skeleton */}
@@ -175,14 +181,14 @@ export function CatalogPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-32">
       <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Left Sidebar */}
           <div className="lg:col-span-1">
             {/* Search Bar */}
             <div className="mb-6">
-              <SearchBar onSearch={handleSearch} />
+              <SearchBar onSearch={handleSearch} initialValue={initialQuery} />
             </div>
 
             {/* Filters */}
@@ -215,7 +221,13 @@ export function CatalogPage() {
               {loading
                 ? // Show skeleton cards when loading
                   [1, 2, 3, 4, 5, 6].map((i) => <CardSkeleton key={i} />)
-                : data.map((item) => <DataCard key={item.id} item={item} />)}
+                : data.map((item) => (
+                    <DataCard
+                      key={item.id}
+                      item={item}
+                      initialOpen={openItemId === item.id}
+                    />
+                  ))}
             </div>
 
             {/* No Results */}

@@ -1,8 +1,17 @@
 # Arquitetura do Sistema - Portal Cidados
 
+> **Nota de escopo:** este documento descreve padrões gerais e é focado
+> principalmente no módulo de **catálogo**. Vários trechos marcados como
+> "(Futuro)" são aspiracionais e ainda não implementados. Para a arquitetura
+> **real e completa** da plataforma — route groups `(app)`/`(stories)`,
+> `middleware.ts` (CSP + nonce), analytics (GA4 + Clarity), módulos de
+> histórias e geoportal — consulte o
+> **[Manual do Desenvolvedor, cap. 03](./manual-do-desenvolvedor/03-arquitetura-e-convencoes.md)**,
+> que é a fonte da verdade.
+
 ## Visão Geral da Arquitetura
 
-O Portal Cidados segue uma arquitetura moderna baseada em Next.js 15 com App Router, implementando padrões de design que promovem escalabilidade, manutenibilidade e performance.
+O Portal Cidados segue uma arquitetura moderna baseada em Next.js 15 com App Router, implementando padrões de design que promovem escalabilidade, manutenibilidade e performance. Ferramenta de lint/format: **Biome** (o projeto não usa ESLint/Prettier).
 
 ## Diagrama de Arquitetura
 
@@ -52,8 +61,8 @@ CatalogPage (Client Component)
 ├── CatalogFilters (Client Component)
 ├── SelectedFilters (Client Component)
 ├── SortDropdown (Client Component)
-├── DataCard (Server Component)
-└── CardSkeleton (Server Component)
+├── DataCard (Client Component — tem estado de modal)
+└── CardSkeleton (apresentacional)
 ```
 
 #### Responsabilidades

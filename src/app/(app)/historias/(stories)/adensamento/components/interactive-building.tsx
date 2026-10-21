@@ -1,7 +1,11 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface InteractiveBuildingProps {
   ca: number;
@@ -109,9 +113,48 @@ export function InteractiveBuilding({ ca, to }: InteractiveBuildingProps) {
     };
     window.addEventListener("resize", handleResize);
 
+    // Fade is owned here, not in the story layout effect: this canvas is
+    // loaded with next/dynamic and does not exist when that effect runs.
+    const tl3dIn = gsap.timeline();
+    tl3dIn.set(container, { opacity: 0 }).to(container, { opacity: 1 });
+    const fadeIn = ScrollTrigger.create({
+      animation: tl3dIn,
+      trigger: "#cep_capitulo4b",
+      start: "top bottom",
+      end: "bottom bottom",
+      scrub: true,
+    });
+
+    const tl3dOut = gsap.timeline();
+    tl3dOut.to(container, { opacity: 0 });
+    const fadeOut = ScrollTrigger.create({
+      animation: tl3dOut,
+      trigger: "#cep_capitulo4b",
+      start: "center top",
+      end: "bottom top",
+      scrub: true,
+    });
+
+    const debug = () => {
+      container.dataset.fadeIn = fadeIn.progress.toFixed(3);
+      container.dataset.fadeOut = fadeOut.progress.toFixed(3);
+      container.dataset.fadeInRange = `${Math.round(fadeIn.start)}-${Math.round(fadeIn.end)}`;
+      container.dataset.fadeOutRange = `${Math.round(fadeOut.start)}-${Math.round(fadeOut.end)}`;
+      container.dataset.triggerFound = String(!!document.getElementById("cep_capitulo4b"));
+    };
+    debug();
+    ScrollTrigger.addEventListener("scrollEnd", debug);
+    window.addEventListener("scroll", debug, { passive: true });
+
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", handleResize);
+      fadeIn.kill();
+      fadeOut.kill();
+      tl3dIn.kill();
+      tl3dOut.kill();
+      ScrollTrigger.removeEventListener("scrollEnd", debug);
+      window.removeEventListener("scroll", debug);
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -127,8 +170,8 @@ export function InteractiveBuilding({ ca, to }: InteractiveBuildingProps) {
     <div
       id="container3d"
       ref={containerRef}
-      className="absolute inset-0 pointer-events-none"
-      style={{ zIndex: 20, opacity: 0 }}
+      className="absolute inset-0 pointer-events-none opacity-0"
+      style={{ zIndex: 40 }}
     />
   );
 }
