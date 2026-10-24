@@ -18,7 +18,7 @@ export function CollaboratorsSection() {
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef<HTMLElement>(null);
+  const isDraggingRef = useRef(false);
   const animationFrameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -41,13 +41,24 @@ export function CollaboratorsSection() {
     };
 
     const handlePointerDown = (e: PointerEvent) => {
-      if (sectionRef.current?.contains(e.target as Node)) {
+      const target = e.target;
+      if (
+        target instanceof Element &&
+        target.closest(".collaborator-photo")
+      ) {
+        isDraggingRef.current = true;
         setIsDragging(true);
       }
     };
 
-    const handlePointerUp = () => {
+    const handlePointerUp = (e: PointerEvent) => {
+      isDraggingRef.current = false;
       setIsDragging(false);
+      const underPointer = document.elementFromPoint(e.clientX, e.clientY);
+      const overPhoto =
+        underPointer instanceof Element &&
+        underPointer.closest(".collaborator-photo");
+      if (!overPhoto) setIsHovering(false);
     };
 
     // Usar tanto pointer quanto mouse events para máxima compatibilidade
@@ -103,44 +114,37 @@ export function CollaboratorsSection() {
 
           {/* Collaborators Horizontal Scroll */}
           <section
-            ref={sectionRef}
             className="pb-4 overflow-x-hidden px-4 md:px-8 lg:px-12 select-none"
-            style={{
-              cursor: "none",
-              touchAction: "pan-x",
-            }}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => {
-              setIsHovering(false);
-              setIsDragging(false);
-            }}
-            onPointerEnter={() => setIsHovering(true)}
-            onPointerLeave={() => {
-              setIsHovering(false);
-              setIsDragging(false);
-            }}
+            style={{ touchAction: "pan-x" }}
             aria-label="Colaboradores em carrossel"
           >
-            <div style={{ cursor: "none" }}>
+            <div>
               <Swiper
                 slidesPerView="auto"
                 spaceBetween={8}
                 freeMode={true}
                 grabCursor={false}
+                noSwiping={true}
                 modules={[FreeMode]}
                 className="!overflow-visible"
-                style={{ cursor: "none" }}
               >
                 {collaborators.map((collaborator) => (
                   <SwiperSlide
                     key={collaborator.id}
                     className="!w-[250px] group relative"
-                    style={{ cursor: "none" }}
                   >
                     {/* Collaborator Card */}
                     <div
-                      className="relative overflow-hidden h-[350px] w-[250px] mb-4 bg-border"
+                      className="collaborator-photo relative overflow-hidden h-[350px] w-[250px] mb-4 bg-border"
                       style={{ cursor: "none" }}
+                      onMouseEnter={() => setIsHovering(true)}
+                      onMouseLeave={() => {
+                        if (!isDraggingRef.current) setIsHovering(false);
+                      }}
+                      onPointerEnter={() => setIsHovering(true)}
+                      onPointerLeave={() => {
+                        if (!isDraggingRef.current) setIsHovering(false);
+                      }}
                     >
                       <Image
                         src={collaborator.image}
@@ -148,7 +152,6 @@ export function CollaboratorsSection() {
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         style={{
-                          cursor: "none",
                           pointerEvents: "none",
                           userSelect: "none",
                         }}
@@ -157,7 +160,7 @@ export function CollaboratorsSection() {
                     </div>
 
                     {/* Collaborator Info */}
-                    <div className="text-left" style={{ cursor: "none" }}>
+                    <div className="swiper-no-swiping text-left">
                       <h3 className="text-md font-bold text-foreground mb-1 leading-tight">
                         {collaborator.name}
                       </h3>
