@@ -600,7 +600,7 @@ export default function PropertyMap() {
     const newStyle =
       newTheme === "dark"
         ? "mapbox://styles/mapbox/dark-v11"
-        : "mapbox://styles/observatorio-nacional/cmhrp434x002301s23n36fphx";
+        : "mapbox://styles/observatorio-nacional/cmvmixq0p00ew01s398gs3t03";
 
     setMapTheme(newTheme);
 
@@ -659,7 +659,7 @@ export default function PropertyMap() {
     const mapStyle =
       mapTheme === "dark"
         ? "mapbox://styles/mapbox/dark-v11"
-        : "mapbox://styles/observatorio-nacional/cmhrp434x002301s23n36fphx";
+        : "mapbox://styles/observatorio-nacional/cmvmixq0p00ew01s398gs3t03";
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -723,7 +723,7 @@ export default function PropertyMap() {
     const mapStyle =
       mapTheme === "dark"
         ? "mapbox://styles/mapbox/dark-v11"
-        : "mapbox://styles/observatorio-nacional/cmhrp434x002301s23n36fphx";
+        : "mapbox://styles/observatorio-nacional/cmvmixq0p00ew01s398gs3t03";
 
     beforeMap.current = new mapboxgl.Map({
       container: beforeMapContainer.current,
