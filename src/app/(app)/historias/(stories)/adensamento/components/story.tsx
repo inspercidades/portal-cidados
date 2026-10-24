@@ -146,7 +146,7 @@ function MapCard({ id, children }: { id: string; children: React.ReactNode }) {
 
 function H({ children }: { children: React.ReactNode }) {
   return (
-    <strong className="font-bold px-1 inline box-decoration-clone">
+    <strong className="font-bold inline box-decoration-clone">
       {children}
     </strong>
   );
@@ -473,12 +473,12 @@ export default function AdensamentoStory() {
             <br />
             São Paulo, SP.
             <br />
-            11.451.999 de habitantes.
+            11.451.999 habitantes.
             <br />
-            4.996.529 de domicílios existentes.
+            4.996.529 domicílios existentes.
             <br />
             <br />
-            São Paulo é a cidade mais populosa do Hemisfério Sul, cuja região
+            São Paulo é a cidade mais populosa do Hemisfério Sul, e sua região
             metropolitana ultrapassa 20 milhões de habitantes.
             <br />
             <br />
@@ -742,8 +742,8 @@ export default function AdensamentoStory() {
               , estimula-se modos de deslocamento mais sustentáveis e maior
               acesso às oportunidades que as cidades oferecem.
               <br />
-              <br />O mapa ao lado, produzido com dados do Censo 2022, mostra a
-              <H>densidade populacional</H>de várias regiões da capital
+              <br />O mapa ao lado, produzido com dados do Censo 2022, mostra a{" "}
+              <H>densidade populacional</H> de várias regiões da capital
               paulista. Os valores representam o número de habitantes por
               hectare, que equivale ao tamanho médio de um quarteirão da cidade.
               No mapa, quanto mais escura a cor, mais gente mora naquele pedaço
@@ -755,8 +755,8 @@ export default function AdensamentoStory() {
           <MapCard id="mapa_mais_um">
             <CardText>
               Áreas densamente povoadas concentram oportunidades de emprego,
-              comércio e serviços, o que gera
-              <H>economias de aglomeração,</H>aumentando sua eficiência e sua
+              comércio e serviços, o que gera{" "}
+              <H>economias de aglomeração,</H> aumentando sua eficiência e sua
               produtividade. Em geral, regiões centrais concentram
               infraestrutura, oportunidades e pessoas, como é o caso dos bairros
               no entorno da{" "}
@@ -770,8 +770,8 @@ export default function AdensamentoStory() {
               As áreas de maior densidade populacional de São Paulo não se
               limitam à sua zona central, mas se espalham por diversas regiões
               da capital, por diferentes motivos. É interessante notar a
-              densidade populacional nas favelas de
-              <H>Paraisópolis</H>e Heliópolis, que acabam por ser as{" "}
+              densidade populacional nas favelas de{" "}
+              <H>Paraisópolis</H> e Heliópolis, que acabam por ser as{" "}
               <H>áreas mais densas da cidade.</H>
             </CardText>
           </MapCard>
@@ -779,7 +779,7 @@ export default function AdensamentoStory() {
           {/* MapaDois_helio — Heliópolis */}
           <MapCard id="mapa_dois_helio">
             <CardText>
-              Nos casos de Paraisópolis e<H>Heliópolis,</H>as altas densidades
+              Nos casos de Paraisópolis e <H>Heliópolis,</H> as altas densidades
               urbanas não se devem a incentivos do planejamento urbano e sim, ao
               crescimento desordenado de áreas informais impulsionado por
               décadas de urbanização acelerada e pela ausência de políticas
@@ -792,7 +792,7 @@ export default function AdensamentoStory() {
           <MapCard id="mapa_tres">
             <CardText>
               Cerca de metade dos domicílios paulistanos identificados no Censo
-              2022 não estão no Cadastro Imobiliário Fiscal da prefeitura,
+              2022 não está no Cadastro Imobiliário Fiscal da prefeitura,
               revelando a grande informalidade habitacional existente em São
               Paulo, onde os parâmetros de regulação urbana discutidos aqui
               possuem pouca ou nenhuma incidência. As regiões que apresentam
@@ -907,7 +907,7 @@ export default function AdensamentoStory() {
           {/* CepCapitulo4 — CA = 0.1 (triggers overlay-4) */}
           <MapCard id="cep_capitulo4">
             <CardText>
-              Um<H>coeficiente de aproveitamento (CA)</H>de 0,1, como acontece
+              Um <H>coeficiente de aproveitamento (CA)</H> de 0,1, como acontece
               em regiões de preservação ambiental, implica que se pode construir
               até 10% da área do terreno. Portanto, para construir dois andares,
               a área ocupada não pode exceder 5% da área total do terreno.
@@ -1009,22 +1009,22 @@ export default function AdensamentoStory() {
           <MapCard id="cep_capitulo5">
             <CardText>
               O segundo instrumento é a definição de{" "}
-              <strong className="font-bold">cota parte máxima</strong>. Ela é a
+              <strong className="font-bold">cota-parte máxima</strong>. Ela é a
               cota de terreno por unidade habitacional e determina o número
               mínimo de unidades de moradia que devem ser feitas em novas
               edificações, dado o tamanho do terreno a ser incorporado. Em uma
               região com{" "}
               <strong className="font-bold">
-                cota parte máxima igual a 25m²
+                cota-parte máxima igual a 25 m²
               </strong>
-              , um<strong className="font-bold"> terreno de 500m²</strong> deve
+              , um <strong className="font-bold">terreno de 500 m²</strong> deve
               conter{" "}
               <strong className="font-bold">
                 ao menos 20 unidades habitacionais
               </strong>{" "}
               nas novas edificações.
               <br />
-              <br />A <strong className="font-bold">cota parte máxima</strong>{" "}
+              <br />A <strong className="font-bold">cota-parte máxima</strong>{" "}
               define a{" "}
               <strong className="font-bold">densidade habitacional</strong> das
               novas edificações em um terreno, em uma quadra ou em uma região.
@@ -1039,7 +1039,7 @@ export default function AdensamentoStory() {
               altura máxima dos edifícios.
               <br />
               <br />O gabarito define a{" "}
-              <strong className="font-bold"> verticalização</strong> das novas
+              <strong className="font-bold">verticalização</strong> das novas
               edificações em um terreno, em uma quadra ou em uma região.
             </CardText>
           </MapCard>
@@ -1047,7 +1047,7 @@ export default function AdensamentoStory() {
           {/* CepCapitulo6b — summary */}
           <MapCard id="cep_capitulo6b">
             <CardText>
-              Em áreas que se quer criar{" "}
+              Em áreas onde se pretende aumentar a{" "}
               <strong className="font-bold">densidade populacional</strong>, o
               Plano Diretor pode definir tais instrumentos para gerar maior{" "}
               <strong className="font-bold">densidade construtiva</strong>,{" "}
@@ -1061,8 +1061,8 @@ export default function AdensamentoStory() {
               Afinal, quais parâmetros construtivos são mais relevantes para
               definir a{" "}
               <strong className="font-bold">densidade populacional</strong> de
-              uma região?
-              <strong className="font-bold"> A verticalização</strong> está
+              uma região? A{" "}
+              <strong className="font-bold">verticalização</strong> está
               necessariamente associada a uma maior densidade?
             </CardText>
           </MapCard>
@@ -1079,8 +1079,8 @@ export default function AdensamentoStory() {
             <CardText>
               Gustavo Theil, aluno de economia do Insper, e Adriano Borges
               Costa, professor e pesquisador do Centro de Estudos das Cidades do
-              Insper, investigaram quais desses fatores melhor determinam a
-              <H>densidade populacional</H>e, portanto, deveriam ser
+              Insper, investigaram quais desses fatores mais bem determinam a{" "}
+              <H>densidade populacional</H> e, portanto, deveriam ser
               privilegiados no Plano Diretor em regiões para as quais se busca
               adensamento populacional.
             </CardText>
@@ -1091,12 +1091,12 @@ export default function AdensamentoStory() {
             <CardText>
               A pesquisa concluiu que, nas regiões em que o Plano Diretor exerce
               influência, ou seja, naquelas sem grande informalidade em termos
-              de moradia, a
-              <strong className="font-bold"> densidade habitacional </strong>,
-              estimulada pela
-              <strong className="font-bold"> cota parte máxima </strong>, foi a
-              característica construtiva mais relevante para definir a
-              <strong className="font-bold"> densidade populacional </strong>.
+              de moradia, a{" "}
+              <strong className="font-bold">densidade habitacional</strong>,
+              estimulada pela{" "}
+              <strong className="font-bold">cota-parte máxima</strong>, foi a
+              característica construtiva mais relevante para definir a{" "}
+              <strong className="font-bold">densidade populacional</strong>.
             </CardText>
           </MapCard>
 
@@ -1123,29 +1123,29 @@ export default function AdensamentoStory() {
           {/* CepCapitulo8 — cota parte nos eixos (triggers overlay-8) */}
           <MapCard id="cep_capitulo8">
             <CardText>
-              Esse resultado é muito importante, visto que a regulação sobre a
-              <strong className="font-bold"> cota parte máxima </strong>vigora
-              apenas nas regiões dos
-              <strong className="font-bold"> eixos</strong>, em que ela é de
-              20m².
+              Esse resultado é muito importante, visto que a regulação sobre a{" "}
+              <strong className="font-bold">cota-parte máxima</strong> vigora
+              apenas nas regiões dos{" "}
+              <strong className="font-bold">eixos</strong>, em que ela é de{" "}
+              20 m².
             </CardText>
           </MapCard>
 
           {/* CepCapitulo9 — CA relevance (triggers overlay-9) */}
           <MapCard id="cep_capitulo9">
             <CardText>
-              A<H>densidade construtiva,</H>estimulada pelo
-              <H>coeficiente de aproveitamento,</H>também apresentou grande
-              relevância para explicar<H>densidade populacional</H>.
+              A <H>densidade construtiva,</H> estimulada pelo{" "}
+              <H>coeficiente de aproveitamento,</H> também apresentou grande
+              relevância para explicar <H>densidade populacional</H>.
             </CardText>
           </MapCard>
 
           {/* CepCapitulo10 — verticalização (triggers overlay-10) */}
           <MapCard id="cep_capitulo10">
             <CardText>
-              Já a<H>verticalização,</H>quando não acompanhada de maior
-              <H>densidade habitacional e construtiva,</H>não determina a
-              <H>densidade populacional</H>de uma região. Ou seja, prédios
+              Já a <H>verticalização,</H> quando não acompanhada de maior{" "}
+              <H>densidade habitacional e construtiva,</H> não determina a{" "}
+              <H>densidade populacional</H> de uma região. Ou seja, prédios
               altos, mas que ocupam apenas uma área pequena do terreno e possuem
               apartamentos grandes, não promovem o adensamento populacional
               desejado pelo Plano Diretor para regiões com melhor
@@ -1157,18 +1157,20 @@ export default function AdensamentoStory() {
           <div className="pointer-events-none" style={{ height: "200vh" }}>
             <MapCard id="cep_capitulo11">
               <CardText>
-                Entretanto, sem<H>verticalização</H>também não é possível gerar
-                <H>densidade habitacional e construtiva</H>.
+                Entretanto, sem <H>verticalização</H> também não é possível
+                gerar <H>densidade habitacional e construtiva</H>.
                 <br />
-                <br />A questão central, então, é: qual o modelo ideal de
-                <H>verticalização</H>para promover<H>densidade populacional</H>?
+                <br />A questão central, então, é: qual o modelo ideal de{" "}
+                <H>verticalização</H> para promover{" "}
+                <H>densidade populacional</H>?
                 <br />
                 <br />A evidência trazida pela pesquisa aponta que o Plano
                 Diretor deve estimular, nos Eixos, a construção de edifícios com
                 poucos recuos, que ocupam a maior parte do terreno e que possuem
-                apartamentos pequenos, de forma a gerar
-                <H>verticalização com adensamento habitacional e construtivo</H>
-                .
+                apartamentos pequenos, de forma a gerar{" "}
+                <H>
+                  verticalização com adensamento habitacional e construtivo
+                </H>.
               </CardText>
             </MapCard>
           </div>
