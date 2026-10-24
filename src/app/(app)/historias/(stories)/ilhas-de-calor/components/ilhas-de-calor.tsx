@@ -38,7 +38,7 @@ export function IlhasDeCalor() {
               Maré, como a Nova Holanda, que tem ruas mais amplas e arborizadas.
             </p>
             <p>
-              Importante destacar que,{" "}
+              É importante destacar que,{" "}
               <strong>
                 dos 15 territórios que formam a Maré, 9 foram construídos pelo
                 Estado

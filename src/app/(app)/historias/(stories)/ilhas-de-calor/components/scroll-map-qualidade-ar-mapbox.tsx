@@ -169,7 +169,7 @@ function MapSelector() {
             As partículas acima são 5 a 7 vezes mais finas do que um fio de
             cabelo e podem ser inaladas e chegar até as vias aéreas mais
             profundas dos pulmões, mas a maioria delas tende a se depositar nas
-            vias aéreas superiores, como traquéia e brônquios.
+            vias aéreas superiores, como traqueia e brônquios.
           </p>
           <p className="text-md text-[#3A3434]">
             Podem causar problemas respiratórios, cardiovasculares e agravar

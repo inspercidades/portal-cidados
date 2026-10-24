@@ -703,7 +703,7 @@ export function IntroMare() {
             que surgiu nos anos 1940. Nos anos seguintes, outras ocupações
             espontâneas surgiram, muitas delas sobre terrenos alagadiços,
             impulsionadas pelo crescimento da cidade e a necessidade de moradia
-            acessível para trabalhadores urbanos
+            acessível para trabalhadores urbanos.
           </p>
           <Image
             src={imageCard4}
@@ -740,7 +740,7 @@ export function IntroMare() {
       <ScrollCard cardRef={card5Ref}>
         <div>
           <p className="text-base md:text-lg leading-relaxed">
-            Ao longo das décadas de 1960 e 1980, foram erguidos nove conjuntos
+            Entre as décadas de 1960 e 1980, foram erguidos nove conjuntos
             habitacionais pelo Estado, como a <strong>Vila do João</strong> e a{" "}
             <strong>Vila dos Pinheiros</strong>. Esses projetos tinham a
             intenção de organizar a ocupação da região, mas a falta de

@@ -59,7 +59,7 @@ export function QualidadeDoAr() {
                 a qualidade do ar na Maré é comprometida por fatores tanto
                 externos quanto internos ao território
               </strong>
-              . De um lado, a presença das Linhas Vermelha e Amarela, com seu
+              . De um lado, a presença da Linha Vermelha e da Linha Amarela, com seu
               fluxo intenso de veículos, contribui para a concentração de gases
               tóxicos. De outro, práticas como a queima de lixo, a falta de
               coleta regular e o uso intensivo de automóveis em vias estreitas

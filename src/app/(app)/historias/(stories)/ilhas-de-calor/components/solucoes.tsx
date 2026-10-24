@@ -34,14 +34,14 @@ const solucoesItems: SolucaoItem[] = [
     image: s3, // Substitua pela imagem da solução 3
     text: "REMODELAGEM DO SOLO URBANO",
     description:
-      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
+      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente voltadas para a permeabilidade do solo.",
     textPosition: "top-right",
   },
   {
     image: s4, // Substitua pela imagem da solução 4
     text: "REMODELAGEM DO SOLO URBANO",
     description:
-      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente, voltadas para a permeabilidade do solo.",
+      "Restringir o uso excessivo de asfalto e concreto e estimular práticas alternativas, principalmente voltadas para a permeabilidade do solo.",
     textPosition: "top-right",
   },
   {
@@ -90,14 +90,14 @@ const solucoesItems: SolucaoItem[] = [
     image: s11, // Substitua pela imagem da solução 11
     text: "PLANEJAMENTO URBANO INTEGRADO",
     description:
-      "Desenvolver planos locais de mitigação das ilhas de calor e diminuição da poluição do ar, os articulando e inserindo nos projetos e programas governamentais já em desenvolvimento.",
+      "Desenvolver planos locais de mitigação das ilhas de calor e diminuição da poluição do ar, articulando-os e inserindo-os nos projetos e programas governamentais já em desenvolvimento.",
     textPosition: "top-right",
   },
   {
     image: s12, // Substitua pela imagem da solução 12
     text: "PLANEJAMENTO URBANO INTEGRADO",
     description:
-      "Desenvolver planos locais de mitigação das ilhas de calor e diminuição da poluição do ar, os articulando e inserindo nos projetos e programas governamentais já em desenvolvimento.",
+      "Desenvolver planos locais de mitigação das ilhas de calor e diminuição da poluição do ar, articulando-os e inserindo-os nos projetos e programas governamentais já em desenvolvimento.",
     textPosition: "top-right",
   },
 ];
