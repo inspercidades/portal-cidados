@@ -8,7 +8,7 @@
 - [App Router e route groups](#app-router-e-route-groups)
 - [Layout raiz e providers](#layout-raiz-e-providers)
 - [Layouts aninhados](#layouts-aninhados)
-- [Middleware, CSP e segurança](#middleware-csp-e-segurança)
+- [Proxy, CSP e segurança](#proxy-csp-e-segurança)
 - [Analytics](#analytics)
 - [SEO, metadados e dados estruturados](#seo-metadados-e-dados-estruturados)
 - [Camada de dados](#camada-de-dados)
@@ -35,7 +35,7 @@ graph TB
     end
 
     subgraph server [Servidor Next.js]
-        MW["middleware.ts (CSP + nonce)"]
+        MW["proxy.ts (CSP + nonce)"]
         RL["layout.tsx (fontes, tema, analytics)"]
         API["/api/catalog (Route Handler)"]
     end
@@ -131,9 +131,9 @@ Providers:
   global). Ver a classe `.force-light-theme` em
   [`globals.css`](../../src/app/globals.css).
 
-## Middleware, CSP e segurança
+## Proxy, CSP e segurança
 
-[`src/middleware.ts`](../../src/middleware.ts) gera um **nonce por requisição** e
+[`src/proxy.ts`](../../src/proxy.ts) gera um **nonce por requisição** e
 aplica uma **Content-Security-Policy estrita** além de headers de segurança
 (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
 `Permissions-Policy`).
@@ -144,7 +144,7 @@ fetch, imagem, fonte), você precisa adicionar o domínio na diretiva correta da
 CSP**, senão o recurso será bloqueado pelo navegador.
 
 ```ts
-// trecho de src/middleware.ts
+// trecho de src/proxy.ts
 const cspHeader = `
   default-src 'self' https://*.mapbox.com;
   script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com https://www.clarity.ms ...;
@@ -158,7 +158,7 @@ const cspHeader = `
 `;
 ```
 
-O `matcher` do middleware ignora assets estáticos comuns (imagens, fontes, css,
+O `matcher` do proxy ignora assets estáticos comuns (imagens, fontes, css,
 csv, etc.) e cobre as rotas de página e `/api`. Detalhes de CSP também em
 [`docs/ANALYTICS.md`](../ANALYTICS.md).
 

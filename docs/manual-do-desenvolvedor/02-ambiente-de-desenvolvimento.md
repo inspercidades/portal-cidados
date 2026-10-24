@@ -103,7 +103,7 @@ portal-cidados/
 │   ├── assets/vizN/            # Thumbnails das histórias (home)
 │   └── historias/<slug>/       # Mídia por história (vídeos/imagens de capa)
 ├── src/
-│   ├── middleware.ts           # CSP + headers de segurança (nonce por request)
+│   ├── proxy.ts           # CSP + headers de segurança (nonce por request)
 │   ├── app/
 │   │   ├── layout.tsx          # Layout raiz: fontes, tema, analytics
 │   │   ├── page.tsx            # Home (/)
@@ -149,7 +149,7 @@ geoportal) têm seus próprios `lib/` locais. Ver
 |---|---|---|
 | Mapa não aparece (tela em branco/erro no console) | `NEXT_PUBLIC_MAPBOX_TOKEN` ausente ou inválido | Defina o token no `.env.local` e reinicie o `dev` |
 | Variável `NEXT_PUBLIC_*` "não atualiza" | Variáveis são embutidas no build | Reinicie o servidor de desenvolvimento |
-| Erros de CSP no console (scripts bloqueados) | Domínio não permitido na CSP | Ver [`src/middleware.ts`](../../src/middleware.ts) e capítulo [09](./09-boas-praticas.md) |
+| Erros de CSP no console (scripts bloqueados) | Domínio não permitido na CSP | Ver [`src/proxy.ts`](../../src/proxy.ts) e capítulo [09](./09-boas-praticas.md) |
 | Fonte "GT Ultra" não carrega | Arquivos `.otf` ausentes | Confirme `src/app/assets/fonts/GT_Ultra/` |
 
 ---

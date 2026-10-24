@@ -4,7 +4,7 @@
 > principalmente no módulo de **catálogo**. Vários trechos marcados como
 > "(Futuro)" são aspiracionais e ainda não implementados. Para a arquitetura
 > **real e completa** da plataforma — route groups `(app)`/`(stories)`,
-> `middleware.ts` (CSP + nonce), analytics (GA4 + Clarity), módulos de
+> `proxy.ts` (CSP + nonce), analytics (GA4 + Clarity), módulos de
 > histórias e geoportal — consulte o
 > **[Manual do Desenvolvedor, cap. 03](./manual-do-desenvolvedor/03-arquitetura-e-convencoes.md)**,
 > que é a fonte da verdade.

@@ -79,7 +79,7 @@ Configure cada ambiente com seu próprio conjunto de valores. Ver
 
 - **GA4** e **Microsoft Clarity** são carregados a partir do layout raiz. Em
   produção, defina os IDs correspondentes.
-- A **CSP** em [`src/middleware.ts`](../../src/middleware.ts) já libera Mapbox,
+- A **CSP** em [`src/proxy.ts`](../../src/proxy.ts) já libera Mapbox,
   GA4 e Clarity. Se adicionar um novo provedor (CDN, fontes, iframe), atualize a
   CSP — caso contrário o recurso será bloqueado em produção (mesmo que funcione
   localmente sem HTTPS estrito).

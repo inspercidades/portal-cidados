@@ -1,6 +1,6 @@
 interface JsonLdProps {
   data: Record<string, unknown>;
-  /** Nonce do CSP para permitir o script inline (ver src/middleware.ts). */
+  /** Nonce do CSP para permitir o script inline (ver src/proxy.ts). */
   nonce?: string;
 }
 

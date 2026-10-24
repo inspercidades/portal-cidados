@@ -126,7 +126,7 @@ export default async function RootLayout({ children }) {
 
 ## Content Security Policy (CSP)
 
-O projeto usa uma CSP estrita com nonce em `src/middleware.ts`. O Clarity injeta dinamicamente um script externo e envia dados para seus servidores, portanto os seguintes domínios são necessários:
+O projeto usa uma CSP estrita com nonce em `src/proxy.ts`. O Clarity injeta dinamicamente um script externo e envia dados para seus servidores, portanto os seguintes domínios são necessários:
 
 | Diretiva        | Domínio adicionado        | Motivo                                             |
 | --------------- | -------------------------- | -------------------------------------------------- |

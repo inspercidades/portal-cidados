@@ -6,8 +6,8 @@ import {
   filterOptions,
 } from "@/lib/data/catalog";
 
-// Revalida o cache a cada 10 minutos (600 segundos)
-export const revalidate = 600;
+// A resposta depende dos query params, então não pode ser pré-renderizada.
+export const dynamic = "force-dynamic";
 
 export interface CatalogFilters {
   search?: string;
@@ -72,7 +72,7 @@ function sortItems(
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
 
     const filters: CatalogFilters = {
       search: searchParams.get("search") || undefined,

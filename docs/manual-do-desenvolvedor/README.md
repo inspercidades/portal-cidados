@@ -26,7 +26,7 @@ O objetivo é duplo:
 |---|---|---|
 | [01 — Visão Geral](./01-visao-geral.md) | O que é a plataforma, propósito, módulos, mapa de rotas, glossário | Todos |
 | [02 — Ambiente de Desenvolvimento](./02-ambiente-de-desenvolvimento.md) | Pré-requisitos, instalação, variáveis de ambiente, scripts | Desenvolvedores |
-| [03 — Arquitetura e Convenções](./03-arquitetura-e-convencoes.md) | Stack, App Router, route groups, layout raiz, middleware/CSP, camada de dados | Desenvolvedores / Arquitetos |
+| [03 — Arquitetura e Convenções](./03-arquitetura-e-convencoes.md) | Stack, App Router, route groups, layout raiz, proxy/CSP, camada de dados | Desenvolvedores / Arquitetos |
 | [04 — Design System e UI](./04-design-system-e-ui.md) | Tailwind v4, tokens, temas, fontes, Shadcn/UI, Figma | Desenvolvedores / Design |
 | [05 — Home e Navegação](./05-home-e-navegacao.md) | Página inicial, `Header`/menu, como adicionar página ao shell | Desenvolvedores |
 | [06 — Histórias (Scrollytelling)](./06-historias-scrollytelling.md) | Fluxo completo de criação de histórias: capa, corpo, cards móveis, GSAP, Mapbox, dados | Desenvolvedores |

@@ -101,10 +101,10 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) { /* ... 
 
 ## Segurança e CSP
 
-- A CSP estrita vive em [`src/middleware.ts`](../../src/middleware.ts). **Ao
+- A CSP estrita vive em [`src/proxy.ts`](../../src/proxy.ts). **Ao
   integrar qualquer serviço externo** (script, fetch, imagem, fonte, iframe),
   adicione o domínio na diretiva correta — senão o recurso será bloqueado.
-- Scripts inline precisam do **nonce** (já propagado pelo middleware e usado no
+- Scripts inline precisam do **nonce** (já propagado pelo proxy e usado no
   GA4 e no JSON-LD). Evite inline scripts sem nonce.
 - **Nunca commite segredos.** Tokens/IDs vão em `.env.local` (gitignored) ou nas
   variáveis da plataforma de deploy.
@@ -164,7 +164,7 @@ Fluxo:
 - [ ] `npm run build` conclui com sucesso.
 - [ ] Sem cores hardcoded onde há token de tema; dark/light verificados.
 - [ ] Componentes interativos com `"use client"` e `Suspense` onde necessário.
-- [ ] Recursos externos novos refletidos na CSP (`middleware.ts`).
+- [ ] Recursos externos novos refletidos na CSP (`proxy.ts`).
 - [ ] Nenhum segredo commitado (`.env.local` fora do controle de versão).
 - [ ] Histórias novas registradas em `stories.ts` **e** `StoriesList.tsx`.
 - [ ] Páginas novas com `buildMetadata()` e JSON-LD ([capítulo 11](./11-seo-e-monitoramento.md)).

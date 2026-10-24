@@ -27,7 +27,7 @@ function hostnameOf(urlOrHost: string): string {
 export const allowIndexing = hostnameOf(SITE_URL) === PRODUCTION_HOSTNAME;
 
 /**
- * True quando o Host do request é o domínio de produção. Usado no middleware
+ * True quando o Host do request é o domínio de produção. Usado no proxy
  * (X-Robots-Tag) para cobrir previews da Vercel mesmo se o SITE_URL estiver
  * errado no build.
  */
