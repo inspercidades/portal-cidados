@@ -17,6 +17,12 @@ function applySecurityHeaders(
     "'sha256-J9cZHZf5nVZbsm7Pqxc8RsURv1AIXkMgbhfrZvoOs/A='",
   ];
 
+  // O React em desenvolvimento usa eval() para reconstruir stack traces.
+  // Em produção esse caminho não existe, então a diretiva fica de fora.
+  if (process.env.NODE_ENV === "development") {
+    scriptSrcDirectives.push("'unsafe-eval'");
+  }
+
   const cspHeader = `
     default-src 'self' https://*.mapbox.com;
     script-src ${scriptSrcDirectives.join(" ")};
