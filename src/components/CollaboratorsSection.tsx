@@ -2,6 +2,7 @@
 
 import { Linkedin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -198,7 +199,12 @@ export function CollaboratorsSection() {
               <div className="lg:w-1/2 space-y-6">
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Histórias
+                    <Link
+                      href="/historias"
+                      className="hover:underline underline-offset-4"
+                    >
+                      Histórias
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
                     Narrativas visuais baseadas em pesquisas e estudos
@@ -210,7 +216,12 @@ export function CollaboratorsSection() {
 
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Catálogo de dados
+                    <Link
+                      href="/catalogo-de-dados"
+                      className="hover:underline underline-offset-4"
+                    >
+                      Catálogo de dados
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
                     Um catálogo de conjuntos de dados urbanos que disponibiliza
@@ -221,7 +232,12 @@ export function CollaboratorsSection() {
 
                 <div className="pb-6">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Mapas
+                    <Link
+                      href="/mapas"
+                      className="hover:underline underline-offset-4"
+                    >
+                      Mapas
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
                     Uma ferramenta interativa que permite explorar espacialmente
@@ -253,8 +269,13 @@ export function CollaboratorsSection() {
             {/* Research Project 1 */}
             <div className="border-b border-border pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3 flex items-center gap-2">
-                Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
-                Determinantes Socioeconômicos no Município de São Paulo
+                <Link
+                  href="/historias/desigualdades-em-saude-sp"
+                  className="hover:underline underline-offset-4"
+                >
+                  Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
+                  Determinantes Socioeconômicos no Município de São Paulo
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez
@@ -265,8 +286,13 @@ export function CollaboratorsSection() {
             {/* Research Project 2 */}
             <div className="border-b border-border pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
-                Para o bem ou para o mal: análise da capacidade que o governo
-                tem de controlar a densidade habitacional
+                <Link
+                  href="/historias/adensamento"
+                  className="hover:underline underline-offset-4"
+                >
+                  Para o bem ou para o mal: análise da capacidade que o governo
+                  tem de controlar a densidade habitacional
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Gustavo Theil
@@ -274,10 +300,15 @@ export function CollaboratorsSection() {
             </div>
 
             {/* Research Project 3 */}
-            <div className="pb-6">
+            <div className="border-b border-border pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
-                Diagnóstico sobre ilhas de calor e qualidade do ar nas 16
-                favelas da Maré
+                <Link
+                  href="/historias/ilhas-de-calor"
+                  className="hover:underline underline-offset-4"
+                >
+                  Diagnóstico sobre ilhas de calor e qualidade do ar nas 16
+                  favelas da Maré
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Carolina Dias, Luna Arouca, Rian de Queiroz, Shyrlei Rosendo,
@@ -286,6 +317,22 @@ export function CollaboratorsSection() {
                 Costa, Marcela Santos de Melo, Maria Eduarda Souza Neves, Ygor
                 Fabregas da Silva, Diana de Souza Beserra, Robert dos Santos da
                 Silva
+              </p>
+            </div>
+
+            {/* Research Project 4 */}
+            <div className="pb-6">
+              <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
+                <Link
+                  href="/historias/faixa-azul"
+                  className="hover:underline underline-offset-4"
+                >
+                  Avaliação do impacto da Faixa Azul nos sinistros de trânsito
+                  em São Paulo
+                </Link>
+              </h3>
+              <p className="text-foreground/50 font-gt-ultra-fine">
+                Adriano Borges Costa, Adriano Dutra, Gustavo Theil, Júlio Mugnol
               </p>
             </div>
           </div>
