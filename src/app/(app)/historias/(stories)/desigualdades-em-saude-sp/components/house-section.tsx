@@ -219,12 +219,12 @@ export default function HouseSection() {
             deveria.
           </strong>{" "}
           Os alimentos ultraprocessados, como achocolatados e biscoitos
-          recheados dão lugar às frutas, aos ovos e ao suco caseiro.
+          recheados, tomam o lugar das frutas, dos ovos e do suco caseiro.
           <br />
           <br />
           <strong className="block">
             {" "}
-            Maria tem <strong>Diabetes Mellitus</strong> e precisa medir sua
+            Maria tem <strong>diabetes mellitus</strong> e precisa medir sua
             glicose diariamente, mas sua rotina é tão corrida que nem sempre ela
             consegue fazer isso como deveria.
           </strong>
@@ -252,7 +252,7 @@ export default function HouseSection() {
       top: 300,
       text: (
         <>
-          Às 5hs, <strong>Maria pega o ônibus em direção ao trabalho</strong>.
+          Às 5h30, <strong>Maria pega o ônibus em direção ao trabalho</strong>.
           São <strong>duas horas de viagem</strong> até o Jardim Paulista, um
           bairro de classe média alta próximo à Avenida Paulista.
         </>

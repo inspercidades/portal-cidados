@@ -186,9 +186,9 @@ export default function Conclusion() {
             </span>{" "}
             (subdividida em doenças cerebrovasculares e isquêmicas do coração) e{" "}
             <span className="font-semibold">
-              mortalidade prematura por Diabetes Mellitus
+              mortalidade prematura por diabetes mellitus
             </span>
-            . Com base nos dados levantados, através de novos estudos, é
+            . Com base nos dados levantados, por meio de novos estudos, é
             possível:
           </p>
 
@@ -241,7 +241,7 @@ export default function Conclusion() {
                 UBS no sistema de transporte
               </h3>
               <p className="leading-relaxed">
-                Instalação de Unidades Básicas de Saúde (UBSs) em pontos
+                Instalação de Unidades Básicas de Saúde (UBS) em pontos
                 estratégicos do sistema de transporte público de alta
                 capacidade, funcionando no mesmo horário dessas redes. Essa
                 ideia busca facilitar o acesso aos serviços de saúde para

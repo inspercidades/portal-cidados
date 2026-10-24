@@ -124,7 +124,7 @@ export default function DiabetesMellitus() {
             {/* Main Title */}
             <div className="mb-12">
               <h1 className="text-3xl lg:text-4xl font-semibold text-[#000000] mb-8">
-                Diabetes Mellitus
+                Diabetes mellitus
               </h1>
             </div>
 
@@ -293,7 +293,7 @@ export default function DiabetesMellitus() {
             {/* Caption for top charts */}
             <p className="text-sm text-[#000000] text-center px-4">
               <strong>Figura 4:</strong> Tendência temporal do risco relativo de
-              mortalidade prematura por Diabetes Mellitus, de 2010 a 2019,
+              mortalidade prematura por diabetes mellitus, de 2010 a 2019,
               município de São Paulo: a) mulheres, b) homens. A área em cinza
               indica o intervalo de credibilidade
             </p>

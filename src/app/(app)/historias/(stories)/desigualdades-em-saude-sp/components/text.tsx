@@ -12,7 +12,7 @@ export default function Text() {
     >
       <div className="max-w-xl rounded-2xl">
         <h1 className="text-2xl font-semibold text-black mb-6 text-left">
-          Diabetes Mellitus (DM)
+          Diabetes mellitus (DM)
         </h1>
 
         <div className="space-y-6 text-black leading-relaxed">
@@ -35,7 +35,7 @@ export default function Text() {
           </div>
 
           <p>
-            A diabetes mellitus é uma condição que afeta{" "}
+            O diabetes mellitus é uma condição que afeta{" "}
             <span className="font-semibold">
               537 milhões de pessoas em todo o mundo
             </span>
@@ -51,7 +51,7 @@ export default function Text() {
 
           <p>
             Apesar dos avanços no tratamento e no acesso a medicamentos, a
-            gestão da diabetes ainda enfrenta{" "}
+            gestão do diabetes ainda enfrenta{" "}
             <span className="font-semibold">
               desafios consideráveis, profundamente influenciados pelas
               desigualdades sociais.
@@ -90,8 +90,8 @@ export default function Text() {
             busca{" "}
             <span className="font-semibold">
               identificar áreas de maior risco epidemiológico para as principais
-              causas de mortalidade materna, doenças cardio e cerebrovasculares
-              e Diabetes Mellitus
+              causas de mortalidade materna, doenças cardiovasculares e
+              cerebrovasculares e diabetes mellitus
             </span>
             , além de investigar as regiões prioritárias para intervenções.
             Essas análises visam subsidiar políticas direcionadas para a saúde

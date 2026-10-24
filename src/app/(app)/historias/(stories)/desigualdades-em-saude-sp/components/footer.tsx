@@ -52,7 +52,7 @@ export default function Footer() {
             {
               role: "Autores",
               names:
-                "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
+                "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
             },
           ],
         },

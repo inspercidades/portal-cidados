@@ -58,12 +58,12 @@ export default function DiseasesIntroduction() {
 
           <p>
             Como mencionado anteriormente, este estudo não se limitou à
-            identificação das áreas de risco relacionadas ao Diabetes Mellitus.
+            identificação das áreas de risco relacionadas ao diabetes mellitus.
             A seguir, serão apresentadas as informações mais relevantes sobre as
             demais doenças analisadas: mortalidade materna (incluindo
             mortalidade fetal), mortalidade prematura cardiovascular
             (subdividida em doenças cerebrovasculares e isquêmicas do coração) e
-            mortalidade prematura por Diabetes Mellitus.
+            mortalidade prematura por diabetes mellitus.
           </p>
 
           <p>

@@ -436,7 +436,7 @@ export default function SupermercadoSection() {
       text: (
         <>
           Depois de um dia intenso, Maria algumas vezes ainda precisa{" "}
-          <strong>buscar os medicamentos para a diabetes</strong> na Farmácia
+          <strong>buscar os medicamentos para o diabetes</strong> na Farmácia
           Popular. Mas muitas vezes, devido ao trânsito e à longa distância,
           quando ela consegue chegar,{" "}
           <strong>
@@ -450,10 +450,10 @@ export default function SupermercadoSection() {
       top: 1050,
       text: (
         <>
-          <strong>Aos sábados o dia é de descanso. Mas não para Maria</strong>.
-          Ela tem que ir na Unidade Básica de Saúde (UBS) mais próxima para
+          <strong>Aos sábados, o dia é de descanso. Mas não para Maria</strong>.
+          Ela tem que ir à unidade básica de saúde (UBS) mais próxima para
           realizar <strong>exames com um endocrinologista</strong>. Depois de
-          uma <strong>longa fila de espera</strong> ela consegue ser atendida e
+          uma <strong>longa espera</strong>, ela consegue ser atendida e
           volta para sua casa.
         </>
       ),

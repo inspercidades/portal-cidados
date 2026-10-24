@@ -49,8 +49,8 @@ export default function Cover() {
         </h2>
 
         <p className="text-white text-md md:text-lg font-normal max-w-[620px] leading-relaxed">
-          Estudo desenvolvido por Paulo H. Nascimento Saldiva, Ligia Vizeu
-          Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de
+          Estudo desenvolvido por Paulo H. Nascimento Saldiva, Lígia Vizeu
+          Barrozo, Cátia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de
           André.
         </p>
 
