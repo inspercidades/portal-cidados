@@ -14,7 +14,7 @@ export default function Intro() {
   const handleShare = async () => {
     const shareData = {
       title: "A Faixa Azul tornou o trânsito mais seguro?",
-      text: "Avaliação do impacto das faixas dedicadas à motociclistas nos sinistros em São Paulo",
+      text: "Avaliação do impacto das faixas dedicadas a motociclistas nos sinistros em São Paulo",
       url: window.location.href,
     };
 

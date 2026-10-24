@@ -21,7 +21,7 @@ export const charts: ChartData[] = [
     subtitle:
       "Distribuição dos deslocamentos diários, por meio de transporte principal, em São Paulo, incluindo todos os deslocamentos na Região Metropolitana que passam pela capital.", // fornecido
     source:
-      'Pesquisa Origem-Destino do Metrô de São Paulo; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
+      'Pesquisa Origem-Destino 2023 do Metrô de São Paulo; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
     yMax: 50, // config
     step: 2, // config
     categories: [

@@ -47,7 +47,7 @@ export default function OsmText() {
           </p>
 
           <p>
-            A partir do matching geográfico dos dados de sinistros e mortes no
+            A partir do pareamento geográfico dos dados de sinistros e mortes no
             trânsito, com informações sobre as vias que receberam intervenções,
             foi possível gerar o gráfico que pode ser visto abaixo. Esta
             visualização mostra, em uma linha do tempo, quando ocorreram

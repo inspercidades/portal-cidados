@@ -14,7 +14,7 @@ export default function Context() {
             aria-hidden="true"
           />
           <p>
-            Data de publicação desta história <strong>Junho 2026</strong>
+            Data de publicação desta história: <strong>junho de 2026</strong>.
           </p>
         </div>
 
@@ -23,7 +23,7 @@ export default function Context() {
             <p className="font-bold text-sm">27 de Março de 2024</p>
 
             <blockquote className="italic text-sm leading-normal">
-              &ldquo;Corredor da Avenida 23 Maio - sentido aeroporto. Um
+              &ldquo;Corredor da Avenida 23 [de] Maio - sentido aeroporto. Um
               motociclista colidiu com a traseira de um caminhão, na Av. Moreira
               Guimarães, na altura da Av. Jamaris, por volta das 2h da manhã,
               quando as pistas estão livres. A vítima foi socorrida com vida,

@@ -35,7 +35,7 @@ import {
 export const metadata: Metadata = buildMetadata({
   title: "A Faixa Azul tornou o trânsito mais seguro?",
   description:
-    "Avaliação do impacto das faixas dedicadas à motociclistas nos sinistros em São Paulo",
+    "Avaliação do impacto das faixas dedicadas a motociclistas nos sinistros em São Paulo",
   path: "/historias/faixa-azul",
   image: "/assets/viz4/viz4.1.png",
   type: "article",
@@ -62,7 +62,7 @@ export default function FaixaAzulPage() {
     <>
       <StoryJsonLd
         title="A Faixa Azul tornou o trânsito mais seguro?"
-        description="Avaliação do impacto das faixas dedicadas à motociclistas nos sinistros em São Paulo"
+        description="Avaliação do impacto das faixas dedicadas a motociclistas nos sinistros em São Paulo"
         path="/historias/faixa-azul"
         image="/assets/viz4/viz4.1.png"
       />
