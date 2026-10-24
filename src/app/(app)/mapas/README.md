@@ -58,7 +58,6 @@ Toda a visualização é capturada em query params. Ao copiar e colar a URL, o m
   &pitch=34.50
   &lat=-22.84302
   &lng=-43.26905
-  &theme=dark
 ```
 
 ### Modo comparação
@@ -85,7 +84,7 @@ Toda a visualização é capturada em query params. Ao copiar e colar a URL, o m
 | `pitch` | float | `0` | Inclinação em graus |
 | `lat` | float | — | Latitude do centro |
 | `lng` | float | — | Longitude do centro |
-| `theme` | `dark` \| `light` | `dark` | Tema do basemap |
+| `theme` | `dark` \| `light` | `light` | Tema do basemap |
 | `compare` | `1` | — | Ativa modo comparação |
 | `layer1` | string | — | Camada esquerda (modo comparação) |
 | `layer2` | string | — | Camada direita (modo comparação) |

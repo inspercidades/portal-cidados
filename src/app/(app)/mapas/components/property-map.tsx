@@ -148,7 +148,7 @@ export default function PropertyMap() {
     pitch: searchParams.get("pitch") ? Number(searchParams.get("pitch")) : null,
     lat: searchParams.get("lat") ? Number(searchParams.get("lat")) : null,
     lng: searchParams.get("lng") ? Number(searchParams.get("lng")) : null,
-    theme: (searchParams.get("theme") as "dark" | "light" | null) ?? "dark",
+    theme: (searchParams.get("theme") as "dark" | "light" | null) ?? "light",
   });
 
   const mapViewportRef = useRef<{
@@ -231,7 +231,7 @@ export default function PropertyMap() {
     }
     const opStr = buildOpacityParam(layerOpacities);
     if (opStr) params.set("opacity", opStr);
-    if (mapTheme !== "dark") params.set("theme", mapTheme);
+    if (mapTheme !== "light") params.set("theme", mapTheme);
     if (vp.zoom !== null) params.set("zoom", vp.zoom.toFixed(4));
     if (vp.bearing !== null) params.set("bearing", vp.bearing.toFixed(2));
     if (vp.pitch !== null) params.set("pitch", vp.pitch.toFixed(2));
