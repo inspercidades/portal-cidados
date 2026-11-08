@@ -1,3 +1,5 @@
+import { defaultLocale, htmlLang, type Locale } from "@/i18n/config";
+import { localeHref } from "@/i18n/routing";
 import { SITE_URL, siteConfig } from "@/lib/seo";
 
 type JsonLd = Record<string, unknown>;
@@ -21,22 +23,25 @@ export function organizationJsonLd(): JsonLd {
 }
 
 /** Site como um todo, com ação de busca no catálogo de dados. */
-export function websiteJsonLd(): JsonLd {
+export function websiteJsonLd(
+  locale: Locale = defaultLocale,
+  description: string = siteConfig.description,
+): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: siteConfig.name,
     alternateName: siteConfig.shortName,
-    url: SITE_URL,
-    inLanguage: "pt-BR",
-    description: siteConfig.description,
+    url: absoluteUrl(localeHref(locale, "/")),
+    inLanguage: htmlLang[locale],
+    description,
     publisher: { "@id": `${SITE_URL}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/catalogo-de-dados?q={search_term_string}`,
+        urlTemplate: `${absoluteUrl(localeHref(locale, "/catalogo-de-dados"))}?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -50,6 +55,7 @@ export interface ArticleJsonLdOptions {
   image?: string;
   datePublished?: string;
   authors?: string[];
+  lang?: Locale;
 }
 
 /** Artigo/reportagem de uma história (scrollytelling). */
@@ -61,8 +67,9 @@ export function articleJsonLd(options: ArticleJsonLdOptions): JsonLd {
     image = siteConfig.defaultOgImage,
     datePublished,
     authors,
+    lang = defaultLocale,
   } = options;
-  const url = absoluteUrl(path);
+  const url = absoluteUrl(localeHref(lang, path));
   const imageUrl = image.startsWith("http") ? image : absoluteUrl(image);
 
   return {
@@ -73,7 +80,7 @@ export function articleJsonLd(options: ArticleJsonLdOptions): JsonLd {
     image: [imageUrl],
     url,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    inLanguage: "pt-BR",
+    inLanguage: htmlLang[lang],
     ...(datePublished ? { datePublished } : {}),
     author: authors?.length
       ? authors.map((name) => ({ "@type": "Person", name }))
@@ -88,7 +95,10 @@ export interface BreadcrumbItem {
 }
 
 /** Trilha de navegação (breadcrumbs) de uma página interna. */
-export function breadcrumbJsonLd(items: BreadcrumbItem[]): JsonLd {
+export function breadcrumbJsonLd(
+  items: BreadcrumbItem[],
+  locale: Locale = defaultLocale,
+): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -96,7 +106,7 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]): JsonLd {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: absoluteUrl(localeHref(locale, item.path)),
     })),
   };
 }
@@ -107,14 +117,19 @@ export interface CollectionItem {
 }
 
 /** Página de coleção do catálogo de dados, com os datasets listados. */
-export function catalogCollectionJsonLd(items: CollectionItem[]): JsonLd {
+export function catalogCollectionJsonLd(
+  items: CollectionItem[],
+  locale: Locale = defaultLocale,
+  name = "Catálogo de Dados",
+): JsonLd {
+  const url = absoluteUrl(localeHref(locale, "/catalogo-de-dados"));
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "@id": `${absoluteUrl("/catalogo-de-dados")}#collection`,
-    name: "Catálogo de Dados",
-    url: absoluteUrl("/catalogo-de-dados"),
-    inLanguage: "pt-BR",
+    "@id": `${url}#collection`,
+    name,
+    url,
+    inLanguage: htmlLang[locale],
     isPartOf: { "@id": `${SITE_URL}/#website` },
     mainEntity: {
       "@type": "ItemList",

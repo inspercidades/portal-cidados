@@ -23,12 +23,16 @@ import {
   readCookieConsent,
   writeCookieConsent,
 } from "@/lib/cookie-consent";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { cn } from "@/lib/utils";
 
 export function CookiePreferencesLink({ className }: { className?: string }) {
+  const lang = useLocale();
   return (
     <button type="button" onClick={openCookiePreferences} className={className}>
-      Preferências de cookies
+      {chrome[lang].cookie.preferences}
     </button>
   );
 }
@@ -112,6 +116,9 @@ function CookieConsentCard({
       );
   }, [show]);
 
+  const lang = useLocale();
+  const copy = chrome[lang].cookie;
+
   if (hide) return null;
 
   return (
@@ -124,28 +131,17 @@ function CookieConsentCard({
     >
       <Card className="m-3 bg-card text-card-foreground shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="font-gt-ultra text-lg">
-            Cookies neste site
-          </CardTitle>
+          <CardTitle className="font-gt-ultra text-lg">{copy.title}</CardTitle>
           <Cookie className="h-5 w-5" />
         </CardHeader>
         <CardContent className="space-y-2">
-          <CardDescription className="text-sm">
-            Usamos cookies estritamente necessários para o site funcionar. Com a
-            sua autorização, também usamos o Google Analytics e o Microsoft
-            Clarity para medir a audiência e entender como as páginas são
-            usadas, inclusive com gravação de sessão. Você pode recusar esses
-            cookies e continuar navegando.
-          </CardDescription>
-          <p className="text-xs text-muted-foreground">
-            Ao clicar em &quot;Aceitar&quot;, você autoriza os cookies de
-            audiência e a gravação de sessão.
-          </p>
+          <CardDescription className="text-sm">{copy.body}</CardDescription>
+          <p className="text-xs text-muted-foreground">{copy.acceptNote}</p>
           <Link
-            href="/privacidade"
+            href={localeHref(lang, "/privacidade")}
             className="text-xs text-foreground underline underline-offset-4 hover:no-underline"
           >
-            Aviso de privacidade
+            {copy.privacy}
           </Link>
         </CardContent>
         <CardFooter className="flex gap-2 pt-2">
@@ -155,14 +151,14 @@ function CookieConsentCard({
             variant="secondary"
             className="flex-1"
           >
-            Recusar
+            {copy.decline}
           </Button>
           <Button
             type="button"
             onClick={() => dismiss(onAccept)}
             className="flex-1"
           >
-            Aceitar
+            {copy.accept}
           </Button>
         </CardFooter>
       </Card>

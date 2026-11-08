@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { JsonLd } from "@/components/json-ld";
+import { defaultLocale, type Locale } from "@/i18n/config";
 import { type BreadcrumbItem, breadcrumbJsonLd } from "@/lib/structured-data";
 
 /**
@@ -8,10 +9,14 @@ import { type BreadcrumbItem, breadcrumbJsonLd } from "@/lib/structured-data";
  */
 export async function PageJsonLd({
   breadcrumbs,
+  locale = defaultLocale,
 }: {
   breadcrumbs: BreadcrumbItem[];
+  locale?: Locale;
 }) {
   const nonce = (await headers()).get("x-nonce") ?? "";
 
-  return <JsonLd nonce={nonce} data={breadcrumbJsonLd(breadcrumbs)} />;
+  return (
+    <JsonLd nonce={nonce} data={breadcrumbJsonLd(breadcrumbs, locale)} />
+  );
 }

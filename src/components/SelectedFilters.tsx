@@ -2,6 +2,8 @@
 
 import { X } from "lucide-react";
 import type { CatalogFilters } from "@/app/api/catalog/route";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import { Button } from "@/components/ui/button";
 
 interface SelectedFiltersProps {
@@ -15,6 +17,7 @@ export function SelectedFilters({
   onRemoveFilter,
   onClearAll,
 }: SelectedFiltersProps) {
+  const copy = chrome[useLocale()].catalog;
   const getActiveFilters = () => {
     const activeFilters: Array<{
       type: keyof CatalogFilters;
@@ -40,9 +43,10 @@ export function SelectedFilters({
 
     if (filters.accessMethod) {
       const label =
-        filters.accessMethod === "Disponível para download"
-          ? "Sim"
-          : "Sala segura";
+        filters.accessMethod === "Disponível para download" ||
+        filters.accessMethod === "Available for download"
+          ? copy.yes
+          : copy.secureRoom;
       activeFilters.push({
         type: "accessMethod",
         value: filters.accessMethod,
@@ -84,7 +88,7 @@ export function SelectedFilters({
           onClick={onClearAll}
           className="text-foreground hover:text-foreground hover:bg-transparent hover:underline font-medium"
         >
-          Limpar
+          {copy.clear}
         </Button>
       )}
     </div>

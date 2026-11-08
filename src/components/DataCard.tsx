@@ -3,7 +3,10 @@
 import { ExternalLink, MapIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { getLayersForCatalogItem } from "@/app/(app)/mapas/lib/city-layers";
+import { getLayersForCatalogItem } from "@/app/[lang]/(app)/mapas/lib/city-layers";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,13 +23,20 @@ interface DataCardProps {
 }
 
 export function DataCard({ item, initialOpen = false }: DataCardProps) {
+  const lang = useLocale();
+  const copy = chrome[lang].catalog;
   const [isModalOpen, setIsModalOpen] = useState(initialOpen);
   const geoportalLinks = getLayersForCatalogItem(item.id);
 
   const formatTags = (tags: string[]) => {
     return tags.map((tag) => {
-      if (tag === "Disponível para download") return "Download";
-      if (tag === "Sala segura do Insper") return "Sala segura";
+      if (
+        tag === "Disponível para download" ||
+        tag === "Available for download"
+      )
+        return copy.download;
+      if (tag === "Sala segura do Insper" || tag === "Insper secure room")
+        return copy.secureRoom;
       return tag;
     });
   };
@@ -36,7 +46,9 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
   // Separar tags de forma de acesso das outras tags
   const accessMethodTags = [
     "Disponível para download",
+    "Available for download",
     "Sala segura do Insper",
+    "Insper secure room",
   ];
 
   // Obter forma de acesso (prioriza accessMethod, senão busca nas tags)
@@ -112,7 +124,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {/* Descrição completa */}
             <div>
               <h4 className="text-sm font-medium text-foreground mb-2">
-                Descrição
+                {copy.description}
               </h4>
               <p className="text-sm text-muted-foreground whitespace-pre-line">
                 {item.description}
@@ -123,7 +135,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {item.keywords && item.keywords.length > 0 && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Palavras-chave
+                  {copy.keywords}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {item.keywords.map((keyword) => (
@@ -142,7 +154,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {item.theme && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Tema
+                  {copy.theme}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
@@ -156,7 +168,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {item.region && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Região
+                  {copy.region}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
@@ -170,7 +182,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {accessMethod && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Forma de acesso
+                  {copy.access}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
@@ -183,10 +195,10 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {item.createdAt && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Disponível desde
+                  {copy.availableSince}
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {new Date(item.createdAt).toLocaleDateString("pt-BR", {
+                  {new Date(item.createdAt).toLocaleDateString(lang === "en" ? "en" : "pt-BR", {
                     timeZone: "UTC",
                     year: "numeric",
                     month: "long",
@@ -200,7 +212,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {hasDatasets && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-3">
-                  Conjuntos de dados disponíveis ({item.dataset_info.length})
+                  {copy.datasetsAvailable} ({item.dataset_info.length})
                 </h4>
                 <div className="space-y-3">
                   {item.dataset_info.map((dataset) => (
@@ -219,7 +231,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                           className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shrink-0"
                           size="sm"
                         >
-                          Acessar
+                          {copy.accessVerb}
                           <ExternalLink className="ml-2 h-3 w-3" />
                         </Button>
                       </div>
@@ -242,11 +254,11 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                   return (
                     <Link
                       key={city}
-                      href={`/mapas?${params}`}
+                      href={localeHref(lang, `/mapas?${params}`)}
                       className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
                     >
                       <MapIcon className="w-4 h-4" />
-                      Ver dados no mapa
+                      {copy.viewOnMap}
                     </Link>
                   );
                 })}

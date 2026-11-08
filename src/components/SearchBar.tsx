@@ -3,6 +3,8 @@
 import { Search } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
@@ -12,9 +14,11 @@ interface SearchBarProps {
 
 export function SearchBar({
   onSearch,
-  placeholder = "Pesquisar por palavra-chave",
+  placeholder,
   initialValue = "",
 }: SearchBarProps) {
+  const resolvedPlaceholder =
+    placeholder ?? chrome[useLocale()].catalog.search;
   const [searchTerm, setSearchTerm] = useState(initialValue);
 
   const handleSearch = useCallback(
@@ -29,7 +33,7 @@ export function SearchBar({
     <div className="relative">
       <Input
         type="text"
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         value={searchTerm}
         onChange={(e) => handleSearch(e.target.value)}
         className="pl-6 bg-background-2 border-none rounded-none h-12 text-foreground placeholder:text-foreground"

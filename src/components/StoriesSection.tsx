@@ -6,6 +6,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { chrome } from "@/i18n/messages/chrome";
+import { homeListingCopy } from "@/i18n/messages/listings";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { getStoriesForHome, type Story } from "@/lib/data/stories";
 
 import "swiper/css";
@@ -15,7 +19,16 @@ export function StoriesSection() {
     [key: string]: number;
   }>({});
   const [hoveredStoryId, setHoveredStoryId] = useState<string | null>(null);
-  const stories = useMemo(() => getStoriesForHome(), []);
+  const lang = useLocale();
+  const copy = chrome[lang].storiesIndex;
+  const stories = useMemo(
+    () =>
+      getStoriesForHome().map((story) => {
+        const text = homeListingCopy(lang, story.id);
+        return { ...story, title: text.title, description: text.description };
+      }),
+    [lang],
+  );
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
   const nextArrowRef = useRef<HTMLButtonElement>(null);
@@ -156,7 +169,7 @@ export function StoriesSection() {
     if (story.href) {
       return (
         <Link
-          href={story.href}
+          href={story.href ? localeHref(lang, story.href) : story.href}
           className="block cursor-grab active:cursor-grabbing"
         >
           {media}
@@ -178,8 +191,8 @@ export function StoriesSection() {
   return (
     <section className="py-8 pt-18 pb-16 mx-auto bg-background overflow-x-hidden">
       <div className="flex items-center justify-between gap-4 pb-3 px-4 md:px-8 lg:px-12 text-sm text-foreground leading-relaxed font-gt-ultra-fine">
-        <Link href="/historias" className="cursor-pointer">
-          Veja nossas histórias
+        <Link href={localeHref(lang, "/historias")} className="cursor-pointer">
+          {copy.seeAll}
         </Link>
         <div className="flex shrink-0 gap-0">
           <button
@@ -187,7 +200,7 @@ export function StoriesSection() {
             onClick={() => swiperRef.current?.slidePrev()}
             disabled={isBeginning}
             className="p-1 cursor-pointer disabled:cursor-default disabled:opacity-30"
-            aria-label="Slide anterior"
+            aria-label={copy.previousSlide}
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
@@ -197,7 +210,7 @@ export function StoriesSection() {
             onClick={() => swiperRef.current?.slideNext()}
             disabled={isEnd}
             className="p-1 cursor-pointer disabled:cursor-default disabled:opacity-30"
-            aria-label="Próximo slide"
+            aria-label={copy.nextSlide}
           >
             <ArrowRight className="h-5 w-5" />
           </button>

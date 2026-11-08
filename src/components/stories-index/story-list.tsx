@@ -1,6 +1,8 @@
 "use client";
 
 import type { KeyboardEvent, RefObject } from "react";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import type { StoryListing } from "@/lib/data/stories";
 
 type StoryListProps = {
@@ -22,10 +24,11 @@ export function StoryList({
   onRowFocus,
   onKeyDown,
 }: StoryListProps) {
+  const label = chrome[useLocale()].storiesIndex.listLabel;
   return (
     <ul
       ref={listRef}
-      aria-label="Histórias"
+      aria-label={label}
       onKeyDown={onKeyDown}
       className="px-[5vw] py-[20vh] min-[861px]:pr-[calc(min(420px,32vw)_+_6vw_+_2rem)] min-[861px]:pl-8 lg:pl-12"
     >

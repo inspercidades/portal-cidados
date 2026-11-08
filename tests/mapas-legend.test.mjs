@@ -14,7 +14,7 @@ async function loadTypescript(path) {
 }
 
 const { extractLegendFromPaint, formatNumber } = await loadTypescript(
-  "../src/app/(app)/mapas/lib/layer-styles.ts",
+  "../src/app/[lang]/(app)/mapas/lib/layer-styles.ts",
 );
 
 const NA = "#737373";

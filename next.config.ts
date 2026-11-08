@@ -14,6 +14,26 @@ const nextConfig: NextConfig = {
         destination: "/mapas/:path*",
         permanent: true,
       },
+      {
+        source: "/pt/geoportal",
+        destination: "/mapas",
+        permanent: true,
+      },
+      {
+        source: "/pt/geoportal/:path*",
+        destination: "/mapas/:path*",
+        permanent: true,
+      },
+      {
+        source: "/en/geoportal",
+        destination: "/en/maps",
+        permanent: true,
+      },
+      {
+        source: "/en/geoportal/:path*",
+        destination: "/en/maps/:path*",
+        permanent: true,
+      },
     ];
   },
   images: {

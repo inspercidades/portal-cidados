@@ -1,29 +1,29 @@
 export type NavChild = {
-  label: string;
+  id: "observatory";
   href: string;
 };
 
 export type NavItem = {
-  label: string;
+  id: "home" | "stories" | "maps" | "catalog" | "projects" | "about";
   href?: string;
   children?: NavChild[];
 };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Histórias", href: "/historias" },
-  { label: "Mapas", href: "/mapas" },
-  { label: "Catálogo de dados", href: "/catalogo-de-dados" },
+  { id: "home", href: "/" },
+  { id: "stories", href: "/historias" },
+  { id: "maps", href: "/mapas" },
+  { id: "catalog", href: "/catalogo-de-dados" },
   {
-    label: "Projetos",
+    id: "projects",
     children: [
       {
-        label: "Observatório Nacional de\nMobilidade Sustentável",
+        id: "observatory",
         href: "https://observatorio.insper.edu.br/",
       },
     ],
   },
-  { label: "Sobre", href: "/sobre" },
+  { id: "about", href: "/sobre" },
 ];
 
 export function isExternalHref(href: string) {

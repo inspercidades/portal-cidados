@@ -4,6 +4,7 @@ import { cva } from "class-variance-authority";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ExternalLink } from "@/components/external-link";
+import { LanguageSwitch } from "@/components/language-switch";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,6 +13,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref, toInternalPath } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { isExternalHref, NAV_ITEMS } from "@/lib/navigation";
 
 const navItemClass = cva(
@@ -39,48 +43,63 @@ const navChildClass = cva(
 );
 
 export function DesktopNav() {
-  const pathname = usePathname();
+  const pathname = toInternalPath(usePathname());
+  const lang = useLocale();
+  const labels = chrome[lang].nav;
 
   return (
     <NavigationMenu
       viewport={false}
-      aria-label="Menu principal"
+      aria-label={labels.mainMenu}
       className="hidden max-w-none flex-none lg:flex"
     >
       <NavigationMenuList className="gap-6 xl:gap-8">
         {NAV_ITEMS.map((item) =>
           item.children ? (
-            <NavigationMenuItem key={item.label}>
+            <NavigationMenuItem key={item.id}>
               <NavigationMenuTrigger
                 showChevron={false}
                 className={navItemClass({ active: false, openable: true })}
               >
-                {item.label}
+                {labels[item.id]}
               </NavigationMenuTrigger>
               <NavigationMenuContent className="right-0 left-auto w-max rounded-none border-border bg-background-2 px-5 py-4 text-right shadow-xl group-data-[viewport=false]/navigation-menu:rounded-none md:w-max">
                 {item.children.map((child) => (
-                  <NavigationMenuLink key={child.href} asChild className={navChildClass()}>
+                  <NavigationMenuLink
+                    key={child.href}
+                    asChild
+                    className={navChildClass()}
+                  >
                     {isExternalHref(child.href) ? (
-                      <ExternalLink href={child.href}>{child.label}</ExternalLink>
+                      <ExternalLink href={child.href}>
+                        {labels[child.id]}
+                      </ExternalLink>
                     ) : (
-                      <Link href={child.href}>{child.label}</Link>
+                      <Link href={localeHref(lang, child.href)}>
+                        {labels[child.id]}
+                      </Link>
                     )}
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuContent>
             </NavigationMenuItem>
           ) : (
-            <NavigationMenuItem key={item.label}>
+            <NavigationMenuItem key={item.id}>
               <NavigationMenuLink
                 asChild
                 active={pathname === item.href}
                 className={navItemClass({ active: pathname === item.href })}
               >
-                <Link href={item.href || "#"}>{item.label}</Link>
+                <Link href={localeHref(lang, item.href || "/")}>
+                  {labels[item.id]}
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           ),
         )}
+        <NavigationMenuItem>
+          <LanguageSwitch />
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

@@ -2,11 +2,13 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
-  const label = "Alternar entre tema claro e escuro";
+  const label = chrome[useLocale()].theme.toggle;
 
   return (
     <button

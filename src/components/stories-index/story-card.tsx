@@ -9,6 +9,8 @@ import {
   useState,
   type WheelEvent,
 } from "react";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import type { StoryListing } from "@/lib/data/stories";
 import { STORIES_MOBILE_QUERY } from "./use-story-focus";
 
@@ -34,6 +36,7 @@ function isLocalAsset(src: string) {
 }
 
 export function StoryCard({ story, cardRef, onOpen, onWheel }: StoryCardProps) {
+  const openLabel = chrome[useLocale()].storiesIndex.open;
   const dragRef = useRef({
     active: false,
     moved: false,
@@ -89,7 +92,7 @@ export function StoryCard({ story, cardRef, onOpen, onWheel }: StoryCardProps) {
       type="button"
       ref={cardRef}
       data-lenis-prevent
-      aria-label={`Abrir ${story.title}`}
+      aria-label={`${openLabel} ${story.title}`}
       onClick={handleClick}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

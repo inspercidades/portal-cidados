@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { defaultLocale, type Locale, ogLocale } from "@/i18n/config";
+import { localeHref } from "@/i18n/routing";
 
 /** Único host que deve ser indexado pelos motores de busca. */
 export const PRODUCTION_HOSTNAME = "cidados.insper.edu.br";
@@ -109,6 +111,8 @@ export interface BuildMetadataOptions {
   authors?: string[];
   /** Impede indexação (ex.: rotas utilitárias). */
   noindex?: boolean;
+  /** Locale da URL. O `path` continua sem prefixo (`/historias`). */
+  lang?: Locale;
 }
 
 function absoluteUrl(path = "/"): string {
@@ -131,10 +135,17 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
     publishedTime,
     authors,
     noindex,
+    lang = defaultLocale,
   } = options;
 
-  const canonical = absoluteUrl(path);
+  const localizedPath = localeHref(lang, path);
+  const canonical = absoluteUrl(localizedPath);
   const ogImage = image.startsWith("http") ? image : absoluteUrl(image);
+  const languages = {
+    "pt-BR": absoluteUrl(localeHref("pt", path)),
+    en: absoluteUrl(localeHref("en", path)),
+    "x-default": absoluteUrl(localeHref("pt", path)),
+  };
   // title.template do layout só vale em segmentos filhos. A Home vive no
   // mesmo segmento do layout raiz, então o título precisa ser absoluto.
   const resolvedTitle =
@@ -150,13 +161,15 @@ export function buildMetadata(options: BuildMetadataOptions = {}): Metadata {
       : [...siteConfig.keywords],
     alternates: {
       canonical,
+      languages,
     },
     robots: robotsDirective(noindex),
     openGraph: {
       type,
       url: canonical,
       siteName: siteConfig.name,
-      locale: siteConfig.locale,
+      locale: ogLocale[lang],
+      alternateLocale: lang === "pt" ? ogLocale.en : ogLocale.pt,
       title: title ?? siteConfig.name,
       description,
       images: [{ url: ogImage }],

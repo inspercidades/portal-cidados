@@ -8,6 +8,9 @@ import {
   useRef,
   type WheelEvent,
 } from "react";
+import { listingCopy } from "@/i18n/messages/listings";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { getStoryListings, isInternalStoryHref } from "@/lib/data/stories";
 import { playClickSound, unlockClickSound } from "./click-sound";
 import { StoryCard } from "./story-card";
@@ -25,7 +28,15 @@ const UNLOCK_EVENTS = [
 
 export function StoriesIndex() {
   const router = useRouter();
-  const stories = useMemo(() => getStoryListings(), []);
+  const lang = useLocale();
+  const stories = useMemo(
+    () =>
+      getStoryListings().map((story) => ({
+        ...story,
+        title: listingCopy(lang, story.id).title,
+      })),
+    [lang],
+  );
   const count = stories.length;
   const { activeIndex, scrollerRef, listRef, cardRef, rowRefs, centerRow } =
     useStoryFocus(count);
@@ -51,7 +62,7 @@ export function StoriesIndex() {
   }, [activeIndex]);
 
   const openStory = (href: string) => {
-    if (isInternalStoryHref(href)) router.push(href);
+    if (isInternalStoryHref(href)) router.push(localeHref(lang, href));
   };
 
   const handleRowClick = (index: number) => {

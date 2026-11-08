@@ -6,6 +6,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { ExternalLink } from "@/components/external-link";
+import { LanguageSwitch } from "@/components/language-switch";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref, toInternalPath } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { isExternalHref, NAV_ITEMS } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +37,9 @@ const mobileChildClass = cva(
 );
 
 export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
-  const pathname = usePathname();
+  const pathname = toInternalPath(usePathname());
+  const lang = useLocale();
+  const labels = chrome[lang].nav;
 
   const handleClose = useCallback(() => {
     onClose();
@@ -72,7 +78,7 @@ export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
           type="button"
           onClick={handleClose}
           className="p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-          aria-label="Fechar menu"
+          aria-label={labels.closeMenu}
         >
           <X className="size-8 text-black dark:text-white" />
         </button>
@@ -88,7 +94,7 @@ export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
           if (item.children) {
             return (
               <div
-                key={item.label}
+                key={item.id}
                 className={cn("group/parent", motion)}
                 style={{
                   transitionDelay: isOpen ? `${index * 100}ms` : "0ms",
@@ -100,13 +106,13 @@ export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
                     "cursor-pointer group-hover/parent:text-black dark:group-hover/parent:text-white",
                   )}
                 >
-                  {item.label}
+                  {labels[item.id]}
                 </div>
                 <div className="mt-4 max-h-0 space-y-4 overflow-hidden opacity-0 transition-all duration-500 ease-in-out group-hover/parent:max-h-[500px] group-hover/parent:opacity-100">
                   {item.children.map((child) => {
                     const className = "group/sub block";
                     const label = (
-                      <div className={mobileChildClass()}>{child.label}</div>
+                      <div className={mobileChildClass()}>{labels[child.id]}</div>
                     );
 
                     if (isExternalHref(child.href)) {
@@ -125,7 +131,7 @@ export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
                     return (
                       <Link
                         key={child.href}
-                        href={child.href}
+                        href={localeHref(lang, child.href)}
                         onClick={handleClose}
                         className={className}
                       >
@@ -140,20 +146,33 @@ export function SiteMenu({ isOpen, onClose, className }: SiteMenuProps) {
 
           return (
             <Link
-              key={item.label}
-              href={item.href || "#"}
+              key={item.id}
+              href={localeHref(lang, item.href || "/")}
               onClick={handleClose}
               className={cn("group block", motion)}
               style={{
                 transitionDelay: isOpen ? `${index * 100}ms` : "0ms",
               }}
             >
-              <div className={mobileItemClass({ active: pathname === item.href })}>
-                {item.label}
+              <div
+                className={mobileItemClass({ active: pathname === item.href })}
+              >
+                {labels[item.id]}
               </div>
             </Link>
           );
         })}
+        <div
+          className={cn(
+            "transition-all duration-500",
+            isOpen ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0",
+          )}
+          style={{
+            transitionDelay: isOpen ? `${NAV_ITEMS.length * 100}ms` : "0ms",
+          }}
+        >
+          <LanguageSwitch />
+        </div>
       </div>
     </div>
   );

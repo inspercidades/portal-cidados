@@ -14,7 +14,7 @@ async function loadTypescript(path) {
 }
 
 const { cityLayersConfig } = await loadTypescript(
-  "../src/app/(app)/mapas/lib/city-layers.ts",
+  "../src/app/[lang]/(app)/mapas/lib/city-layers.ts",
 );
 const { catalogData, filterOptions } = await loadTypescript(
   "../src/lib/data/catalog.ts",

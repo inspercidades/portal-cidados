@@ -1,9 +1,9 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { defaultLocale, hasLocale } from "@/i18n/config";
+import { localizeCatalog, localizeFilterOptions } from "@/i18n/catalog";
 import {
-  catalogData,
   type DataCatalogItem,
-  filterOptions,
 } from "@/lib/data/catalog";
 
 // Revalida o cache a cada 10 minutos (600 segundos)
@@ -82,7 +82,9 @@ export async function GET(request: NextRequest) {
       sortBy: (searchParams.get("sortBy") as "newest" | "oldest") || "newest",
     };
 
-    let filteredData = catalogData;
+    const lang = searchParams.get("lang");
+    const locale = lang && hasLocale(lang) ? lang : defaultLocale;
+    let filteredData = localizeCatalog(locale);
 
     // Apply search filter
     if (filters.search) {
@@ -98,7 +100,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       data: filteredData,
       total: filteredData.length,
-      filters: filterOptions,
+      filters: localizeFilterOptions(locale),
     });
   } catch (error) {
     console.error("Error fetching catalog data:", error);

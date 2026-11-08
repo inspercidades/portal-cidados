@@ -8,6 +8,9 @@ import { DesktopNav } from "@/components/desktop-nav";
 import { ExternalLink } from "@/components/external-link";
 import { SiteMenu } from "@/components/SiteMenu";
 import { Button } from "@/components/ui/button";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { EXTERNAL_LINKS, SITE_GUTTER } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +18,8 @@ const DESKTOP_QUERY = "(min-width: 1024px)";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const lang = useLocale();
+  const labels = chrome[lang].nav;
 
   useEffect(() => {
     const query = window.matchMedia(DESKTOP_QUERY);
@@ -40,7 +45,7 @@ export function Header() {
           )}
         >
           <div className="z-10 flex shrink-0 items-center gap-3 md:gap-6 lg:gap-8">
-            <Link href="/" className="cursor-pointer">
+            <Link href={localeHref(lang, "/")} className="cursor-pointer">
               <div className="relative h-[40px] w-[100px] sm:h-[46px] sm:w-[140px] md:h-[50px] md:w-[130px] lg:h-[57px] lg:w-[140px]">
                 <Image
                   src="/portal_cidados_icon.png"
@@ -80,7 +85,7 @@ export function Header() {
               size="icon"
               className="lg:hidden"
               onClick={() => setIsMenuOpen((open) => !open)}
-              aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-label={isMenuOpen ? labels.closeMenu : labels.openMenu}
               aria-expanded={isMenuOpen}
             >
               <Menu className="size-6" />

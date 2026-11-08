@@ -6,6 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ExternalLink } from "@/components/external-link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref, toInternalPath } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { isExternalHref, NAV_ITEMS, type NavChild } from "@/lib/navigation";
 import {
   CONTACT_EMAIL,
@@ -26,30 +29,33 @@ const footerTextLink = cva(
 );
 
 function hidesFooter(pathname: string) {
-  return pathname === "/mapas" || pathname === "/historias";
+  const path = toInternalPath(pathname);
+  return path === "/mapas" || path === "/historias";
 }
 
-function SitemapLink({ child }: { child: NavChild }) {
+function SitemapLink({ child, label }: { child: NavChild; label: string }) {
   const className = cn(footerLink(), "whitespace-pre-line");
 
   if (isExternalHref(child.href)) {
     return (
       <ExternalLink href={child.href} className={className}>
-        {child.label}
+        {label}
       </ExternalLink>
     );
   }
 
   return (
     <Link href={child.href} className={className}>
-      {child.label}
+      {label}
     </Link>
   );
 }
 
 export function Footer() {
   const pathname = usePathname();
-  const projectsItem = NAV_ITEMS.find((item) => item.label === "Projetos");
+  const lang = useLocale();
+  const copy = chrome[lang];
+  const projectsItem = NAV_ITEMS.find((item) => item.id === "projects");
   const sitemapItems = NAV_ITEMS.filter((item) => item !== projectsItem);
 
   if (hidesFooter(pathname)) return null;
@@ -65,29 +71,32 @@ export function Footer() {
         <div>
           <p className="font-inter text-2xl tracking-wide">Portal Cidados</p>
           <p className="mt-2 text-sm text-foreground/50">
-            <span className="block">Centro de Estudos das Cidades</span>
-            <span className="block">Laboratório Arq.Futuro do Insper</span>
+            <span className="block">{copy.footer.centerLine1}</span>
+            <span className="block">{copy.footer.centerLine2}</span>
           </p>
           <ThemeToggle className="mt-6" />
         </div>
 
-        <nav aria-label="Mapa do site">
-          <h2 className={footerHeading()}>Mapa do site</h2>
+        <nav aria-label={copy.footer.sitemap}>
+          <h2 className={footerHeading()}>{copy.footer.sitemap}</h2>
           <ul className="space-y-2 text-sm text-foreground/70">
             {sitemapItems.map((item) => (
-              <li key={item.label}>
+              <li key={item.id}>
                 {item.href ? (
-                  <Link href={item.href} className={footerLink()}>
-                    {item.label}
+                  <Link
+                    href={localeHref(lang, item.href)}
+                    className={footerLink()}
+                  >
+                    {copy.nav[item.id]}
                   </Link>
                 ) : (
-                  <span>{item.label}</span>
+                  <span>{copy.nav[item.id]}</span>
                 )}
                 {item.children ? (
                   <ul className="mt-2 space-y-2 pl-3">
                     {item.children.map((child) => (
                       <li key={child.href}>
-                        <SitemapLink child={child} />
+                        <SitemapLink child={child} label={copy.nav[child.id]} />
                       </li>
                     ))}
                   </ul>
@@ -98,12 +107,12 @@ export function Footer() {
         </nav>
 
         {projectsItem?.children ? (
-          <nav aria-label={projectsItem.label}>
-            <h2 className={footerHeading()}>Projetos</h2>
+          <nav aria-label={copy.nav.projects}>
+            <h2 className={footerHeading()}>{copy.nav.projects}</h2>
             <ul className="space-y-2 text-sm text-foreground/70">
               {projectsItem.children.map((child) => (
                 <li key={child.href}>
-                  <SitemapLink child={child} />
+                  <SitemapLink child={child} label={copy.nav[child.id]} />
                 </li>
               ))}
             </ul>
@@ -111,7 +120,7 @@ export function Footer() {
         ) : null}
 
         <div>
-          <h2 className={footerHeading()}>Endereço</h2>
+          <h2 className={footerHeading()}>{copy.footer.address}</h2>
           <ExternalLink
             href={EXTERNAL_LINKS.insperMap}
             className={footerTextLink({ className: "block not-italic" })}
@@ -127,14 +136,14 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className={footerHeading()}>Contato</h2>
+          <h2 className={footerHeading()}>{copy.footer.contact}</h2>
           <a href={`mailto:${CONTACT_EMAIL}`} className={footerTextLink()}>
             {CONTACT_EMAIL}
           </a>
         </div>
 
         <div>
-          <h2 className={footerHeading()}>Redes</h2>
+          <h2 className={footerHeading()}>{copy.footer.social}</h2>
           <div className="flex items-center gap-4 text-foreground/70">
             <ExternalLink
               href={EXTERNAL_LINKS.linkedin}
@@ -146,12 +155,12 @@ export function Footer() {
                 aria-hidden="true"
               />
               <span className="sr-only">
-                LinkedIn do Centro de Estudos das Cidades
+                {copy.footer.linkedin}
               </span>
             </ExternalLink>
             <ExternalLink href={EXTERNAL_LINKS.github} className={footerLink()}>
               <Github className="size-5" strokeWidth={1.5} aria-hidden="true" />
-              <span className="sr-only">GitHub do Insper Cidades</span>
+              <span className="sr-only">{copy.footer.github}</span>
             </ExternalLink>
           </div>
         </div>
@@ -166,18 +175,18 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} Insper ·{" "}
           <ExternalLink href={EXTERNAL_LINKS.centro} className={footerLink()}>
-            Centro de Estudos das Cidades
+            {copy.footer.center}
           </ExternalLink>
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link href="/privacidade" className={footerLink()}>
-            Aviso de privacidade
+          <Link href={localeHref(lang, "/privacidade")} className={footerLink()}>
+            {copy.footer.privacy}
           </Link>
           <ExternalLink
             href={EXTERNAL_LINKS.privacyPortal}
             className={footerLink()}
           >
-            Portal da Privacidade do Insper
+            {copy.footer.insperPrivacy}
           </ExternalLink>
         </div>
       </div>

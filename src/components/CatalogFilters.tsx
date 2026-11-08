@@ -3,6 +3,8 @@
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -31,6 +33,7 @@ export function CatalogFilters({
   initialFilters,
   filterOptions: propFilterOptions,
 }: CatalogFiltersProps) {
+  const copy = chrome[useLocale()].catalog;
   const [filters, setFilters] = useState<FiltersType>(initialFilters || {});
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     themes: [],
@@ -83,12 +86,14 @@ export function CatalogFilters({
   return (
     <div className="bg-background-2 p-6">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-semibold">Filtros</h2>
+        <h2 className="text-lg font-semibold">{copy.filters}</h2>
       </div>
 
       {/* Theme Filter */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-muted-foreground mb-3">Tema</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-3">
+          {copy.theme}
+        </h3>
         <div className="space-y-2">
           {filterOptions.themes.map((theme) => (
             <div key={theme} className="flex items-center space-x-2">
@@ -112,7 +117,7 @@ export function CatalogFilters({
       {/* Region Filter */}
       <div className="mb-6">
         <h3 className="text-sm font-medium text-muted-foreground mb-3">
-          Região
+          {copy.region}
         </h3>
         <div className="space-y-2">
           {filterOptions.regions.map((region) => (
@@ -138,16 +143,14 @@ export function CatalogFilters({
       <div>
         <div className="flex items-center gap-2 mb-3">
           <h3 className="text-sm font-medium text-muted-foreground">
-            Forma de acesso
+            {copy.access}
           </h3>
           <Tooltip>
             <TooltipTrigger asChild>
               <Info className="w-4 h-4 text-muted-foreground" />
             </TooltipTrigger>
             <TooltipContent className="max-w-xs" side="right" align="center">
-              Conjuntos de dados que não estão disponíveis para download podem
-              ser acessados por meio das salas seguras do Centro de Dados e IA
-              do Insper
+              {copy.accessHint}
             </TooltipContent>
           </Tooltip>
         </div>

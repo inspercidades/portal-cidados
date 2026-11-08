@@ -1,3 +1,5 @@
+import { toInternalPath } from "@/i18n/routing";
+
 /** Rota da história de transporte. Fica oculta até a flag ser ligada. */
 export const HABITACAO_STORY_PATH = "/historias/habitacao";
 
@@ -12,8 +14,9 @@ export function isHabitacaoStoryEnabled() {
 }
 
 export function isHabitacaoStoryPath(pathname: string) {
+  const path = toInternalPath(pathname);
   return (
-    pathname === HABITACAO_STORY_PATH ||
-    pathname.startsWith(`${HABITACAO_STORY_PATH}/`)
+    path === HABITACAO_STORY_PATH ||
+    path.startsWith(`${HABITACAO_STORY_PATH}/`)
   );
 }

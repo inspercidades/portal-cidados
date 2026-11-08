@@ -4,6 +4,8 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { useDebounce } from "@/hooks/useDebounce";
+import { chrome } from "@/i18n/messages/chrome";
+import { useLocale } from "@/i18n/use-locale";
 import type { DataCatalogItem } from "@/lib/data/catalog";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
@@ -24,6 +26,8 @@ interface CatalogResponse {
 
 export function CatalogPage() {
   const searchParams = useSearchParams();
+  const lang = useLocale();
+  const catalogCopy = chrome[lang].catalog;
   const openItemId = searchParams.get("item") ?? undefined;
   const initialQuery = searchParams.get("q")?.trim() ?? "";
 
@@ -58,6 +62,7 @@ export function CatalogPage() {
         params.append("accessMethod", currentFilters.accessMethod);
       if (currentFilters.sortBy) params.append("sortBy", currentFilters.sortBy);
 
+      params.set("lang", lang);
       const response = await fetch(`/api/catalog?${params.toString()}`);
       const result: CatalogResponse = await response.json();
 
@@ -69,7 +74,7 @@ export function CatalogPage() {
       setLoading(false);
       setInitialLoading(false);
     }
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     fetchData(filters);
@@ -234,7 +239,7 @@ export function CatalogPage() {
             {data.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-500">
-                  Nenhum resultado encontrado com os filtros selecionados.
+                  {catalogCopy.empty}
                 </p>
               </div>
             )}

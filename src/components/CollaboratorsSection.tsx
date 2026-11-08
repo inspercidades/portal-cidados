@@ -2,10 +2,14 @@
 
 import { Linkedin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ExternalLink } from "@/components/external-link";
+import { chrome } from "@/i18n/messages/chrome";
+import { localeHref } from "@/i18n/routing";
+import { useLocale } from "@/i18n/use-locale";
 import { getCollaborators } from "@/lib/data/collaborators";
 
 // Import Swiper styles
@@ -13,7 +17,13 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 export function CollaboratorsSection() {
-  const collaborators = getCollaborators();
+  const lang = useLocale();
+  const copy = chrome[lang].about;
+  const collaborators = getCollaborators().map((person) => ({
+    ...person,
+    function:
+      copy.roles[person.function as keyof typeof copy.roles] ?? person.function,
+  }));
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -87,7 +97,7 @@ export function CollaboratorsSection() {
             isDragging ? "scale-90" : "scale-100"
           }`}
         >
-          <span className="text-xs font-medium select-none">Arraste</span>
+          <span className="text-xs font-medium select-none">{copy.drag}</span>
         </div>
       </div>
 
@@ -96,7 +106,7 @@ export function CollaboratorsSection() {
           {/* Section Title */}
           <div className="flex items-center px-4 md:px-8 lg:px-12 justify-between mb-4">
             <h2 className="text-sm font-medium text-foreground">
-              Quem faz o projeto acontecer
+              {copy.team}
             </h2>
           </div>
 
@@ -118,7 +128,7 @@ export function CollaboratorsSection() {
               setIsHovering(false);
               setIsDragging(false);
             }}
-            aria-label="Colaboradores em carrossel"
+            aria-label={copy.carousel}
           >
             <div style={{ cursor: "none" }}>
               <Swiper
@@ -165,7 +175,7 @@ export function CollaboratorsSection() {
                       </p>
                       <ExternalLink
                         href={collaborator.linkedin}
-                        aria-label={`LinkedIn de ${collaborator.name}`}
+                        aria-label={`${copy.linkedin} ${collaborator.name}`}
                         className="swiper-no-swiping mt-2 mb-5 inline-flex text-foreground/70 transition-colors hover:text-foreground"
                         style={{ cursor: "pointer" }}
                         onPointerDown={(event) => event.stopPropagation()}
@@ -191,42 +201,50 @@ export function CollaboratorsSection() {
             <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
               <div className="lg:w-1/2">
                 <h2 className="text-3xl font-bold text-foreground mb-8">
-                  O que fazemos
+                  {copy.whatWeDo}
                 </h2>
               </div>
 
               <div className="lg:w-1/2 space-y-6">
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Histórias
+                    <Link
+                      href={localeHref(lang, "/historias")}
+                      className="hover:underline underline-offset-4"
+                    >
+                      {copy.storiesTitle}
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Narrativas visuais baseadas em pesquisas e estudos
-                    desenvolvidos pelo Insper, que combinam dados, design e
-                    storytelling para explicar fenômenos urbanos de forma clara
-                    e compreensível.
+                    {copy.storiesBody}
                   </p>
                 </div>
 
                 <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Catálogo de dados
+                    <Link
+                      href={localeHref(lang, "/catalogo-de-dados")}
+                      className="hover:underline underline-offset-4"
+                    >
+                      {copy.catalogTitle}
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Um catálogo de conjuntos de dados urbanos que disponibiliza
-                    informações abertas e estruturadas para consulta e
-                    reutilização.
+                    {copy.catalogBody}
                   </p>
                 </div>
 
                 <div className="pb-6">
                   <h3 className="text-lg font-bold text-foreground mb-2">
-                    Mapas
+                    <Link
+                      href={localeHref(lang, "/mapas")}
+                      className="hover:underline underline-offset-4"
+                    >
+                      {copy.mapsTitle}
+                    </Link>
                   </h3>
                   <p className="text-foreground/50 leading-relaxed">
-                    Uma ferramenta interativa que permite explorar espacialmente
-                    os dados apresentados nas histórias e em outros estudos,
-                    tornando visíveis desigualdades e dinâmicas urbanas.
+                    {copy.mapsBody}
                   </p>
                 </div>
               </div>
@@ -240,11 +258,11 @@ export function CollaboratorsSection() {
           {/* Section Title */}
           <div className="lg:w-1/2">
             <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
-              Quem teve suas histórias contadas
+              {copy.featured}
             </h2>
             <p className="text-sm text-foreground/50 font-gt-ultra-fine mb-10">
               {" "}
-              Pesquisadores
+              {copy.researchers}
             </p>
           </div>
 
@@ -253,8 +271,12 @@ export function CollaboratorsSection() {
             {/* Research Project 1 */}
             <div className="border-b border-border pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3 flex items-center gap-2">
-                Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
-                Determinantes Socioeconômicos no Município de São Paulo
+                <Link
+                  href={localeHref(lang, "/historias/desigualdades-em-saude-sp")}
+                  className="hover:underline underline-offset-4"
+                >
+                  {copy.studyHealth}
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez
@@ -265,8 +287,12 @@ export function CollaboratorsSection() {
             {/* Research Project 2 */}
             <div className="border-b border-border pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
-                Para o bem ou para o mal: análise da capacidade que o governo
-                tem de controlar a densidade habitacional
+                <Link
+                  href={localeHref(lang, "/historias/adensamento")}
+                  className="hover:underline underline-offset-4"
+                >
+                  {copy.studyDensity}
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Gustavo Theil
@@ -276,8 +302,12 @@ export function CollaboratorsSection() {
             {/* Research Project 3 */}
             <div className="pb-6">
               <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
-                Diagnóstico sobre ilhas de calor e qualidade do ar nas 16
-                favelas da Maré
+                <Link
+                  href={localeHref(lang, "/historias/ilhas-de-calor")}
+                  className="hover:underline underline-offset-4"
+                >
+                  {copy.studyHeat}
+                </Link>
               </h3>
               <p className="text-foreground/50 font-gt-ultra-fine">
                 Carolina Dias, Luna Arouca, Rian de Queiroz, Shyrlei Rosendo,
@@ -286,6 +316,19 @@ export function CollaboratorsSection() {
                 Costa, Marcela Santos de Melo, Maria Eduarda Souza Neves, Ygor
                 Fabregas da Silva, Diana de Souza Beserra, Robert dos Santos da
                 Silva
+              </p>
+            </div>
+            <div className="pb-6">
+              <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
+                <Link
+                  href={localeHref(lang, "/historias/faixa-azul")}
+                  className="hover:underline underline-offset-4"
+                >
+                  {copy.studyLane}
+                </Link>
+              </h3>
+              <p className="text-foreground/50 font-gt-ultra-fine">
+                Adriano Borges Costa, Adriano Dutra, Gustavo Theil, Júlio Mugnol
               </p>
             </div>
           </div>
@@ -297,13 +340,13 @@ export function CollaboratorsSection() {
           {/* Section Title */}
           <div className="lg:w-1/2">
             <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
-              Quem nos apoia
+              {copy.supporters}
             </h2>
           </div>
           <div className="lg:w-1/2">
             <Image
               src="/insper_logo_2.png"
-              alt="Quem nos apoia"
+              alt={copy.supportersAlt}
               width={160}
               height={160}
               className="dark:invert"
