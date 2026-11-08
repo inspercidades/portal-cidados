@@ -38,7 +38,7 @@ export default function SupermercadoSection() {
   const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
   const [showDrawerOne, setShowDrawerOne] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [legendCollapsed, setLegendCollapsed] = useState(true);
+  const [legendCollapsed, setLegendCollapsed] = useState(false);
 
   // Detect mobile device
   useEffect(() => {
