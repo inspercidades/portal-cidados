@@ -140,7 +140,9 @@ export function InteractiveBuilding({ ca, to }: InteractiveBuildingProps) {
       container.dataset.fadeOut = fadeOut.progress.toFixed(3);
       container.dataset.fadeInRange = `${Math.round(fadeIn.start)}-${Math.round(fadeIn.end)}`;
       container.dataset.fadeOutRange = `${Math.round(fadeOut.start)}-${Math.round(fadeOut.end)}`;
-      container.dataset.triggerFound = String(!!document.getElementById("cep_capitulo4b"));
+      container.dataset.triggerFound = String(
+        !!document.getElementById("cep_capitulo4b"),
+      );
     };
     debug();
     ScrollTrigger.addEventListener("scrollEnd", debug);

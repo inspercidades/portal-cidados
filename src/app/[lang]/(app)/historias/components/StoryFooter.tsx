@@ -158,7 +158,8 @@ export default function StoryFooter({
                 {studyDetail.partnership && (
                   <p>
                     <span className="text-white opacity-40">
-                      {studyDetail.partnership.prefix ?? labels.partnershipPrefix}{" "}
+                      {studyDetail.partnership.prefix ??
+                        labels.partnershipPrefix}{" "}
                     </span>
                     <a
                       href={studyDetail.partnership.href}

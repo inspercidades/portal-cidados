@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { Suspense } from "react";
-import { htmlLang, locales, type Locale } from "@/i18n/config";
+import { htmlLang, LOCALE_COOKIE, type Locale, locales } from "@/i18n/config";
 import { chrome } from "@/i18n/messages/chrome";
 import { localeHref } from "@/i18n/routing";
 import { useLocale, useSwitchLocaleHref } from "@/i18n/use-locale";
 import { cn } from "@/lib/utils";
+
+const ONE_YEAR = 60 * 60 * 24 * 365;
+
+/**
+ * O middleware só consulta o cookie na home sem prefixo. Sem gravar antes do
+ * clique, `/` ainda carrega NEXT_LOCALE=en e o 307 devolve o usuário para `/en`.
+ */
+function rememberLocale(code: Locale) {
+  // biome-ignore lint/suspicious/noDocumentCookie: sync, so the next request already carries it
+  document.cookie = `${LOCALE_COOKIE}=${code}; Path=/; Max-Age=${ONE_YEAR}; SameSite=Lax`;
+}
 
 function LocaleLink({ code, active }: { code: Locale; active: boolean }) {
   const href = useSwitchLocaleHref(code);
@@ -15,12 +26,12 @@ function LocaleLink({ code, active }: { code: Locale; active: boolean }) {
     <Link
       href={href}
       hrefLang={htmlLang[code]}
+      prefetch={false}
       aria-current={active ? "true" : undefined}
+      onClick={() => rememberLocale(code)}
       className={cn(
         "cursor-pointer font-gt-ultra text-xs font-light uppercase transition-colors duration-300 xl:text-sm",
-        active
-          ? "text-foreground"
-          : "text-neutral-400 hover:text-foreground",
+        active ? "text-foreground" : "text-neutral-400 hover:text-foreground",
       )}
     >
       {code}
@@ -58,6 +69,8 @@ function LanguageSwitchFallback({ className }: { className?: string }) {
           key={code}
           href={localeHref(code, "/")}
           hrefLang={htmlLang[code]}
+          prefetch={false}
+          onClick={() => rememberLocale(code)}
           className="font-gt-ultra text-xs font-light uppercase text-neutral-400 xl:text-sm"
         >
           {code}

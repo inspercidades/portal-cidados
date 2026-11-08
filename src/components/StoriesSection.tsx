@@ -3,23 +3,30 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { chrome } from "@/i18n/messages/chrome";
 import { homeListingCopy } from "@/i18n/messages/listings";
 import { localeHref } from "@/i18n/routing";
 import { useLocale } from "@/i18n/use-locale";
-import { getStoriesForHome, type Story } from "@/lib/data/stories";
+import { getStoriesForHome, type Story, storySlug } from "@/lib/data/stories";
+import {
+  HOME_STORY_ATTR,
+  isPlainClick,
+  navigateWithHero,
+} from "@/lib/story-transition";
 
 import "swiper/css";
 
-export function StoriesSection() {
+export function StoriesSection({ leading }: { leading?: ReactNode }) {
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
     [key: string]: number;
   }>({});
   const [hoveredStoryId, setHoveredStoryId] = useState<string | null>(null);
   const lang = useLocale();
+  const router = useRouter();
   const copy = chrome[lang].storiesIndex;
   const stories = useMemo(
     () =>
@@ -44,6 +51,7 @@ export function StoriesSection() {
   const [slidesOffsetAfter, setSlidesOffsetAfter] = useState(0);
 
   useEffect(() => {
+    if (!isReady) return;
     const calculateOffset = () => {
       const icon = nextArrowRef.current?.querySelector("svg");
       const swiperEl = swiperRef.current?.el;
@@ -64,7 +72,7 @@ export function StoriesSection() {
     return () => window.removeEventListener("resize", calculateOffset);
   }, [isReady]);
 
-  // Effect para gerenciar a animação de imagens no hover  
+  // Effect para gerenciar a animação de imagens no hover
   useEffect(() => {
     // Limpa qualquer intervalo existente antes de criar um novo
     if (intervalRef.current) {
@@ -143,13 +151,17 @@ export function StoriesSection() {
   };
 
   const renderStoryCard = (story: Story) => {
+    const slug = story.href ? storySlug(story.href) : "";
     const media = (
-      <div className="relative overflow-hidden aspect-square w-full">
+      <div
+        {...(slug ? { [HOME_STORY_ATTR]: slug } : {})}
+        className="relative overflow-hidden aspect-square w-full bg-muted"
+      >
         <Image
           src={getCurrentImage(story)}
           alt={story.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover"
           draggable={false}
         />
       </div>
@@ -157,19 +169,31 @@ export function StoriesSection() {
 
     const info = (
       <div className="mt-4 text-left">
-        <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
+        <h3 className="text-base md:text-xl font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
           {story.title}
         </h3>
         <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
-          {story.description}
+          {story.year}
         </p>
       </div>
     );
 
     if (story.href) {
+      const href = localeHref(lang, story.href);
       return (
         <Link
-          href={story.href ? localeHref(lang, story.href) : story.href}
+          href={href}
+          onClick={(event) => {
+            const media = event.currentTarget.querySelector<HTMLElement>(
+              `[${HOME_STORY_ATTR}]`,
+            );
+            if (
+              isPlainClick(event) &&
+              navigateWithHero(router.push, href, slug, media)
+            ) {
+              event.preventDefault();
+            }
+          }}
           className="block cursor-grab active:cursor-grabbing"
         >
           {media}
@@ -189,12 +213,10 @@ export function StoriesSection() {
   };
 
   return (
-    <section className="py-8 pt-18 pb-16 mx-auto bg-background overflow-x-hidden">
-      <div className="flex items-center justify-between gap-4 pb-3 px-4 md:px-8 lg:px-12 text-sm text-foreground leading-relaxed font-gt-ultra-fine">
-        <Link href={localeHref(lang, "/historias")} className="cursor-pointer">
-          {copy.seeAll}
-        </Link>
-        <div className="flex shrink-0 gap-0">
+    <section className="pt-3 md:pt-4 pb-16 mx-auto bg-background overflow-x-hidden">
+      <div className="flex flex-col items-start gap-7 pb-6 md:flex-row md:items-end md:justify-between md:gap-4 md:pb-14 px-4 md:px-8 lg:px-12 text-sm text-foreground">
+        <div className="min-w-0">{leading}</div>
+        <div className="hidden shrink-0 gap-0 md:flex">
           <button
             type="button"
             onClick={() => swiperRef.current?.slidePrev()}

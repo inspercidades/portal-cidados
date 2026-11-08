@@ -26,7 +26,8 @@ export function StoryLogos({
   const filterClass = imageClassName ?? invertClass;
   // Centro de Estudos das Cidades logo is white — needs brightness-0 to stay
   // visible on light backgrounds; when inverted (dark bg) it uses brightness-0 invert.
-  const insperFilterClass = imageClassName ?? (inverted ? "brightness-0 invert" : "brightness-0");
+  const insperFilterClass =
+    imageClassName ?? (inverted ? "brightness-0 invert" : "brightness-0");
 
   const insperScale = hoverable
     ? hoveredLogo === "insper"

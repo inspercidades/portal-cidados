@@ -52,8 +52,7 @@ export const charts: ChartData[] = [
   },
   {
     id: "mortes", // config
-    title:
-      "46,3% das mortes no trânsito de São Paulo são de motociclistas", // fornecido
+    title: "46,3% das mortes no trânsito de São Paulo são de motociclistas", // fornecido
     subtitle:
       "Distribuição das vítimas fatais no trânsito, por tipo de usuário da via, no município de São Paulo entre 2022 e 2025.", // fornecido
     source:

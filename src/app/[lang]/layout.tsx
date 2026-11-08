@@ -8,6 +8,7 @@ import { CookieConsent } from "@/components/cookie-consent";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/json-ld";
 import { LenisProvider } from "@/components/lenis-provider";
+import { StoryTransitionListener } from "@/components/story-transition-listener";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { hasLocale, htmlLang, locales } from "@/i18n/config";
@@ -251,6 +252,7 @@ export default async function RootLayout({
           <Toaster />
           <WebVitals />
           <LenisProvider>
+            <StoryTransitionListener />
             {children}
             <Footer />
           </LenisProvider>

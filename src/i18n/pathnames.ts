@@ -15,6 +15,7 @@ const EN_SEGMENT = {
   adensamento: "densification",
   habitacao: "housing",
   "faixa-azul": "faixa-azul",
+  narrativa: "narrative",
 } as const;
 
 const INTERNAL_FROM_EN: Record<string, string> = Object.fromEntries(
