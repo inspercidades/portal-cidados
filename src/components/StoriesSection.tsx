@@ -53,17 +53,23 @@ export function StoriesSection({ leading }: { leading?: ReactNode }) {
   useEffect(() => {
     if (!isReady) return;
     const calculateOffset = () => {
-      const icon = nextArrowRef.current?.querySelector("svg");
       const swiperEl = swiperRef.current?.el;
-      if (!icon || !swiperEl) return;
+      if (!swiperEl) return;
+      const swiperRight = swiperEl.getBoundingClientRect().right;
+      const icon = nextArrowRef.current?.querySelector("svg");
+      const iconBox = icon?.getBoundingClientRect();
+      // Arrows are display:none below md, so their box is empty and cannot
+      // anchor the last card. Match the carousel's left inset instead.
+      if (!iconBox || iconBox.width === 0) {
+        const inset = swiperEl.parentElement
+          ? parseFloat(getComputedStyle(swiperEl.parentElement).paddingLeft) ||
+            0
+          : 0;
+        setSlidesOffsetAfter(Math.max(0, Math.round(inset)));
+        return;
+      }
       setSlidesOffsetAfter(
-        Math.max(
-          0,
-          Math.round(
-            swiperEl.getBoundingClientRect().right -
-              icon.getBoundingClientRect().right,
-          ),
-        ),
+        Math.max(0, Math.round(swiperRight - iconBox.right)),
       );
     };
 
