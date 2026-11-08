@@ -6,6 +6,7 @@ import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import type { IlhasCopy } from "@/i18n/messages/stories/ilhas-de-calor";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -60,6 +61,148 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
 ];
 
 const CARD_HEIGHTS = ["100vh", "100vh", "110vh"];
+
+type AirMapKey = "PM10" | "PM25" | "CO2" | "HCHO" | "UMIDADE";
+
+type AirLegend = {
+  unit: { pt: string; en: string };
+  digits: number;
+  edges: number[];
+  colors: string[];
+};
+
+const AIR_LEGENDS: Record<AirMapKey, AirLegend> = {
+  PM10: {
+    unit: {
+      pt: "Material particulado <10 µm/m³",
+      en: "Particulate matter <10 µm/m³",
+    },
+    digits: 1,
+    edges: [32.4, 32.8, 33.2, 33.6, 34, 34.4, 34.8, 35.2],
+    colors: [
+      "#FFF5EB",
+      "#FFF1E3",
+      "#FDE7D2",
+      "#FDDCBB",
+      "#FDCA9A",
+      "#F7954D",
+      "#F89F5A",
+      "#BB4126",
+      "#7E2A18",
+    ],
+  },
+  PM25: {
+    unit: {
+      pt: "Material particulado <2,5 µm/m³",
+      en: "Particulate matter <2.5 µm/m³",
+    },
+    digits: 1,
+    edges: [22.3, 22.7, 23.1, 23.5, 23.9, 24.3, 24.7, 25.1],
+    colors: [
+      "#FFF5EB",
+      "#FFF3E8",
+      "#FFECDA",
+      "#FCDEBE",
+      "#FCC593",
+      "#F9A35F",
+      "#F47F30",
+      "#C85727",
+      "#7E2A18",
+    ],
+  },
+  CO2: {
+    unit: {
+      pt: "Concentração de CO₂ (ppm)",
+      en: "CO₂ concentration (ppm)",
+    },
+    digits: 0,
+    edges: [440, 450, 460, 470, 480, 490, 500],
+    colors: [
+      "#D7D7D6",
+      "#BBBBBB",
+      "#9F9F9F",
+      "#848485",
+      "#6A6A6A",
+      "#4E4E4E",
+      "#333232",
+      "#151516",
+    ],
+  },
+  HCHO: {
+    unit: {
+      pt: "Concentração de HCHO (mg/m³)",
+      en: "HCHO concentration (mg/m³)",
+    },
+    digits: 4,
+    edges: [0.008, 0.01, 0.012, 0.014, 0.015],
+    colors: ["#DFF0E3", "#6BC5A8", "#3398A9", "#385D9C", "#372A53", "#0C0708"],
+  },
+  UMIDADE: {
+    unit: { pt: "Umidade (%)", en: "Humidity (%)" },
+    digits: 1,
+    edges: [72, 72.5, 73, 73.5, 74, 74.5, 75, 75.5, 76],
+    colors: [
+      "#F7FBFE",
+      "#EBF2FA",
+      "#D4E5F4",
+      "#B9D7EA",
+      "#97C6DF",
+      "#70AED3",
+      "#4C96C7",
+      "#2E7AB7",
+      "#185C9D",
+      "#203468",
+    ],
+  },
+};
+
+function formatLegendValue(value: number, digits: number, locale: "pt" | "en") {
+  return value.toLocaleString(locale === "pt" ? "pt-BR" : "en-US", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
+}
+
+function legendLabels(legend: AirLegend, locale: "pt" | "en") {
+  const format = (value: number) =>
+    formatLegendValue(value, legend.digits, locale);
+  return legend.colors.map((_, index) => {
+    if (index === 0) return `≤${format(legend.edges[0])}`;
+    if (index === legend.colors.length - 1) {
+      return `>${format(legend.edges[legend.edges.length - 1])}`;
+    }
+    return `${format(legend.edges[index - 1])}–${format(legend.edges[index])}`;
+  });
+}
+
+function legendUnit(mapKey: AirMapKey, locale: "pt" | "en") {
+  return AIR_LEGENDS[mapKey].unit[locale];
+}
+
+function AirMapLegend({ mapKey }: { mapKey: AirMapKey }) {
+  const locale = useLocale() === "en" ? "en" : "pt";
+  const legend = AIR_LEGENDS[mapKey];
+  const labels = legendLabels(legend, locale);
+
+  return (
+    <div className="mt-2 w-full">
+      <p className="mb-1 text-xs text-[#3A3434]">{legendUnit(mapKey, locale)}</p>
+      <div className="flex w-full">
+        {legend.colors.map((color, index) => (
+          <div key={labels[index]} className="min-w-0 flex-1">
+            <div
+              className="h-3 border border-black/15"
+              style={{ backgroundColor: color }}
+            />
+            <span className="mt-0.5 block text-center text-[10px] leading-tight text-[#3A3434]">
+              {labels[index]}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const OVERLAYS = [
   {
@@ -120,9 +263,7 @@ const OVERLAYS = [
 
 function MapSelector() {
   const mapCopy = useStoryCopy<IlhasCopy>().airMap;
-  const [selectedMap, setSelectedMap] = useState<
-    "PM10" | "PM25" | "CO2" | "HCHO" | "UMIDADE"
-  >("PM10");
+  const [selectedMap, setSelectedMap] = useState<AirMapKey>("PM10");
 
   const mapImages = {
     PM10: mapaDePM10,
@@ -143,7 +284,10 @@ function MapSelector() {
             <img src={currentMapSrc.src} alt={mapCopy.imageAlt} />
           </Zoom>
         )}
-        <p className="text-md font-bold mt-2.5">{mapCopy.caption}</p>
+        <AirMapLegend mapKey={selectedMap} />
+        <p className="text-md font-bold mt-2.5">
+          {selectedMap === "UMIDADE" ? mapCopy.humidityCaption : mapCopy.caption}
+        </p>
         <p className="text-md text-[#3A3434]">
           {mapCopy.creditBefore} <em>{mapCopy.creditName}</em>
         </p>

@@ -194,7 +194,7 @@ const pt = {
     title:
       "Antes e depois da Faixa Azul: nenhum padrão claro de mudança nas mortes por via",
     subtitle:
-      "Linha do Tempo dos Óbitos por Via, antes e depois da Faixa Azul, janeiro de 2021 – março de 2025.",
+      "Linha do Tempo dos Óbitos por Via, antes e depois da Faixa Azul, janeiro de 2021 – abril de 2025.",
     source:
       'Infosiga-SP; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.',
     compare:
@@ -522,7 +522,7 @@ const en = {
     title:
       "Before and after the Faixa Azul: no clear pattern of change in deaths by road",
     subtitle:
-      "Timeline of deaths by road, before and after the Faixa Azul, January 2021 – March 2025.",
+      "Timeline of deaths by road, before and after the Faixa Azul, January 2021 – April 2025.",
     source:
       'Infosiga-SP; study "Assessing the impact of the Faixa Azul on traffic crashes in São Paulo" — Center for Cities Studies / Insper, 2025.',
     compare:

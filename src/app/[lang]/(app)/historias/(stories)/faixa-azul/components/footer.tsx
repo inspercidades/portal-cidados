@@ -14,7 +14,7 @@ export default function Footer() {
       studyDetail={{
         description: copy.footer.study.description,
         descriptionHref:
-          "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/22b8cdce-8168-45ea-afba-14aaa1fd7b46/content",
+          "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be",
         organization: copy.footer.study.organization,
         documentType: copy.footer.study.documentType,
         year: 2025,

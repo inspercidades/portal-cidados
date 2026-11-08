@@ -22,9 +22,9 @@ const pt = {
     },
     p2: {
       before: "As medições feitas ao longo de sete meses mostram que\u00A0",
-      strong: "a temperatura na Maré pode ser até 2°C mais quente",
+      strong: "a temperatura média na Maré pode ser até 2 °C mais quente",
       after:
-        " do que nas áreas vizinhas, um fenômeno chamado de ilha de calor urbana. O calor não se dissipa nem à noite: em algumas regiões, a temperatura cai menos de 2°C depois do pôr do sol, tornando o sono difícil e aumentando o uso de ventiladores e ar-condicionado.",
+        " do que nas áreas vizinhas, um fenômeno chamado de ilha de calor urbana. O calor não se dissipa nem à noite: em algumas regiões, a temperatura média cai menos de 2 °C depois do pôr do sol, tornando o sono difícil e aumentando o uso de ventiladores e ar-condicionado.",
     },
     p3: {
       before:
@@ -82,7 +82,7 @@ const pt = {
     today: {
       before: "Atualmente, ",
       strong:
-        "a Maré é formada por 15 favelas e abriga cerca de 140 mil moradores",
+        "a Maré é formada por 16 favelas e abriga cerca de 140 mil moradores",
       after:
         ". Apesar de seu tamanho e importância, o território ainda enfrenta desafios urbanos significativos, como ilhas de calor, poluição do ar e falta de infraestrutura adequada.",
     },
@@ -96,11 +96,11 @@ const pt = {
   heatIslands: {
     title: { before: "Ilhas de ", strong: "calor", after: "" },
     p1: "Ilhas de calor são bolsões de altas temperaturas que se formam em áreas urbanas densamente construídas, onde o asfalto, o concreto e a falta de arborização criam um ambiente mais quente do que as regiões vizinhas.",
-    p2: "Na Maré, as ilhas de calor se manifestam de forma evidente em áreas como Nova Maré, Baixa do Sapateiro, Conjunto Bento Ribeiro Dantas e Morro do Timbau — locais que concentram construções densas, ruas estreitas e pouca vegetação. O mapeamento realizado pelo projeto Respira Maré mostra que essas regiões, apesar de comporem um território relativamente pequeno, podem apresentar diferenças de temperatura de até 2°C em relação a outras áreas da Maré, como a Nova Holanda, que tem ruas mais amplas e arborizadas.",
+    p2: "Na Maré, as ilhas de calor se manifestam de forma evidente em áreas como Nova Maré, Baixa do Sapateiro, Conjunto Bento Ribeiro Dantas e Morro do Timbau — locais que concentram construções densas, ruas estreitas e pouca vegetação. O mapeamento realizado pelo projeto Respira Maré mostra que essas regiões, apesar de comporem um território relativamente pequeno, podem apresentar diferenças de temperatura média de até 2 °C em relação a outras áreas da Maré, como a Nova Holanda, que tem ruas mais amplas e arborizadas.",
     p3: {
       before: "É importante destacar que, ",
       strong:
-        "dos 15 territórios que formam a Maré, 9 foram construídos pelo Estado",
+        "dos 16 territórios que formam a Maré, 9 foram construídos pelo Estado",
       after:
         ". Isso reforça que a presença de ilhas de calor não pode ser atribuída exclusivamente à autoconstrução — mas sim à ausência de políticas públicas que integrem planejamento urbano com justiça socioambiental.",
     },
@@ -120,7 +120,7 @@ const pt = {
       blackouts: "+ apagões",
     },
     imageAlt: "Mapa",
-    caption: "Mapa de temperatura da Maré",
+    caption: "Mapa de temperatura média da Maré",
     credit: "Produzido por Respira Maré",
   },
   airQuality: {
@@ -145,7 +145,8 @@ const pt = {
   },
   airMap: {
     imageAlt: "Mapa de Qualidade do Ar",
-    caption: "Mapa de temperatura da Maré",
+    caption: "Mapa de qualidade do ar da Maré",
+    humidityCaption: "Mapa de umidade da Maré",
     creditBefore: "Produzido por",
     creditName: "Respira Maré",
     pollutants: {
@@ -291,9 +292,9 @@ const en = {
     },
     p2: {
       before: "Measurements taken over seven months show that\u00A0",
-      strong: "the temperature in Maré can be up to 2°C warmer",
+      strong: "the average temperature in Maré can be up to 2 °C warmer",
       after:
-        " than in neighboring areas, a phenomenon known as an urban heat island. The heat does not dissipate even at night: in some areas, the temperature drops by less than 2°C after sunset, making sleep difficult and increasing the use of fans and air conditioning.",
+        " than in neighboring areas, a phenomenon known as an urban heat island. The heat does not dissipate even at night: in some areas, the average temperature drops by less than 2 °C after sunset, making sleep difficult and increasing the use of fans and air conditioning.",
     },
     p3: {
       before:
@@ -350,7 +351,7 @@ const en = {
     today: {
       before: "Today, ",
       strong:
-        "Maré is made up of 15 favelas and is home to about 140,000 residents",
+        "Maré is made up of 16 favelas and is home to about 140,000 residents",
       after:
         ". Despite its size and importance, the territory still faces significant urban challenges, such as heat islands, air pollution, and a lack of adequate infrastructure.",
     },
@@ -364,11 +365,11 @@ const en = {
   heatIslands: {
     title: { before: "", strong: "Heat", after: " islands" },
     p1: "Heat islands are pockets of high temperature that form in densely built urban areas, where asphalt, concrete, and a lack of trees create an environment hotter than neighboring areas.",
-    p2: "In Maré, heat islands show up clearly in areas such as Nova Maré, Baixa do Sapateiro, Conjunto Bento Ribeiro Dantas, and Morro do Timbau — places with dense buildings, narrow streets, and little vegetation. Mapping by the Respira Maré project shows that these areas, even though they make up a relatively small territory, can be as much as 2°C warmer than other parts of Maré, such as Nova Holanda, which has wider, tree-lined streets.",
+    p2: "In Maré, heat islands show up clearly in areas such as Nova Maré, Baixa do Sapateiro, Conjunto Bento Ribeiro Dantas, and Morro do Timbau — places with dense buildings, narrow streets, and little vegetation. Mapping by the Respira Maré project shows that these areas, even though they make up a relatively small territory, can show average temperature differences of up to 2 °C compared with other parts of Maré, such as Nova Holanda, which has wider, tree-lined streets.",
     p3: {
       before: "It is important to note that, ",
       strong:
-        "of the 15 territories that make up Maré, 9 were built by the state",
+        "of the 16 territories that make up Maré, 9 were built by the state",
       after:
         ". This reinforces that heat islands cannot be attributed exclusively to self-building — but rather to the absence of public policies that combine urban planning with socio-environmental justice.",
     },
@@ -388,7 +389,7 @@ const en = {
       blackouts: "+ blackouts",
     },
     imageAlt: "Map",
-    caption: "Temperature map of Maré",
+    caption: "Average temperature map of Maré",
     credit: "Produced by Respira Maré",
   },
   airQuality: {
@@ -413,7 +414,8 @@ const en = {
   },
   airMap: {
     imageAlt: "Air quality map",
-    caption: "Temperature map of Maré",
+    caption: "Air quality map of Maré",
+    humidityCaption: "Humidity map of Maré",
     creditBefore: "Produced by",
     creditName: "Respira Maré",
     pollutants: {

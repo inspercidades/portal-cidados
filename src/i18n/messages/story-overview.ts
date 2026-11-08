@@ -152,7 +152,7 @@ const pt: Record<StorySlug, StoryOverviewCopy> = {
     study: {
       title:
         "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-      url: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/22b8cdce-8168-45ea-afba-14aaa1fd7b46/content",
+      url: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be",
       lines: [
         "Relatório Técnico de Pesquisa",
         "Insper Instituto de Ensino e Pesquisa",
@@ -319,7 +319,7 @@ const en: Record<StorySlug, StoryOverviewCopy> = {
     study: {
       title:
         "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-      url: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/22b8cdce-8168-45ea-afba-14aaa1fd7b46/content",
+      url: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be",
       lines: [
         "Technical research report",
         "Insper Institute of Education and Research",

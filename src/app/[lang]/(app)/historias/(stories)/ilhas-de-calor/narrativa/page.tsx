@@ -19,7 +19,7 @@ import mapaDeHCHO from "../assets/mapa-de-hcho.png";
 import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
 import mapaDeUmidade from "../assets/mapa-de-umidade.png";
-import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
+import mapaTemperatura from "../assets/mapa-temperatura-media.png";
 import s1 from "../assets/s1.png";
 import s2 from "../assets/s2.png";
 import s3 from "../assets/s3.png";

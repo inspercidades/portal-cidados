@@ -6,10 +6,11 @@ import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import type { IlhasCopy } from "@/i18n/messages/stories/ilhas-de-calor";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
+import mapaTemperatura from "../assets/mapa-temperatura-media.png";
 import novaMareSvg from "../assets/nova-mare.svg";
 import novaMareMobileSvg from "../assets/nova-mare-mobile.svg";
 import piscinaoSvg from "../assets/piscinao.svg";
@@ -18,6 +19,60 @@ import ruaAriLeaoSvg from "../assets/rua-ari-leao.svg";
 import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const TEMPERATURE_LEGEND = {
+  unit: { pt: "Temperatura (°C)", en: "Temperature (°C)" },
+  digits: 1,
+  edges: [26.6, 26.8, 27.1, 27.3, 27.5, 27.8, 28],
+  colors: [
+    "#1B9547",
+    "#6ABC58",
+    "#B4D677",
+    "#E4ECA8",
+    "#FCE7A4",
+    "#FBB96E",
+    "#EC6D43",
+    "#D61F26",
+  ],
+};
+
+function TemperatureLegend() {
+  const locale = useLocale() === "en" ? "en" : "pt";
+  const format = (value: number) =>
+    value.toLocaleString(locale === "pt" ? "pt-BR" : "en-US", {
+      minimumFractionDigits: TEMPERATURE_LEGEND.digits,
+      maximumFractionDigits: TEMPERATURE_LEGEND.digits,
+    });
+  const labels = TEMPERATURE_LEGEND.colors.map((_, index) => {
+    const edges = TEMPERATURE_LEGEND.edges;
+    if (index === 0) return `≤${format(edges[0])}`;
+    if (index === TEMPERATURE_LEGEND.colors.length - 1) {
+      return `>${format(edges[edges.length - 1])}`;
+    }
+    return `${format(edges[index - 1])}–${format(edges[index])}`;
+  });
+
+  return (
+    <div className="mt-2 w-full">
+      <p className="mb-1 text-xs text-[#3A3434]">
+        {TEMPERATURE_LEGEND.unit[locale]}
+      </p>
+      <div className="flex w-full">
+        {TEMPERATURE_LEGEND.colors.map((color, index) => (
+          <div key={labels[index]} className="min-w-0 flex-1">
+            <div
+              className="h-3 border border-black/15"
+              style={{ backgroundColor: color }}
+            />
+            <span className="mt-0.5 block text-center text-[10px] leading-tight text-[#3A3434]">
+              {labels[index]}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const MAPBOX_STYLE =
   "mapbox://styles/observatorio-nacional/cmmjnelwx001h01s11ztoe2n6";
@@ -514,7 +569,7 @@ export function ScrollMapMapbox() {
 
       {/* Static temperature map displayed after the scrollytelling section */}
       <div className="bg-white! py-110 h-screen flex items-center justify-center">
-        <div className="flex flex-col justify-start items-start px-4">
+        <div className="flex w-fit max-w-full flex-col items-start px-4">
           <Zoom>
             <div className="bg-white overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -525,6 +580,7 @@ export function ScrollMapMapbox() {
               />
             </div>
           </Zoom>
+          <TemperatureLegend />
           <p className="text-md block text-[#3A3434] font-bold mt-2.5">
             {copy.heatMap.caption}
           </p>
