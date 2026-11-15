@@ -30,7 +30,7 @@ const footerTextLink = cva(
 
 function hidesFooter(pathname: string) {
   const path = toInternalPath(pathname);
-  return path === "/mapas" || path === "/historias";
+  return path === "/mapas" || path.endsWith("/narrativa");
 }
 
 function SitemapLink({ child, label }: { child: NavChild; label: string }) {
