@@ -47,11 +47,11 @@ export default function Cover() {
 
       {/* Main content centered */}
       <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 text-center max-w-[900px]">
-        <h2 className="text-white text-lg md:text-2xl lg:text-2xl font-bold max-w-4xl mb-6">
+        <h2 className="text-white text-xl md:text-3xl lg:text-4xl font-bold max-w-4xl mb-6">
           {copy.cover.title}
         </h2>
 
-        <p className="text-white text-md md:text-lg font-normal max-w-[620px] leading-relaxed">
+        <p className="text-white text-[14px] md:text-[16px] font-normal max-w-[620px] leading-relaxed">
           {copy.cover.byline}
         </p>
 

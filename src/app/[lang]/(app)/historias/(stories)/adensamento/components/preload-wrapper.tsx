@@ -141,14 +141,14 @@ export function PreloadWrapper({
           </div>
 
           {/* Title + subtitle (blurred) */}
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 max-w-4xl w-full mx-auto">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 max-w-4xl w-full mx-auto md:pt-[20vh]">
             <div className="blur-sm">
-              <h1 className="font-sans font-bold text-[23px] lg:text-[33px] leading-[44px] lg:leading-[48px] text-[#3F3F3F] text-center">
+              <h1 className="font-sans font-bold text-xl md:text-3xl lg:text-4xl leading-tight text-[#3F3F3F] text-center">
                 {copy.cover.titleLine1}
                 <br />
                 {copy.cover.titleLine2}
               </h1>
-              <p className="font-sans text-base text-[#414042] mt-4 text-center">
+              <p className="font-sans text-[14px] md:text-[16px] text-[#414042] mt-4 text-center">
                 {copy.cover.byline}
               </p>
             </div>

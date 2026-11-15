@@ -24,12 +24,16 @@ export default function Footer() {
           src: "/centro_estudos_cidades.png",
           alt: copy.footer.logos.center,
           href: "https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades",
+          width: 1505,
+          height: 588,
           className: "h-14 lg:h-18 w-auto brightness-0 invert",
         },
         {
           src: "/portal_cidados_icon.png",
           alt: copy.footer.logos.portal,
           href: "/",
+          width: 699,
+          height: 224,
         },
       ]}
       // parceiros={[

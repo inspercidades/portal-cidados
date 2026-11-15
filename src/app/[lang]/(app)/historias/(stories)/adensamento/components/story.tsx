@@ -439,12 +439,12 @@ export default function AdensamentoStory() {
 
         {/* Title, subtitle, author and share — centered */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-4xl md:pt-[20vh] sm:px-4">
-          <h1 className="font-sans font-bold text-[23px] lg:text-[33px] leading-[44px] lg:leading-[48px] text-[#3F3F3F] selection:bg-[#3F3F3F] selection:text-white">
+          <h1 className="font-sans font-bold text-xl md:text-3xl lg:text-4xl leading-tight text-[#3F3F3F] selection:bg-[#3F3F3F] selection:text-white">
             {copy.cover.titleLine1}
             <br />
             {copy.cover.titleLine2}
           </h1>
-          <p className="font-sans text-base text-[#414042] mt-4 selection:bg-[#2BA680] selection:text-white">
+          <p className="font-sans text-[14px] md:text-[16px] text-[#414042] mt-4 selection:bg-[#2BA680] selection:text-white">
             {copy.cover.byline}
           </p>
           <div className="flex gap-2 justify-center mt-6">
