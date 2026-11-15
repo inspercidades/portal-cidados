@@ -188,7 +188,7 @@ const pt = {
     chartLead:
       "A partir do pareamento geográfico dos dados de sinistros e mortes no trânsito, com informações sobre as vias que receberam intervenções, foi possível gerar o gráfico que pode ser visto abaixo. Esta visualização mostra, em uma linha do tempo, quando ocorreram sinistros fatais em cada via entre janeiro de 2021 e abril de 2025, e quando esta recebeu o primeiro trecho de Faixa Azul.",
     chartEmphasis:
-      "Não é possível inferir, apenas a partir dessa visualização, uma mudança no comportamento das mortes no trânsito quando vias recebem faixas exclusivas para motociclistas.",
+      "Não é possível inferir, apenas a partir dessa visualização, uma mudança no comportamento das mortes no trânsito quando vias recebem faixas preferenciais para motociclistas.",
   },
   chartTwo: {
     title:

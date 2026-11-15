@@ -13,7 +13,7 @@ Fontes brutas:
 
 - **Pesquisa Origem e Destino 2023** (Metrô-SP), microdados `Banco2023_divulgacao_190225.sav`
 - **Infosiga-SP** via pacote `infosigasp` (`read_infosiga()`), que cuida do download e da limpeza das bases de sinistros e de pessoas. As tabelas da Faixa Azul ainda leem a base bruta de sinistros pela pipeline de matching.
-- **OpenStreetMap** (`dado_osm.gpkg`) e **Faixa Azul** (`faixa_azul.gpkg`, cronograma de implementação de faixas exclusivas de moto), via a pipeline de matching sinistro↔trecho já existente no repo (`pipelines/sao_paulo/faixa-azul/`)
+- **OpenStreetMap** (`dado_osm.gpkg`) e **Faixa Azul** (`faixa_azul.gpkg`, cronograma de implementação de faixas preferenciais de moto), via a pipeline de matching sinistro↔trecho já existente no repo (`pipelines/sao_paulo/faixa-azul/`)
 
 ---
 

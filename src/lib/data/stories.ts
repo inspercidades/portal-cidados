@@ -134,7 +134,7 @@ export function getStoriesForHome(): Story[] {
       title:
         "A Faixa Azul tornou o trânsito mais seguro? Avaliação do impacto das faixas dedicadas à motociclistas nos sinistros em São Paulo",
       description:
-        "Avaliação do impacto das faixas exclusivas para motociclistas nos sinistros de trânsito em São Paulo",
+        "Avaliação do impacto das faixas preferenciais para motociclistas nos sinistros de trânsito em São Paulo",
       year: "2026",
       image: "/assets/viz4/viz4.1.png",
       images: [

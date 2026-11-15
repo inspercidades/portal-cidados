@@ -24,7 +24,7 @@ const listings: Record<Locale, Record<string, ListingCopy>> = {
       subtitle:
         "Avaliação do impacto das faixas dedicadas a motociclistas nos sinistros em São Paulo",
       description:
-        "Avaliação do impacto das faixas exclusivas para motociclistas nos sinistros de trânsito em São Paulo",
+        "Avaliação do impacto das faixas preferenciais para motociclistas nos sinistros de trânsito em São Paulo",
     },
     "3": {
       title: "Ilhas de calor e qualidade do ar na Maré",
@@ -96,7 +96,7 @@ const homeListings: Record<Locale, Record<string, ListingCopy>> = {
       title:
         "A Faixa Azul tornou o trânsito mais seguro? Avaliação do impacto das faixas dedicadas a motociclistas nos sinistros em São Paulo",
       description:
-        "Avaliação do impacto das faixas exclusivas para motociclistas nos sinistros de trânsito em São Paulo",
+        "Avaliação do impacto das faixas preferenciais para motociclistas nos sinistros de trânsito em São Paulo",
     },
     "3": {
       title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
