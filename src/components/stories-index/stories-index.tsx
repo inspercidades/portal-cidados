@@ -406,7 +406,7 @@ export function StoriesIndex() {
                   }}
                   className="group block w-[calc(100vw-3.25rem-5rem)] md:w-(--card-w)"
                 >
-                  <p className="font-gt-ultra-fine text-xl leading-tight tracking-tight text-foreground lg:text-2xl">
+                  <p className="font-gt-ultra-fine text-[1.375rem] leading-tight tracking-tight text-foreground lg:text-[1.75rem]">
                     <RisingText text={story.title} />
                     {story.subtitle ? (
                       <>

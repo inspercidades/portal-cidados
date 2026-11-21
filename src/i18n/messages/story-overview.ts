@@ -73,7 +73,7 @@ const pt: Record<StorySlug, StoryOverviewCopy> = {
     ],
     datavizTeam: [
       {
-        role: "Coordenador executivo",
+        role: "Coordenadores executivos",
         names: "Maurício Bouskela, Adriano Borges Costa",
       },
       { role: "Roteirista", names: "Caio Jacintho" },
@@ -132,7 +132,7 @@ const pt: Record<StorySlug, StoryOverviewCopy> = {
     ],
     datavizTeam: [
       {
-        role: "Coordenador executivo",
+        role: "Coordenadores executivos",
         names: "Maurício Bouskela, Adriano Borges Costa",
       },
       { role: "Roteirista", names: "Caio Jacintho" },
@@ -240,7 +240,7 @@ const en: Record<StorySlug, StoryOverviewCopy> = {
     ],
     datavizTeam: [
       {
-        role: "Executive coordinator",
+        role: "Executive coordinators",
         names: "Maurício Bouskela, Adriano Borges Costa",
       },
       { role: "Scriptwriter", names: "Caio Jacintho" },
@@ -299,7 +299,7 @@ const en: Record<StorySlug, StoryOverviewCopy> = {
     ],
     datavizTeam: [
       {
-        role: "Executive coordinator",
+        role: "Executive coordinators",
         names: "Maurício Bouskela, Adriano Borges Costa",
       },
       { role: "Scriptwriter", names: "Caio Jacintho" },

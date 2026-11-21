@@ -4,10 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { getLayersForCatalogItem } from "@/app/[lang]/(app)/mapas/lib/city-layers";
 import { Header } from "@/components/Header";
 import { RisingText, titleStepMs } from "@/components/rising-text";
-import {
-  GalleryNav,
-  StoryGallery,
-} from "@/components/story-overview/story-gallery";
+import { StoryGallery } from "@/components/story-overview/story-gallery";
 import { localizeCatalog } from "@/i18n/catalog";
 import type { Locale } from "@/i18n/config";
 import { localizeCityLayers } from "@/i18n/layers";
@@ -69,7 +66,7 @@ export function StoryOverview({
   return (
     <div className="min-h-screen overflow-x-clip bg-background text-foreground">
       <Header />
-      <div className="px-4 pt-10 pb-24 md:px-8 md:pt-16 lg:px-12">
+      <div className="px-4 pt-10 pb-24 font-inter md:px-8 md:pt-16 lg:px-12">
         <div className="grid items-start min-[861px]:grid-cols-[minmax(0,1fr)_auto] min-[861px]:gap-x-12">
           <div className="min-[861px]:col-start-1 min-[861px]:row-start-1">
             <h1 className="font-gt-ultra-fine text-[2.5rem] font-medium leading-[1.05] tracking-tight md:text-[3.25rem] min-[861px]:w-[60vw] xl:w-[40vw]">
@@ -84,7 +81,7 @@ export function StoryOverview({
           </div>
 
           <div
-            className="fade-up mt-3 flex items-center justify-between gap-4 min-[861px]:col-span-2 min-[861px]:row-start-2"
+            className="fade-up mt-3 min-[861px]:col-span-2 min-[861px]:row-start-2"
             style={nextDelay()}
           >
             <Link
@@ -100,7 +97,6 @@ export function StoryOverview({
                 aria-hidden="true"
               />
             </Link>
-            <GalleryNav />
           </div>
 
           <div className="mt-8 min-[861px]:col-span-2 min-[861px]:row-start-3">
@@ -138,7 +134,7 @@ export function StoryOverview({
                 </ul>
                 {detail.study.url ? (
                   <div className="mt-3">
-                    <ItemLink href={detail.study.url}>
+                    <ItemLink href={detail.study.url} bold>
                       {copy.openStudy}
                     </ItemLink>
                   </div>
@@ -255,7 +251,15 @@ function Section({
   );
 }
 
-function ItemLink({ href, children }: { href: string; children: string }) {
+function ItemLink({
+  href,
+  bold,
+  children,
+}: {
+  href: string;
+  bold?: boolean;
+  children: string;
+}) {
   const cut = children.lastIndexOf(" ");
   const arrow = (
     <ArrowUpRight
@@ -264,7 +268,7 @@ function ItemLink({ href, children }: { href: string; children: string }) {
       aria-hidden="true"
     />
   );
-  const className = "group text-foreground";
+  const className = `group text-foreground${bold ? " font-semibold" : ""}`;
   const content = (
     <span className="underline-offset-4 group-hover:underline">
       {cut > 0 ? (

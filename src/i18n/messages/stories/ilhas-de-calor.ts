@@ -12,6 +12,8 @@ const pt = {
     authors: "Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo",
   },
   intro: {
+    published: "Data de publicação desta história:",
+    publishedDate: "2024",
     p1: {
       before:
         "No coração da Zona Norte do Rio de Janeiro, entre o vai e vem das vias expressas e o calor do asfalto, um estudo revelou um problema invisível a olho nu, mas sentido todos os dias pelos moradores da Maré. O projeto Respira Maré, conduzido pela Redes da Maré, mapeou\u00A0",
@@ -246,7 +248,7 @@ const pt = {
     },
     vizTeam: {
       title: "Equipe do dataviz",
-      executiveCoordinator: "Coordenador executivo",
+      executiveCoordinator: "Coordenadores executivos",
       executiveNames: "Maurício Bouskela e Adriano Borges Costa",
       writer: "Roteirista",
       writerName: "Caio Jacintho",
@@ -282,6 +284,8 @@ const en = {
     authors: "Carolina Dias, Luna Arouca, Rian de Queiroz and Shyrlei Rosendo",
   },
   intro: {
+    published: "Publication date of this story:",
+    publishedDate: "2024",
     p1: {
       before:
         "In the heart of Rio de Janeiro’s North Zone, between the back-and-forth of the expressways and the heat of the asphalt, a study revealed a problem invisible to the naked eye, but felt every day by the residents of Maré. The Respira Maré project, led by Redes da Maré, mapped\u00A0",
@@ -515,7 +519,7 @@ const en = {
     },
     vizTeam: {
       title: "Data visualization team",
-      executiveCoordinator: "Executive coordinator",
+      executiveCoordinator: "Executive coordinators",
       executiveNames: "Maurício Bouskela and Adriano Borges Costa",
       writer: "Writer",
       writerName: "Caio Jacintho",

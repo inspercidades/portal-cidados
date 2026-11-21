@@ -16,6 +16,8 @@ const pt = {
     close: "Fechar",
   },
   intro: {
+    published: "Data de publicação desta história:",
+    publishedDate: "2024",
     year: "2022.",
     city: "São Paulo, SP.",
     population: "11.451.999 habitantes.",
@@ -294,6 +296,8 @@ const en = {
     close: "Close",
   },
   intro: {
+    published: "Publication date of this story:",
+    publishedDate: "2024",
     year: "2022.",
     city: "São Paulo, SP.",
     population: "11,451,999 inhabitants.",

@@ -15,6 +15,12 @@ import { chrome } from "@/i18n/messages/chrome";
 import { useLocale, useLocaleHref } from "@/i18n/use-locale";
 import { useCityLayers } from "./city-layers-context";
 import { resolveLayerMapView } from "../lib/city-layers";
+import {
+  buildHoverFilter,
+  createHoverOutlineLayer,
+  getHoverOutlineLayerId,
+  NO_HOVER_FILTER,
+} from "../lib/hover-outline";
 import { createStyledLayer, formatNumber } from "../lib/layer-styles";
 import { CityAccordion } from "./city-accordion";
 import { CityLayers } from "./city-layers";
@@ -270,9 +276,60 @@ export default function PropertyMap() {
     layerId: string,
     layerName: string,
     targetMap?: mapboxgl.Map,
+    sourceLayer?: string,
   ) => {
     const mapInstance = targetMap || map.current;
     if (!mapInstance) return;
+
+    // The handlers of a layer can be added again (a theme change rebuilds the
+    // style). Drop the previous ones so listeners and outline layers don't pile up.
+    removeHoverHandlers(layerId, mapInstance);
+
+    // Polygon layers outline the hovered polygon. The outline is a separate
+    // line layer on the same source, added right after the base layer and
+    // removed together with its handlers.
+    const outlineLayerId = getHoverOutlineLayerId(layerId);
+    const outlineSourceLayer =
+      mapInstance.getLayer(layerId)?.type === "fill" ? sourceLayer : undefined;
+    if (outlineSourceLayer) {
+      try {
+        mapInstance.addLayer(
+          createHoverOutlineLayer(
+            layerId,
+            outlineSourceLayer,
+          ) as mapboxgl.AnyLayer,
+        );
+      } catch (error) {
+        // Purely cosmetic: never let it break loading the layer itself.
+        console.error(
+          `Error adding hover outline for layer ${layerId}:`,
+          error,
+        );
+      }
+    }
+
+    // Outlined polygon, so the filter (which makes Mapbox re-parse the source's
+    // tiles) is only updated when the pointer moves to another polygon.
+    let outlinedKey: string | null = null;
+
+    const setOutline = (feature: mapboxgl.MapboxGeoJSONFeature | null) => {
+      if (!mapInstance.getLayer(outlineLayerId)) return;
+
+      const filter = feature ? buildHoverFilter(feature) : null;
+      const key = filter ? JSON.stringify(filter) : null;
+      if (key === outlinedKey) return;
+
+      const wasOutlined = outlinedKey !== null;
+      outlinedKey = key;
+      mapInstance.setFilter(
+        outlineLayerId,
+        (filter ?? NO_HOVER_FILTER) as mapboxgl.FilterSpecification,
+      );
+      // Layers added after this one would otherwise be drawn over the outline.
+      if (key !== null && !wasOutlined) {
+        mapInstance.moveLayer(outlineLayerId);
+      }
+    };
 
     // Create event handler functions
     const mouseenterHandler = () => {
@@ -285,6 +342,7 @@ export default function PropertyMap() {
       if (mapInstance) {
         mapInstance.getCanvas().style.cursor = "";
       }
+      setOutline(null);
       // Remove popup when mouse leaves
       if (popupRef.current) {
         popupRef.current.remove();
@@ -298,6 +356,8 @@ export default function PropertyMap() {
 
       const feature = e.features[0];
       const coordinates = e.lngLat.toArray() as [number, number];
+
+      setOutline(feature);
 
       // Remove existing popup
       if (popupRef.current) {
@@ -390,6 +450,12 @@ export default function PropertyMap() {
 
       // Remove from stored handlers
       eventHandlersRef.current.delete(layerId);
+    }
+
+    // The outline reads the base layer's source, so it has to go before it.
+    const outlineLayerId = getHoverOutlineLayerId(layerId);
+    if (mapInstance.getLayer(outlineLayerId)) {
+      mapInstance.removeLayer(outlineLayerId);
     }
   };
 
@@ -587,7 +653,12 @@ export default function PropertyMap() {
           }
 
           // Re-add hover handlers
-          addHoverHandlers(layerId, layerConfig.name, mapInstance);
+          addHoverHandlers(
+            layerId,
+            layerConfig.name,
+            mapInstance,
+            layerConfig.sourceLayer,
+          );
 
           // Restore opacity
           const opacity = layerOpacities[layerId] ?? 80;
@@ -954,7 +1025,12 @@ export default function PropertyMap() {
             mapInstance.addLayer(layerConfigToAdd);
 
             // Add hover functionality
-            addHoverHandlers(layerId, layerConfig.name, mapInstance);
+            addHoverHandlers(
+              layerId,
+              layerConfig.name,
+              mapInstance,
+              layerConfig.sourceLayer,
+            );
 
             // Set default opacity
             const opacity = layerOpacities[layerId] ?? 80;
@@ -1204,7 +1280,12 @@ export default function PropertyMap() {
         targetMap.addLayer(layerConfigToAdd);
 
         // Add hover functionality for this layer
-        addHoverHandlers(layerId, layerConfig.name, targetMap);
+        addHoverHandlers(
+          layerId,
+          layerConfig.name,
+          targetMap,
+          layerConfig.sourceLayer,
+        );
 
         // Set default opacity for the layer
         const defaultOpacity = 80;
@@ -1364,7 +1445,12 @@ export default function PropertyMap() {
             mapInstance.addLayer(layerConfigToAdd);
 
             // Add hover functionality for this layer
-            addHoverHandlers(layerId, layerConfig.name, mapInstance);
+            addHoverHandlers(
+              layerId,
+              layerConfig.name,
+              mapInstance,
+              layerConfig.sourceLayer,
+            );
 
             // Set default opacity for the layer
             const defaultOpacity = 80;

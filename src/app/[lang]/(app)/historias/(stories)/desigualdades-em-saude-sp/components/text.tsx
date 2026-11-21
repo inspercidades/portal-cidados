@@ -2,6 +2,7 @@
 
 import type { SaudeCopy } from "@/i18n/messages/stories/desigualdades-em-saude-sp";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { StoryPublished } from "../../../components/story-published";
 import textBackground from "../assets/text-background.png";
 
 export default function Text() {
@@ -14,6 +15,12 @@ export default function Text() {
       }}
     >
       <div className="max-w-xl rounded-2xl">
+        <StoryPublished
+          label={copy.intro.published}
+          date={copy.intro.publishedDate}
+          color="#000000"
+          className="mb-8"
+        />
         <h1 className="text-2xl font-semibold text-black mb-6 text-left">
           {copy.intro.title}
         </h1>

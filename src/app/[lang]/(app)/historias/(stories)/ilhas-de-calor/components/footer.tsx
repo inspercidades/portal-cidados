@@ -1,12 +1,30 @@
 "use client";
 
-import StoryFooter from "@/app/[lang]/(app)/historias/components/StoryFooter";
+import StoryFooter, {
+  toGeoreferencedEntries,
+} from "@/app/[lang]/(app)/historias/components/StoryFooter";
 import type { IlhasCopy } from "@/i18n/messages/stories/ilhas-de-calor";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
 import redesMare from "../assets/redes_mare.png";
+
+const georeferencedLayers = [
+  { city: "Rio de Janeiro", id: "ic_areas-3ii8xj" },
+  { city: "Rio de Janeiro", id: "ic_pontos-90vwh4" },
+  { city: "Rio de Janeiro", id: "quali_area-1ci0wo" },
+  { city: "Rio de Janeiro", id: "quali_pontos-b424eh" },
+];
+
+const scripts = [
+  {
+    title: "Lorem ipsum dolor sit amet",
+    href: "https://github.com/lorem-ipsum/lorem-ipsum",
+  },
+];
 
 export default function Footer() {
   const copy = useStoryCopy<IlhasCopy>();
+  const locale = useLocale();
   const study = copy.footer.studyTeam;
   const viz = copy.footer.vizTeam;
 
@@ -101,6 +119,8 @@ export default function Footer() {
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TONMVQ",
         },
       ]}
+      georeferenced={toGeoreferencedEntries(locale, georeferencedLayers)}
+      scripts={scripts}
     />
   );
 }

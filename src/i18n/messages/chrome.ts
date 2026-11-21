@@ -209,7 +209,10 @@ const pt = {
     producedBy: "Realização",
     partners: "Parceiros",
     databases: "Bases de Dados",
+    georeferenced: "Dados Georreferenciados",
+    scripts: "Scripts no GitHub",
     accessHere: "Acesse aqui",
+    moreStories: "Ver mais histórias",
   },
 } as const;
 
@@ -416,7 +419,10 @@ const en = {
     producedBy: "Produced by",
     partners: "Partners",
     databases: "Datasets",
+    georeferenced: "Georeferenced data",
+    scripts: "Scripts on GitHub",
     accessHere: "Access here",
+    moreStories: "See more stories",
   },
 } satisfies Widen<typeof pt>;
 

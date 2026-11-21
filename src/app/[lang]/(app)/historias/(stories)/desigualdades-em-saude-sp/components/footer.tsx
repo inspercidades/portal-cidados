@@ -1,12 +1,34 @@
 "use client";
 
-import StoryFooter from "@/app/[lang]/(app)/historias/components/StoryFooter";
+import StoryFooter, {
+  toGeoreferencedEntries,
+} from "@/app/[lang]/(app)/historias/components/StoryFooter";
 import type { SaudeCopy } from "@/i18n/messages/stories/desigualdades-em-saude-sp";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
 import umaneLogo from "../assets/logo-umane.svg";
+
+const georeferencedLayers = [
+  { city: "São Paulo", id: "geoses-spo" },
+  { city: "São Paulo", id: "mortalidade_materna_fem" },
+  { city: "São Paulo", id: "isquemicas_coracao_masc" },
+  { city: "São Paulo", id: "isquemicas_coracao_fem" },
+  { city: "São Paulo", id: "cerebrovasculares_masc" },
+  { city: "São Paulo", id: "cerebrovasculares_fem" },
+  { city: "São Paulo", id: "diabetes_masc" },
+  { city: "São Paulo", id: "diabetes_fem" },
+];
+
+const scripts = [
+  {
+    title: "Lorem ipsum dolor sit amet",
+    href: "https://github.com/lorem-ipsum/lorem-ipsum",
+  },
+];
 
 export default function Footer() {
   const copy = useStoryCopy<SaudeCopy>();
+  const locale = useLocale();
 
   return (
     <StoryFooter
@@ -29,6 +51,8 @@ export default function Footer() {
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/7IXFPX",
         },
       ]}
+      georeferenced={toGeoreferencedEntries(locale, georeferencedLayers)}
+      scripts={scripts}
       realizacao={[
         {
           src: "/centro_estudos_cidades.png",

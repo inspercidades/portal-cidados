@@ -21,6 +21,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import type { AdensamentoCopy } from "@/i18n/messages/stories/adensamento";
 import { useStoryCopy } from "@/i18n/story-copy";
 import { StoryLogos } from "../../../components/story-logos";
+import { StoryPublished } from "../../../components/story-published";
 import { ScrollProgressBar } from "../../ilhas-de-calor/components/scroll-progress-bar";
 // Cover images
 import capa from "../images/capa.png";
@@ -471,6 +472,12 @@ export default function AdensamentoStory() {
           {/* <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
             Introdução
           </h2> */}
+          <StoryPublished
+            label={copy.intro.published}
+            date={copy.intro.publishedDate}
+            color="#ffffff"
+            className="mb-10"
+          />
           <WhiteText>
             {copy.intro.year}
             <br />

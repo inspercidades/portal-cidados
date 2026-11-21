@@ -26,6 +26,8 @@ const pt = {
     close: "Fechar",
   },
   intro: {
+    published: "Data de publicação desta história:",
+    publishedDate: "2024",
     title: "Diabetes mellitus (DM)",
     p1Before:
       "É uma doença causada pela produção insuficiente ou má absorção de insulina, hormônio que regula a glicose no sangue e garante energia para o organismo. O diabetes pode causar o aumento da glicemia e as altas taxas podem levar a complicações no coração, nas artérias, nos olhos, nos rins e nos nervos.",
@@ -269,7 +271,7 @@ const pt = {
     authors:
       "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
     datavizTeam: "Equipe do dataviz",
-    executiveRole: "Coordenador Executivo",
+    executiveRole: "Coordenadores executivos",
     executiveNames: "Maurício Bouskela e Adriano Borges Costa",
     writerRole: "Roteirista",
     writerNames: "Caio Jacintho",
@@ -377,6 +379,8 @@ const en = {
     close: "Close",
   },
   intro: {
+    published: "Publication date of this story:",
+    publishedDate: "2024",
     title: "Diabetes mellitus (DM)",
     p1Before:
       "It is a disease caused by insufficient production or poor absorption of insulin, the hormone that regulates blood glucose and supplies the body with energy. Diabetes can raise blood glucose, and high levels can lead to complications in the heart, arteries, eyes, kidneys, and nerves.",
@@ -618,7 +622,7 @@ const en = {
     authors:
       "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez Minto, Sara Lopes de Moraes, and Paulo Afonso de André",
     datavizTeam: "Data visualization team",
-    executiveRole: "Executive coordinator",
+    executiveRole: "Executive coordinators",
     executiveNames: "Maurício Bouskela and Adriano Borges Costa",
     writerRole: "Scriptwriter",
     writerNames: "Caio Jacintho",

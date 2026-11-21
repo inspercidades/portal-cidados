@@ -1,11 +1,32 @@
 "use client";
 
-import StoryFooter from "@/app/[lang]/(app)/historias/components/StoryFooter";
+import StoryFooter, {
+  toGeoreferencedEntries,
+} from "@/app/[lang]/(app)/historias/components/StoryFooter";
 import type { AdensamentoCopy } from "@/i18n/messages/stories/adensamento";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
+
+const georeferencedLayers = [
+  { city: "São Paulo", id: "densidade-pop-setor-spo" },
+  { city: "São Paulo", id: "densidade-pop-distrito-spo" },
+  { city: "São Paulo", id: "densidade-hab-setor" },
+  { city: "São Paulo", id: "densidade-hab-distrito-spo" },
+  { city: "São Paulo", id: "verticalizacao-setor" },
+  { city: "São Paulo", id: "verticalizacao-distrito-spo" },
+  { city: "São Paulo", id: "raster-dbiubd" },
+];
+
+const scripts = [
+  {
+    title: "Lorem ipsum dolor sit amet",
+    href: "https://github.com/lorem-ipsum/lorem-ipsum",
+  },
+];
 
 export default function Footer() {
   const copy = useStoryCopy<AdensamentoCopy>();
+  const locale = useLocale();
   const footer = copy.footer;
 
   return (
@@ -77,6 +98,8 @@ export default function Footer() {
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/GTO7DD",
         },
       ]}
+      georeferenced={toGeoreferencedEntries(locale, georeferencedLayers)}
+      scripts={scripts}
     />
   );
 }

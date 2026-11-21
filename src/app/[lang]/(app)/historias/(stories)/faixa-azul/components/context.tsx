@@ -2,6 +2,7 @@
 
 import type { FaixaAzulCopy } from "@/i18n/messages/stories/faixa-azul";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { StoryPublished } from "../../../components/story-published";
 import { accidentVideo, brandColor, g1ArticleUrl } from "../constants";
 import ZoomableVideo from "./zoomable-video";
 
@@ -11,19 +12,12 @@ export default function Context() {
   return (
     <section className="w-full bg-white!">
       <div className="mx-auto max-w-xl px-6 md:px-8 pt-6 pb-40 font-inter">
-        <div
-          className="flex items-center gap-3 mb-20 text-sm"
-          style={{ color: brandColor }}
-        >
-          <span
-            className="w-0.5 h-6 shrink-0 bg-[#23254E]"
-            aria-hidden="true"
-          />
-          <p>
-            {copy.context.published}{" "}
-            <strong>{copy.context.publishedDate}</strong>.
-          </p>
-        </div>
+        <StoryPublished
+          label={copy.context.published}
+          date={copy.context.publishedDate}
+          color={brandColor}
+          className="mb-20"
+        />
 
         <div className="space-y-8 text-[#23254E]">
           <div className="space-y-4">

@@ -14,8 +14,6 @@ import { chrome } from "@/i18n/messages/chrome";
 import { useLocale } from "@/i18n/use-locale";
 import { STORY_HERO_ATTR, STORY_REST_ATTR } from "@/lib/story-transition";
 
-export const STORY_GALLERY_ID = "story-gallery";
-
 const LIGHTBOX_NAME = "story-lightbox";
 
 function withTransition(update: () => void, named: () => HTMLElement | null) {
@@ -47,43 +45,6 @@ function withTransition(update: () => void, named: () => HTMLElement | null) {
     if (after) after.style.viewTransitionName = "";
   };
   transition.finished.then(reset, reset);
-}
-
-export function GalleryNav() {
-  const copy = chrome[useLocale()].storiesIndex;
-  const scrollByCard = (direction: -1 | 1) => {
-    const gallery = document.getElementById(STORY_GALLERY_ID);
-    const card = gallery?.querySelector<HTMLElement>("button");
-    if (!gallery || !card) return;
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    gallery.scrollBy({
-      left: direction * (card.offsetWidth + 12),
-      behavior: reduce ? "auto" : "smooth",
-    });
-  };
-
-  return (
-    <div className="hidden shrink-0 text-foreground md:flex">
-      <button
-        type="button"
-        onClick={() => scrollByCard(-1)}
-        aria-label={copy.previousSlide}
-        className="cursor-pointer p-1 transition-opacity hover:opacity-60"
-      >
-        <ArrowLeft className="h-5 w-5" />
-      </button>
-      <button
-        type="button"
-        onClick={() => scrollByCard(1)}
-        aria-label={copy.nextSlide}
-        className="cursor-pointer p-1 transition-opacity hover:opacity-60"
-      >
-        <ArrowRight className="h-5 w-5" />
-      </button>
-    </div>
-  );
 }
 
 function galleryTile(index: number) {
@@ -154,7 +115,6 @@ export function StoryGallery({
   return (
     <>
       <div
-        id={STORY_GALLERY_ID}
         className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 [scrollbar-width:none] md:-mx-8 md:scroll-px-8 md:px-8 lg:-mx-12 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden"
       >
         {images.map((src, index) => (

@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import type { Locale } from "@/i18n/config";
+import { localizeCityLayers } from "@/i18n/layers";
 import { chrome } from "@/i18n/messages/chrome";
-import { useLocale } from "@/i18n/use-locale";
+import { useLocale, useLocaleHref } from "@/i18n/use-locale";
 
 export interface FooterIcon {
   src: string;
@@ -29,6 +32,22 @@ export interface DatabaseEntry {
   href: string;
 }
 
+export interface GeoreferencedLayer {
+  city: string;
+  id: string;
+}
+
+export function toGeoreferencedEntries(
+  locale: Locale,
+  layers: readonly GeoreferencedLayer[],
+): DatabaseEntry[] {
+  const named = localizeCityLayers(locale);
+  return layers.map(({ city, id }) => ({
+    title: named[city]?.find((layer) => layer.id === id)?.name ?? id,
+    href: `/mapas?city=${encodeURIComponent(city)}&layers=${encodeURIComponent(id)}`,
+  }));
+}
+
 export interface StudyDetail {
   description: string;
   /** When set, wraps description in an anchor tag. */
@@ -52,6 +71,8 @@ export interface StoryFooterProps {
   parceiros?: FooterIcon[];
   teams?: TeamSection[];
   databases?: DatabaseEntry[];
+  georeferenced?: DatabaseEntry[];
+  scripts?: DatabaseEntry[];
 }
 
 function IconGroup({ icons }: { icons: FooterIcon[] }) {
@@ -80,14 +101,66 @@ function IconGroup({ icons }: { icons: FooterIcon[] }) {
   );
 }
 
+function ResourceCard({
+  title,
+  items,
+  accessHere,
+  hrefFor,
+}: {
+  title: string;
+  items: DatabaseEntry[];
+  accessHere: string;
+  hrefFor: (href: string) => string;
+}) {
+  if (!items.length) return null;
+
+  return (
+    <section className="px-6 py-6 lg:px-10 lg:py-10 max-w-[600px] bg-white/6">
+      <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
+        {title}
+      </h2>
+      <div className="space-y-5 text-md lg:text-lg">
+        {items.map((item) => {
+          const className = "underline underline-offset-2 text-[#FFF]/40";
+          const external = !item.href.startsWith("/");
+          return (
+            <p key={`${item.title}-${item.href}`}>
+              <span className="font-semibold text-white">
+                {item.title}&nbsp;&nbsp;
+              </span>
+              {external ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {accessHere}
+                </a>
+              ) : (
+                <Link href={hrefFor(item.href)} className={className}>
+                  {accessHere}
+                </Link>
+              )}
+            </p>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export default function StoryFooter({
   studyDetail,
   realizacao,
   parceiros,
   teams,
   databases,
+  georeferenced,
+  scripts,
 }: StoryFooterProps) {
   const labels = chrome[useLocale()].storyFooter;
+  const hrefFor = useLocaleHref();
   const hasRealiz = realizacao && realizacao.length > 0;
   const hasParceiros = parceiros && parceiros.length > 0;
   const hasLogos = hasRealiz || hasParceiros;
@@ -245,31 +318,32 @@ export default function StoryFooter({
           </div>
         )}
 
-        {/* Database Section */}
-        {databases && databases.length > 0 && (
-          <section className="px-6 py-6 lg:px-10 lg:py-10 max-w-[600px] bg-white/6">
-            <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
-              {labels.databases}
-            </h2>
-            <div className="space-y-5 text-md lg:text-lg">
-              {databases.map((db) => (
-                <p key={db.href}>
-                  <span className="font-semibold text-white">
-                    {db.title}&nbsp;&nbsp;
-                  </span>
-                  <a
-                    href={db.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-2 text-[#FFF]/40"
-                  >
-                    {labels.accessHere}
-                  </a>
-                </p>
-              ))}
-            </div>
-          </section>
-        )}
+        <div className="space-y-6">
+          <ResourceCard
+            title={labels.databases}
+            items={databases ?? []}
+            accessHere={labels.accessHere}
+            hrefFor={hrefFor}
+          />
+          <ResourceCard
+            title={labels.georeferenced}
+            items={georeferenced ?? []}
+            accessHere={labels.accessHere}
+            hrefFor={hrefFor}
+          />
+          <ResourceCard
+            title={labels.scripts}
+            items={scripts ?? []}
+            accessHere={labels.accessHere}
+            hrefFor={hrefFor}
+          />
+          <Link
+            href={hrefFor("/historias")}
+            className="inline-flex mt-6 w-fit items-center justify-center rounded-full bg-white px-10 py-3.5 text-base font-medium text-[#0E171D] font-[family-name:var(--font-inter)] transition-colors hover:bg-neutral-200"
+          >
+            {labels.moreStories}
+          </Link>
+        </div>
       </div>
     </footer>
   );

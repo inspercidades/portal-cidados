@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { IlhasCopy } from "@/i18n/messages/stories/ilhas-de-calor";
 import { useStoryCopy } from "@/i18n/story-copy";
 import { StoryLogos } from "../../../components/story-logos";
+import { StoryPublished } from "../../../components/story-published";
 import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 
@@ -115,6 +116,12 @@ export default function Intro() {
           <div className="w-full absolute top-0 max-w-5xl border-t border-[#cccccc]"></div>
           {/* Texto Introdutório */}
           <div className="max-w-xl flex flex-col gap-10  font-inter">
+            <StoryPublished
+              label={copy.intro.published}
+              date={copy.intro.publishedDate}
+              color="#3A3434"
+              className="mb-0"
+            />
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
               {copy.intro.p1.before}
               <strong>{copy.intro.p1.strong}</strong>

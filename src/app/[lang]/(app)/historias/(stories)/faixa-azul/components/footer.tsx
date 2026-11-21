@@ -1,11 +1,28 @@
 "use client";
 
-import StoryFooter from "@/app/[lang]/(app)/historias/components/StoryFooter";
+import StoryFooter, {
+  toGeoreferencedEntries,
+} from "@/app/[lang]/(app)/historias/components/StoryFooter";
 import type { FaixaAzulCopy } from "@/i18n/messages/stories/faixa-azul";
 import { useStoryCopy } from "@/i18n/story-copy";
+import { useLocale } from "@/i18n/use-locale";
+
+const georeferencedLayers = [
+  { city: "São Paulo", id: "faixa-azul-trechos-spo" },
+  { city: "São Paulo", id: "sinistros-por-distrito-spo" },
+  { city: "São Paulo", id: "sinistros-por-trecho-spo" },
+];
+
+const scripts = [
+  {
+    title: "Lorem ipsum dolor sit amet",
+    href: "https://github.com/lorem-ipsum/lorem-ipsum",
+  },
+];
 
 export default function Footer() {
   const copy = useStoryCopy<FaixaAzulCopy>();
+  const locale = useLocale();
   const study = copy.footer.teams.study;
   const dataviz = copy.footer.teams.dataviz;
 
@@ -88,6 +105,8 @@ export default function Footer() {
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/A4AC1I",
         },
       ]}
+      georeferenced={toGeoreferencedEntries(locale, georeferencedLayers)}
+      scripts={scripts}
     />
   );
 }
