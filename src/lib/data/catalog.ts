@@ -25,6 +25,8 @@ export interface DataCatalogItem {
   formats: string[];
   isSpatial: boolean | null;
   dataset_info: DatasetInfo[];
+  /** Repositório público do tratamento/código, quando existir. */
+  github?: string;
 }
 
 export const catalogData: DataCatalogItem[] = [
@@ -72,6 +74,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "2",
+    github: "https://github.com/inspercidades/ic-densidade",
     title: "Densidade populacional e verticalização [2022, 2024]",
     description:
       'Dados de densidade populacional, densidade habitacional e verticalização em São Paulo, a partir do Censo (2022) e do IPTU (2024).\nConjunto de dados preparado para o estudo "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional" (Theil, Gustavo).',
@@ -401,6 +404,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "10",
+    github: "https://github.com/inspercidades/data-pemob",
     title: "Pesquisa Nacional de Mobilidade Urbana (PEMOB) [2019-2024]",
     description:
       "Questionário de mobilidade urbana municipal e intermunicipal preenchido por gestores de transporte público em cidades brasileiras com mais de 100 mil habitantes. Inclui dados sobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade.",
@@ -597,6 +601,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "15",
+    github: "https://github.com/inspercidades/faixa-azul",
     title:
       "Trechos com faixas dedicadas a motociclistas (Faixa Azul) [2022-2025]",
     description:
@@ -635,6 +640,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "16",
+    github: "https://github.com/inspercidades/geoses",
     title: "Índice GeoSES [2010]",
     description:
       "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. O índice pondera dimensões de educação, mobilidade, pobreza, privação material, riqueza, renda e segregação, usando dados da Amostra do Censo Demográfico de 2010.",

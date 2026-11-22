@@ -112,3 +112,16 @@ test("catalog data includes publication dates and source metadata", () => {
     }
   }
 });
+
+test("catalog items with public repos expose github URLs", () => {
+  const expected = {
+    2: "https://github.com/inspercidades/ic-densidade",
+    10: "https://github.com/inspercidades/data-pemob",
+    15: "https://github.com/inspercidades/faixa-azul",
+    16: "https://github.com/inspercidades/geoses",
+  };
+  for (const [id, url] of Object.entries(expected)) {
+    const item = catalogData.find((entry) => entry.id === id);
+    assert.equal(item?.github, url, `catalog id ${id} github`);
+  }
+});

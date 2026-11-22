@@ -1,272 +1,64 @@
 "use client";
 
-import { ExternalLink, MapIcon } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-import { getLayersForCatalogItem } from "@/app/[lang]/(app)/mapas/lib/city-layers";
+import { isDownloadAccess, isSecureRoomAccess } from "@/i18n/catalog";
 import { chrome } from "@/i18n/messages/chrome";
-import { localeHref } from "@/i18n/routing";
 import { useLocale } from "@/i18n/use-locale";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { formatCatalogPeriod, splitCatalogTitle } from "@/lib/catalog-title";
 import type { DataCatalogItem } from "@/lib/data/catalog";
+
+const YEARS_CLASS =
+  "font-sans text-xs font-medium uppercase tracking-[0.08em] text-foreground/50 tabular-nums";
 
 interface DataCardProps {
   item: DataCatalogItem;
-  initialOpen?: boolean;
+  onSelect: (id: string) => void;
 }
 
-export function DataCard({ item, initialOpen = false }: DataCardProps) {
-  const lang = useLocale();
-  const copy = chrome[lang].catalog;
-  const [isModalOpen, setIsModalOpen] = useState(initialOpen);
-  const geoportalLinks = getLayersForCatalogItem(item.id);
+export function DataCard({ item, onSelect }: DataCardProps) {
+  const copy = chrome[useLocale()].catalog;
+  const { name, years: titleYears } = splitCatalogTitle(item.title);
+  const years =
+    formatCatalogPeriod(item.periodStart, item.periodEnd) ?? titleYears;
 
-  const formatTags = (tags: string[]) => {
-    return tags.map((tag) => {
-      if (
-        tag === "Disponível para download" ||
-        tag === "Available for download"
-      )
-        return copy.download;
-      if (tag === "Sala segura do Insper" || tag === "Insper secure room")
-        return copy.secureRoom;
-      return tag;
-    });
-  };
-
-  const formattedTags = formatTags(item.tags);
-
-  // Separar tags de forma de acesso das outras tags
-  const accessMethodTags = [
-    "Disponível para download",
-    "Available for download",
-    "Sala segura do Insper",
-    "Insper secure room",
-  ];
-
-  // Obter forma de acesso (prioriza accessMethod, senão busca nas tags)
   const accessMethod =
     item.accessMethod ||
-    item.tags.find((tag) => accessMethodTags.includes(tag));
-  const hasDatasets = item.dataset_info && item.dataset_info.length > 0;
+    item.tags.find((tag) => isDownloadAccess(tag) || isSecureRoomAccess(tag));
 
-  const handleCardClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleDatasetAccess = (link: string) => {
-    window.open(link, "_blank", "noopener,noreferrer");
-  };
-
-  const cardContent = (
-    <>
-      <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2">
-        {item.title}
-      </h3>
-
-      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-        {item.description}
-      </p>
-
-      <div className="flex flex-col gap-2">
-        {/* Tema e Região */}
-        <div className="flex flex-wrap gap-2">
-          {formattedTags.slice(0, -1).map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        {/* Forma de Acesso - sempre na linha de baixo */}
-        {formattedTags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-              {formattedTags[formattedTags.length - 1]}
-            </span>
-          </div>
-        )}
-      </div>
-    </>
-  );
+  const tags = [
+    item.theme,
+    item.region,
+    accessMethod
+      ? isDownloadAccess(accessMethod)
+        ? copy.download
+        : isSecureRoomAccess(accessMethod)
+          ? copy.secureRoom
+          : accessMethod
+      : null,
+  ].filter(Boolean) as string[];
 
   return (
-    <>
-      <button
-        type="button"
-        className="bg-background-2 p-6 transition-shadow cursor-pointer hover:shadow-sm w-full text-left"
-        onClick={handleCardClick}
-      >
-        {cardContent}
-      </button>
-
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-foreground">
-              {item.title}
-            </DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              {item.theme} • {item.region}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-6 mt-4">
-            {/* Descrição completa */}
-            <div>
-              <h4 className="text-sm font-medium text-foreground mb-2">
-                {copy.description}
-              </h4>
-              <p className="text-sm text-muted-foreground whitespace-pre-line">
-                {item.description}
-              </p>
-            </div>
-
-            {/* Palavras-chave */}
-            {item.keywords && item.keywords.length > 0 && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-2">
-                  {copy.keywords}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {item.keywords.map((keyword) => (
-                    <span
-                      key={keyword}
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground"
-                    >
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tema */}
-            {item.theme && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-2">
-                  {copy.theme}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-                    {item.theme}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Região */}
-            {item.region && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-2">
-                  {copy.region}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-                    {item.region}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Forma de acesso */}
-            {accessMethod && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-2">
-                  {copy.access}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-                    {accessMethod}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {item.createdAt && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-2">
-                  {copy.availableSince}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {new Date(item.createdAt).toLocaleDateString(lang === "en" ? "en" : "pt-BR", {
-                    timeZone: "UTC",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-              </div>
-            )}
-
-            {/* Datasets */}
-            {hasDatasets && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-3">
-                  {copy.datasetsAvailable} ({item.dataset_info.length})
-                </h4>
-                <div className="space-y-3">
-                  {item.dataset_info.map((dataset) => (
-                    <div
-                      key={dataset.dataset_link}
-                      className="border border-foreground/10 bg-background-2 p-4 rounded-sm"
-                    >
-                      <div className="flex items-center justify-between gap-4 mb-3">
-                        <h5 className="text-sm font-semibold text-foreground flex-1 min-w-0">
-                          {dataset.dataset_title}
-                        </h5>
-                        <Button
-                          onClick={() =>
-                            handleDatasetAccess(dataset.dataset_link)
-                          }
-                          className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shrink-0"
-                          size="sm"
-                        >
-                          {copy.accessVerb}
-                          <ExternalLink className="ml-2 h-3 w-3" />
-                        </Button>
-                      </div>
-                      <p className="text-[13px] text-muted-foreground whitespace-pre-line">
-                        {dataset.dataset_description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {geoportalLinks.length > 0 && (
-              <div className="flex flex-col gap-2">
-                {geoportalLinks.map(({ city, layerIds }) => {
-                  const params = new URLSearchParams({
-                    city,
-                    layers: layerIds.join(","),
-                  });
-                  return (
-                    <Link
-                      key={city}
-                      href={localeHref(lang, `/mapas?${params}`)}
-                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
-                    >
-                      <MapIcon className="w-4 h-4" />
-                      {copy.viewOnMap}
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+    <button
+      type="button"
+      data-catalog-card={item.id}
+      className="catalog-card flex h-full w-full flex-col bg-foreground/3 text-left transition-colors cursor-pointer hover:bg-foreground/6"
+      onClick={() => onSelect(item.id)}
+    >
+      <div className="flex-1 px-7 pt-7 pb-4">
+        <h3 className="mb-2 font-gt-ultra-fine text-lg font-bold tracking-tight text-foreground md:text-xl">
+          {name}
+        </h3>
+        {years && <p className={YEARS_CLASS}>{years}</p>}
+      </div>
+      <div className="flex flex-wrap gap-2 px-7 pb-7">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-foreground/6 text-foreground"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </button>
   );
 }

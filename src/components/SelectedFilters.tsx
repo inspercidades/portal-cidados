@@ -2,95 +2,76 @@
 
 import { X } from "lucide-react";
 import type { CatalogFilters } from "@/app/api/catalog/route";
+import { isDownloadAccess, isSecureRoomAccess } from "@/i18n/catalog";
 import { chrome } from "@/i18n/messages/chrome";
 import { useLocale } from "@/i18n/use-locale";
-import { Button } from "@/components/ui/button";
 
 interface SelectedFiltersProps {
   filters: CatalogFilters;
-  onRemoveFilter: (filterType: keyof CatalogFilters) => void;
-  onClearAll: () => void;
+  onRemoveValue: (
+    group: "theme" | "region" | "accessMethod",
+    value: string,
+  ) => void;
+}
+
+function labelFor(
+  group: "theme" | "region" | "accessMethod",
+  value: string,
+  copy: { download: string; secureRoom: string },
+) {
+  if (group !== "accessMethod") return value;
+  if (isDownloadAccess(value)) return copy.download;
+  if (isSecureRoomAccess(value)) return copy.secureRoom;
+  return value;
 }
 
 export function SelectedFilters({
   filters,
-  onRemoveFilter,
-  onClearAll,
+  onRemoveValue,
 }: SelectedFiltersProps) {
   const copy = chrome[useLocale()].catalog;
-  const getActiveFilters = () => {
-    const activeFilters: Array<{
-      type: keyof CatalogFilters;
-      value: string;
-      label: string;
-    }> = [];
 
-    if (filters.theme) {
-      activeFilters.push({
-        type: "theme",
-        value: filters.theme,
-        label: filters.theme,
-      });
-    }
+  const chips: Array<{
+    group: "theme" | "region" | "accessMethod";
+    value: string;
+  }> = [
+    ...(filters.theme ?? []).map((value) => ({
+      group: "theme" as const,
+      value,
+    })),
+    ...(filters.region ?? []).map((value) => ({
+      group: "region" as const,
+      value,
+    })),
+    ...(filters.accessMethod ?? []).map((value) => ({
+      group: "accessMethod" as const,
+      value,
+    })),
+  ];
 
-    if (filters.region) {
-      activeFilters.push({
-        type: "region",
-        value: filters.region,
-        label: filters.region,
-      });
-    }
-
-    if (filters.accessMethod) {
-      const label =
-        filters.accessMethod === "Disponível para download" ||
-        filters.accessMethod === "Available for download"
-          ? copy.yes
-          : copy.secureRoom;
-      activeFilters.push({
-        type: "accessMethod",
-        value: filters.accessMethod,
-        label,
-      });
-    }
-
-    return activeFilters;
-  };
-
-  const activeFilters = getActiveFilters();
-
-  if (activeFilters.length === 0) {
-    return null;
-  }
+  if (chips.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      {activeFilters.map((filter) => (
-        <div
-          key={`${filter.type}-${filter.value}`}
-          className="inline-flex items-center gap-1 px-3 py-2 bg-background-2 text-foreground text-sm"
-        >
-          <span>{filter.label}</span>
-          <button
-            type="button"
-            onClick={() => onRemoveFilter(filter.type)}
-            className="ml-1 hover:bg-foreground/20 rounded-full p-0.5 transition-colors"
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+      {chips.map((chip) => {
+        const label = labelFor(chip.group, chip.value, copy);
+        return (
+          <div
+            key={`${chip.group}-${chip.value}`}
+            className="inline-flex h-9 items-center gap-0.5 text-sm text-foreground"
           >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      ))}
-
-      {activeFilters.length > 0 && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onClearAll}
-          className="text-foreground hover:text-foreground hover:bg-transparent hover:underline font-medium"
-        >
-          {copy.clear}
-        </Button>
-      )}
+            <span>{label}</span>
+            <button
+              type="button"
+              onClick={() => onRemoveValue(chip.group, chip.value)}
+              aria-label={`${copy.removeFilter} ${label}`}
+              className="cursor-pointer p-0.5 transition-colors hover:bg-foreground/20"
+            >
+              <X className="size-3.5" aria-hidden />
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }

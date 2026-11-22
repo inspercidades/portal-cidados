@@ -1,18 +1,44 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
+import { ChevronDown, ListFilter } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
+import { flushSync } from "react-dom";
+import type {
+  CatalogFacets,
+  CatalogSortBy,
+  CatalogFilters as FiltersType,
+} from "@/app/api/catalog/route";
+import { CATALOG_SORT_OPTIONS } from "@/app/api/catalog/route";
+import { Button } from "@/components/ui/button";
 import { useDebounce } from "@/hooks/useDebounce";
+import { localizeCatalogItem } from "@/i18n/catalog";
 import { chrome } from "@/i18n/messages/chrome";
 import { useLocale } from "@/i18n/use-locale";
 import type { DataCatalogItem } from "@/lib/data/catalog";
+import { cn } from "@/lib/utils";
 import { CardSkeleton } from "./CardSkeleton";
+import { CatalogDetailSheet } from "./CatalogDetailSheet";
 import { CatalogFilters } from "./CatalogFilters";
 import { DataCard } from "./DataCard";
 import { SearchBar } from "./SearchBar";
 import { SelectedFilters } from "./SelectedFilters";
 import { SortDropdown } from "./SortDropdown";
+
+const EMPTY_FACETS: CatalogFacets = {
+  themes: {},
+  regions: {},
+  accessMethods: {},
+};
+
+const CARD_ATTR = "data-catalog-card";
 
 interface CatalogResponse {
   data: DataCatalogItem[];
@@ -22,162 +48,240 @@ interface CatalogResponse {
     regions: string[];
     accessMethods: string[];
   };
+  facets: CatalogFacets;
+}
+
+function isSortOption(value: string | null): value is CatalogSortBy {
+  return (
+    value !== null &&
+    (CATALOG_SORT_OPTIONS as readonly string[]).includes(value)
+  );
+}
+
+function readList(params: URLSearchParams, key: string) {
+  const values = params.getAll(key).filter(Boolean);
+  return values.length > 0 ? values : undefined;
+}
+
+function filtersFromParams(params: URLSearchParams): FiltersType {
+  const sortBy = params.get("sortBy");
+  const search = params.get("q")?.trim() || params.get("search")?.trim();
+  return {
+    search: search || undefined,
+    theme: readList(params, "theme"),
+    region: readList(params, "region"),
+    accessMethod: readList(params, "accessMethod"),
+    sortBy: isSortOption(sortBy) ? sortBy : "newest",
+  };
+}
+
+function filtersToParams(filters: FiltersType, itemId?: string | null) {
+  const params = new URLSearchParams();
+  if (filters.search) params.set("q", filters.search);
+  for (const value of filters.theme ?? []) params.append("theme", value);
+  for (const value of filters.region ?? []) params.append("region", value);
+  for (const value of filters.accessMethod ?? [])
+    params.append("accessMethod", value);
+  if (filters.sortBy && filters.sortBy !== "newest") {
+    params.set("sortBy", filters.sortBy);
+  }
+  if (itemId) params.set("item", itemId);
+  return params;
+}
+
+function nameCards(on: boolean) {
+  document.querySelectorAll<HTMLElement>(`[${CARD_ATTR}]`).forEach((card) => {
+    const id = card.getAttribute(CARD_ATTR);
+    card.style.viewTransitionName = on && id ? `catalog-${id}` : "";
+    card.style.setProperty("view-transition-class", on ? "catalog-card" : "");
+  });
+}
+
+function applyWithTransition(apply: () => void) {
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (reduceMotion || typeof document.startViewTransition !== "function") {
+    apply();
+    return;
+  }
+
+  nameCards(true);
+  const transition = document.startViewTransition(() => {
+    flushSync(apply);
+    nameCards(true);
+  });
+  transition.ready.catch(() => {});
+  const reset = () => nameCards(false);
+  transition.finished.then(reset, reset);
+}
+
+function toggleValue(list: string[] | undefined, value: string) {
+  const current = list ?? [];
+  return current.includes(value)
+    ? current.filter((entry) => entry !== value)
+    : [...current, value];
 }
 
 export function CatalogPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const lang = useLocale();
   const catalogCopy = chrome[lang].catalog;
-  const openItemId = searchParams.get("item") ?? undefined;
-  const initialQuery = searchParams.get("q")?.trim() ?? "";
+  const [, startTransition] = useTransition();
 
+  const initialRef = useRef({
+    filters: filtersFromParams(searchParams),
+    itemId: searchParams.get("item"),
+  });
+
+  const [filters, setFilters] = useState<FiltersType>(
+    () => initialRef.current.filters,
+  );
+  const [searchTerm, setSearchTerm] = useState(
+    () => initialRef.current.filters.search ?? "",
+  );
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [data, setData] = useState<DataCatalogItem[]>([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [filters, setFilters] = useState<FiltersType>({
-    sortBy: "newest",
-    search: initialQuery || undefined,
+  const [filterOptions, setFilterOptions] = useState({
+    themes: [] as string[],
+    regions: [] as string[],
+    accessMethods: [] as string[],
   });
-  const [filterOptions, setFilterOptions] = useState<{
-    themes: string[];
-    regions: string[];
-    accessMethods: string[];
-  }>({
-    themes: [],
-    regions: [],
-    accessMethods: [],
-  });
-  const isFirstRender = useRef(true);
+  const [facets, setFacets] = useState<CatalogFacets>(EMPTY_FACETS);
+  const [selectedId, setSelectedId] = useState<string | null>(
+    () => initialRef.current.itemId,
+  );
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const skipSearchEffect = useRef(true);
+  const skipUrlEffect = useRef(true);
 
-  const fetchData = useCallback(async (currentFilters: FiltersType) => {
-    setLoading(true);
+  const selectedItem = useMemo(() => {
+    if (!selectedId) return null;
+    return (
+      data.find((item) => item.id === selectedId) ??
+      localizeCatalogItem(lang, selectedId) ??
+      null
+    );
+  }, [data, selectedId, lang]);
 
-    try {
-      const params = new URLSearchParams();
+  const syncUrl = useCallback(
+    (nextFilters: FiltersType, itemId: string | null) => {
+      const params = filtersToParams(nextFilters, itemId);
+      const query = params.toString();
+      const href = query ? `${pathname}?${query}` : pathname;
+      startTransition(() => {
+        router.replace(href, { scroll: false });
+      });
+    },
+    [pathname, router],
+  );
 
-      if (currentFilters.search) params.append("search", currentFilters.search);
-      if (currentFilters.theme) params.append("theme", currentFilters.theme);
-      if (currentFilters.region) params.append("region", currentFilters.region);
-      if (currentFilters.accessMethod)
-        params.append("accessMethod", currentFilters.accessMethod);
-      if (currentFilters.sortBy) params.append("sortBy", currentFilters.sortBy);
+  const fetchData = useCallback(
+    async (currentFilters: FiltersType) => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams();
+        if (currentFilters.search)
+          params.append("search", currentFilters.search);
+        for (const value of currentFilters.theme ?? [])
+          params.append("theme", value);
+        for (const value of currentFilters.region ?? [])
+          params.append("region", value);
+        for (const value of currentFilters.accessMethod ?? [])
+          params.append("accessMethod", value);
+        if (currentFilters.sortBy)
+          params.append("sortBy", currentFilters.sortBy);
+        params.set("lang", lang);
 
-      params.set("lang", lang);
-      const response = await fetch(`/api/catalog?${params.toString()}`);
-      const result: CatalogResponse = await response.json();
+        const response = await fetch(`/api/catalog?${params.toString()}`);
+        const result: CatalogResponse = await response.json();
 
-      setData(result.data);
-      setFilterOptions(result.filters);
-    } catch (error) {
-      console.error("Error fetching catalog data:", error);
-    } finally {
-      setLoading(false);
-      setInitialLoading(false);
-    }
-  }, [lang]);
+        applyWithTransition(() => {
+          setData(result.data);
+          setTotal(result.total);
+          setFilterOptions(result.filters);
+          setFacets(result.facets);
+        });
+      } catch (error) {
+        console.error("Error fetching catalog data:", error);
+      } finally {
+        setLoading(false);
+        setInitialLoading(false);
+      }
+    },
+    [lang],
+  );
 
   useEffect(() => {
     fetchData(filters);
   }, [filters, fetchData]);
 
-  // Debounced search (honra ?q= do SearchAction / Schema.org)
-  const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-
-  // Update filters when debounced search term changes (skip first render)
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
+    if (skipSearchEffect.current) {
+      skipSearchEffect.current = false;
       return;
     }
-
-    setFilters((prev: FiltersType) => ({
+    setFilters((prev) => ({
       ...prev,
-      search: debouncedSearchTerm || undefined,
+      search: debouncedSearch || undefined,
     }));
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearch]);
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
+  useEffect(() => {
+    if (skipUrlEffect.current) {
+      skipUrlEffect.current = false;
+      return;
+    }
+    syncUrl(filters, selectedId);
+  }, [filters, selectedId, syncUrl]);
+
+  const updateFilters = (patch: Partial<FiltersType>) => {
+    setFilters((prev) => ({ ...prev, ...patch }));
   };
 
-  const handleFiltersChange = (newFilters: FiltersType) => {
-    setFilters((prev: FiltersType) => ({ ...prev, ...newFilters }));
+  const handleToggleFilter = (
+    group: "theme" | "region" | "accessMethod",
+    value: string,
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [group]: toggleValue(prev[group], value),
+    }));
   };
 
-  const handleRemoveFilter = (filterType: keyof FiltersType) => {
-    setFilters((prev: FiltersType) => ({ ...prev, [filterType]: undefined }));
+  const handleRemoveValue = (
+    group: "theme" | "region" | "accessMethod",
+    value: string,
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [group]: (prev[group] ?? []).filter((entry) => entry !== value),
+    }));
   };
 
-  const handleClearAllFilters = () => {
+  const handleClearAll = () => {
+    setSearchTerm("");
     setFilters({ sortBy: "newest" });
   };
 
-  const handleSortChange = (sortBy: "newest" | "oldest") => {
-    setFilters((prev: FiltersType) => ({ ...prev, sortBy }));
-  };
+  const resultsLabel =
+    total === 1 ? `1 ${catalogCopy.result}` : `${total} ${catalogCopy.results}`;
 
-  // Show initial loading skeleton
   if (initialLoading) {
     return (
-      <div className="min-h-screen pb-16">
-        <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Left sidebar skeleton */}
-            <div className="lg:col-span-1">
-              {/* Search bar skeleton - matching SearchBar component */}
-              <div className="mb-6">
-                <div className="h-12 bg-background-2 rounded-none animate-pulse"></div>
-              </div>
-
-              {/* Filters skeleton - matching CatalogFilters component */}
-              <div className="bg-background-2 p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="h-6 bg-foreground/10 w-20 animate-pulse"></div>
-                  <div className="h-4 bg-foreground/10 w-12 animate-pulse"></div>
-                </div>
-
-                {/* Filter groups skeleton */}
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="mb-6 last:mb-0">
-                    <div className="h-4 bg-foreground/10 w-24 mb-3 animate-pulse"></div>
-                    <div className="space-y-2">
-                      {[1, 2, 3, 4].map((j) => (
-                        <div key={j} className="flex items-center space-x-2">
-                          <div className="h-4 w-4 bg-foreground/10 rounded animate-pulse"></div>
-                          <div className="h-4 bg-foreground/10 w-28 animate-pulse"></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right content skeleton */}
-            <div className="lg:col-span-3">
-              {/* Top bar skeleton - matching SelectedFilters + SortDropdown */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  {/* Selected filters skeleton */}
-                  <div className="h-10 bg-background-2 w-24 animate-pulse"></div>
-                  <div className="h-10 bg-background-2 w-32 animate-pulse"></div>
-                </div>
-                {/* Sort dropdown skeleton */}
-                <div className="h-12 bg-background-2 w-40 animate-pulse"></div>
-              </div>
-
-              {/* Results count skeleton */}
-              <div className="mb-6">
-                <div className="h-5 bg-foreground/10 w-40 animate-pulse"></div>
-              </div>
-
-              {/* Cards grid skeleton */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <CardSkeleton key={i} />
-                ))}
-              </div>
+      <div className="min-h-screen font-inter antialiased">
+        <div className="mx-auto px-4 pt-2 pb-12 md:px-8 lg:px-12">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
+            <div className="h-64 animate-pulse bg-foreground/3" />
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 min-[106.25rem]:grid-cols-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <CardSkeleton key={i} />
+              ))}
             </div>
           </div>
         </div>
@@ -186,66 +290,127 @@ export function CatalogPage() {
   }
 
   return (
-    <div className="min-h-screen pb-32">
-      <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Left Sidebar */}
-          <div className="lg:col-span-1">
-            {/* Search Bar */}
-            <div className="mb-6">
-              <SearchBar onSearch={handleSearch} initialValue={initialQuery} />
+    <div className="min-h-screen font-inter antialiased">
+      <div className="mx-auto px-4 pt-2 pb-12 md:px-8 lg:px-12">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
+          {/* Coluna de filtros */}
+          <div className="h-fit border border-foreground/10 lg:h-auto lg:border-0">
+            <div className="flex h-12 items-center px-4 lg:mb-3 lg:h-9 lg:pr-5 lg:pl-0">
+              <div className="relative flex flex-1 items-center lg:flex-none">
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((open) => !open)}
+                  aria-expanded={filtersOpen}
+                  aria-controls="catalog-filters"
+                  className="flex cursor-pointer items-center gap-2 after:absolute after:inset-0 lg:hidden"
+                >
+                  <ListFilter className="size-4" aria-hidden />
+                  <h2 className="text-sm font-normal tracking-normal">
+                    {catalogCopy.filters}
+                  </h2>
+                  <ChevronDown
+                    className={cn(
+                      "absolute right-0 size-4 transition-transform duration-200",
+                      filtersOpen && "rotate-180",
+                    )}
+                    aria-hidden
+                  />
+                </button>
+                <div className="hidden lg:block">
+                  <h2 className="text-base font-semibold tracking-normal">
+                    {catalogCopy.filters}
+                  </h2>
+                </div>
+                <p className="ml-3 hidden whitespace-nowrap text-sm text-foreground/45 lg:absolute lg:left-full lg:block">
+                  {resultsLabel}
+                </p>
+              </div>
             </div>
 
-            {/* Filters */}
-            <CatalogFilters
-              onFiltersChange={handleFiltersChange}
-              initialFilters={filters}
-              filterOptions={filterOptions}
+            <div
+              id="catalog-filters"
+              className={filtersOpen ? "lg:contents" : "hidden lg:contents"}
+            >
+              <div className="mx-4 mb-4 border-t border-foreground/10 lg:hidden" />
+              <CatalogFilters
+                filters={filters}
+                filterOptions={filterOptions}
+                facets={facets}
+                onToggle={handleToggleFilter}
+              />
+            </div>
+          </div>
+
+          {/* Busca mobile: caixa com a mesma borda de "Filtros" */}
+          <div className="-mt-3 flex h-12 items-center border border-foreground/10 px-4 lg:hidden">
+            <SearchBar
+              className="min-w-0 flex-1"
+              value={searchTerm}
+              onSearch={setSearchTerm}
             />
           </div>
 
-          {/* Right Content */}
-          <div className="lg:col-span-3">
-            {/* Top Bar */}
-            <div className="flex items-center justify-between mb-6">
+          <div>
+            <div className="mb-1 flex flex-wrap items-center gap-4 lg:mb-3">
               <SelectedFilters
                 filters={filters}
-                onRemoveFilter={handleRemoveFilter}
-                onClearAll={handleClearAllFilters}
+                onRemoveValue={handleRemoveValue}
               />
-              <div className="ml-auto">
+              <div className="ml-auto flex w-full items-center justify-end gap-3 lg:w-auto lg:gap-6">
+                <div className="hidden lg:block lg:w-32">
+                  <SearchBar value={searchTerm} onSearch={setSearchTerm} />
+                </div>
                 <SortDropdown
-                  onSortChange={handleSortChange}
                   currentSort={filters.sortBy || "newest"}
+                  onSortChange={(sortBy) => updateFilters({ sortBy })}
                 />
               </div>
             </div>
 
-            {/* Data Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 min-[106.25rem]:grid-cols-4">
               {loading
-                ? // Show skeleton cards when loading
-                  [1, 2, 3, 4, 5, 6].map((i) => <CardSkeleton key={i} />)
+                ? [1, 2, 3, 4, 5, 6].map((i) => <CardSkeleton key={i} />)
                 : data.map((item) => (
                     <DataCard
                       key={item.id}
                       item={item}
-                      initialOpen={openItemId === item.id}
+                      onSelect={setSelectedId}
                     />
                   ))}
             </div>
 
-            {/* No Results */}
-            {data.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-500">
-                  {catalogCopy.empty}
-                </p>
+            {!loading && data.length === 0 && (
+              <div className="flex flex-col items-center gap-4 py-12 text-center">
+                <div>
+                  <p className="font-medium text-foreground">
+                    {catalogCopy.emptyTitle}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {catalogCopy.empty}
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={handleClearAll}
+                  className="rounded-none"
+                >
+                  {catalogCopy.clearFilters}
+                </Button>
               </div>
             )}
           </div>
         </div>
       </div>
+
+      <CatalogDetailSheet
+        item={selectedItem}
+        open={Boolean(selectedId)}
+        onOpenChange={(open) => {
+          if (!open) setSelectedId(null);
+        }}
+      />
     </div>
   );
 }

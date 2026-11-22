@@ -1,44 +1,84 @@
 "use client";
 
-import { Search } from "lucide-react";
-import { useCallback, useState } from "react";
-import { Input } from "@/components/ui/input";
+import { Search, X } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
 import { chrome } from "@/i18n/messages/chrome";
 import { useLocale } from "@/i18n/use-locale";
+import { cn } from "@/lib/utils";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
   placeholder?: string;
-  initialValue?: string;
+  value?: string;
+  className?: string;
 }
 
 export function SearchBar({
   onSearch,
   placeholder,
-  initialValue = "",
+  value = "",
+  className,
 }: SearchBarProps) {
-  const resolvedPlaceholder =
-    placeholder ?? chrome[useLocale()].catalog.search;
-  const [searchTerm, setSearchTerm] = useState(initialValue);
+  const lang = useLocale();
+  const copy = chrome[lang].catalog;
+  const resolvedPlaceholder = placeholder ?? copy.search;
+  const [searchTerm, setSearchTerm] = useState(value);
+  const [focused, setFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const id = useId();
 
-  const handleSearch = useCallback(
-    (value: string) => {
-      setSearchTerm(value);
-      onSearch(value);
-    },
-    [onSearch],
-  );
+  useEffect(() => {
+    setSearchTerm(value);
+  }, [value]);
+
+  const clear = () => {
+    setSearchTerm("");
+    onSearch("");
+    inputRef.current?.focus();
+  };
+
+  const active = focused || Boolean(searchTerm);
 
   return (
-    <div className="relative">
-      <Input
-        type="text"
-        placeholder={resolvedPlaceholder}
-        value={searchTerm}
-        onChange={(e) => handleSearch(e.target.value)}
-        className="pl-6 bg-background-2 border-none rounded-none h-12 text-foreground placeholder:text-foreground"
-      />
-      <Search className="absolute right-6 top-1/2 transform -translate-y-1/2 text-foreground h-4 w-4" />
+    <div className={cn("min-w-0", className)}>
+      <label htmlFor={id} className="sr-only">
+        {resolvedPlaceholder}
+      </label>
+      <div className="flex h-9 items-center gap-2">
+        <Search
+          className={cn(
+            "size-[18px] shrink-0 transition-colors",
+            active ? "text-foreground" : "text-muted-foreground",
+          )}
+          aria-hidden
+        />
+        <input
+          ref={inputRef}
+          id={id}
+          type="search"
+          placeholder={resolvedPlaceholder}
+          value={searchTerm}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            onSearch(e.target.value);
+          }}
+          className="min-w-0 flex-1 border-0 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
+        />
+        <span className="grid size-6 shrink-0 place-items-center">
+          {searchTerm ? (
+            <button
+              type="button"
+              onClick={clear}
+              aria-label={copy.clearSearch}
+              className="grid size-6 place-items-center text-muted-foreground transition-colors hover:bg-foreground/6 hover:text-foreground"
+            >
+              <X className="size-4" aria-hidden />
+            </button>
+          ) : null}
+        </span>
+      </div>
     </div>
   );
 }

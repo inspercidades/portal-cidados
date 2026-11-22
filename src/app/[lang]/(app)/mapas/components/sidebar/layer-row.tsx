@@ -116,7 +116,7 @@ export function LayerRow({
         <>
           <div className="mt-2 rounded-[8px] border border-border bg-background px-3 pt-3 pb-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-medium">{copy.opacity}</span>
+              <span className="font-semibold">{copy.opacity}</span>
               <span className="tabular-nums text-muted-foreground">
                 {opacity}%
               </span>

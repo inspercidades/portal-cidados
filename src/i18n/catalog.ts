@@ -209,6 +209,14 @@ export function localizeCatalog(locale: Locale): DataCatalogItem[] {
   return catalogData.map((item) => localizeItem(item, locale));
 }
 
+export function localizeCatalogItem(
+  locale: Locale,
+  id: string,
+): DataCatalogItem | undefined {
+  const item = catalogData.find((entry) => entry.id === id);
+  return item ? localizeItem(item, locale) : undefined;
+}
+
 export function localizeFilterOptions(locale: Locale) {
   return {
     themes: filterOptions.themes.map((theme) => phrase(locale, theme)),
