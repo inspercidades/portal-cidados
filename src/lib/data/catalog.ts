@@ -289,7 +289,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "7",
-    title: "Contratos e anúncios imobiliários Loft [2019-2026]",
+    title: "Loft [2019-2026]",
     description:
       "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação da Loft.",
     theme: "Habitação e Mercado Imobiliário",
@@ -309,7 +309,7 @@ export const catalogData: DataCatalogItem[] = [
     isSpatial: null,
     dataset_info: [
       {
-        dataset_title: "Contratos e anúncios imobiliários Loft [2019-2026]",
+        dataset_title: "Loft [2019-2026]",
         dataset_description:
           "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação da Loft.",
         dataset_link:
@@ -480,7 +480,7 @@ export const catalogData: DataCatalogItem[] = [
   },
   {
     id: "12",
-    title: "Contratos e anúncios imobiliários QuintoAndar [2011-2025]",
+    title: "QuintoAndar [2011-2025]",
     description:
       "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação do QuintoAndar.",
     theme: "Habitação e Mercado Imobiliário",
@@ -501,7 +501,7 @@ export const catalogData: DataCatalogItem[] = [
     dataset_info: [
       {
         dataset_title:
-          "Contratos e anúncios imobiliários QuintoAndar [2011-2025]",
+          "QuintoAndar [2011-2025]",
         dataset_description:
           "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação do QuintoAndar.",
         dataset_link:

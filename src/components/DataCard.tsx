@@ -6,8 +6,8 @@ import { useLocale } from "@/i18n/use-locale";
 import { formatCatalogPeriod, splitCatalogTitle } from "@/lib/catalog-title";
 import type { DataCatalogItem } from "@/lib/data/catalog";
 
-const YEARS_CLASS =
-  "font-sans text-xs font-medium uppercase tracking-[0.08em] text-foreground/50 tabular-nums";
+const SELO_CLASS =
+  "inline-flex shrink-0 items-center whitespace-nowrap bg-foreground/6 px-2 py-1 text-[11px] font-medium leading-4 text-foreground";
 
 interface DataCardProps {
   item: DataCatalogItem;
@@ -40,21 +40,18 @@ export function DataCard({ item, onSelect }: DataCardProps) {
     <button
       type="button"
       data-catalog-card={item.id}
-      className="catalog-card flex h-full w-full flex-col bg-foreground/3 text-left transition-colors cursor-pointer hover:bg-foreground/6"
+      className="catalog-card flex h-full w-full min-w-0 flex-col bg-foreground/3 text-left transition-colors cursor-pointer hover:bg-foreground/6"
       onClick={() => onSelect(item.id)}
     >
-      <div className="flex-1 px-7 pt-7 pb-4">
-        <h3 className="mb-2 font-gt-ultra-fine text-lg font-bold tracking-tight text-foreground md:text-xl">
+      <div className="flex items-start justify-between gap-3 px-7 pt-7 pb-4">
+        <h3 className="min-w-0 font-gt-ultra-fine text-lg font-bold tracking-tight text-foreground md:text-xl">
           {name}
         </h3>
-        {years && <p className={YEARS_CLASS}>{years}</p>}
+        {years && <span className={`${SELO_CLASS} tabular-nums`}>{years}</span>}
       </div>
-      <div className="flex flex-wrap gap-2 px-7 pb-7">
+      <div className="mt-auto flex flex-wrap items-center gap-1.5 px-7 pb-7">
         {tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-foreground/6 text-foreground"
-          >
+          <span key={tag} className={SELO_CLASS}>
             {tag}
           </span>
         ))}

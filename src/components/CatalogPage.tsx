@@ -278,7 +278,7 @@ export function CatalogPage() {
         <div className="mx-auto px-4 pt-2 pb-12 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
             <div className="h-64 animate-pulse bg-foreground/3" />
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 min-[106.25rem]:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 min-[96rem]:grid-cols-3">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <CardSkeleton key={i} />
               ))}
@@ -367,7 +367,7 @@ export function CatalogPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 min-[106.25rem]:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 min-[96rem]:grid-cols-3">
               {loading
                 ? [1, 2, 3, 4, 5, 6].map((i) => <CardSkeleton key={i} />)
                 : data.map((item) => (

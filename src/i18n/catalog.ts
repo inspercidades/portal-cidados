@@ -127,8 +127,6 @@ const phrases: Record<string, string> = {
     "Earnings and hours of iFood partner couriers [2022-2026]",
   "Informações sobre horas trabalhadas e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizado a partir da parceria do Centro de Dados e IA (CDIA) do Insper com o iFood.":
     "Hours worked and earnings of iFood partner couriers.\nDataset shared through the partnership between Insper's Center for Data and AI (CDIA) and iFood.",
-  "Contratos e anúncios imobiliários Loft [2019-2026]":
-    "Loft listings and contracts [2019-2026]",
   "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação da Loft.":
     "Detailed listings and contracts, including property and building characteristics, in the cities where Loft operates.",
   "Medições de ilhas de calor e qualidade do ar na Maré, Rio de Janeiro [2023]":
@@ -153,8 +151,6 @@ const phrases: Record<string, string> = {
     "iFood education programs [2022-2026]",
   "Informações sobre a participação dos entregadores parceiros do iFood nos programas Decola e Meu Diploma do Ensino Médio (MDEM).\nConjunto de dados disponibilizado a partir da parceria do Centro de Dados e IA (CDIA) do Insper com o iFood.":
     "Participation of iFood partner couriers in the Decola and Meu Diploma do Ensino Médio (MDEM) programs.\nDataset shared through the partnership between Insper's Center for Data and AI (CDIA) and iFood.",
-  "Contratos e anúncios imobiliários QuintoAndar [2011-2025]":
-    "QuintoAndar listings and contracts [2011-2025]",
   "Dados detalhados sobre anúncios e contratos imobiliários, incluindo características dos imóveis e dos condomínios, nas cidades com atuação do QuintoAndar.":
     "Detailed listings and contracts, including property and building characteristics, in the cities where QuintoAndar operates.",
   "Rotas dos entregadores parceiros do iFood [2022-2026]":
