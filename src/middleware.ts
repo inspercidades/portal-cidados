@@ -64,6 +64,10 @@ function applySecurityHeaders(
     "https://scripts.clarity.ms",
     // Hash do inline script criado internamente pelo clarity.js.
     "'sha256-J9cZHZf5nVZbsm7Pqxc8RsURv1AIXkMgbhfrZvoOs/A='",
+    // O Mapbox Standard (mapa base claro) decodifica os modelos 3D em
+    // WebAssembly. Libera só a compilação de wasm, não o eval de JavaScript.
+    // https://docs.mapbox.com/mapbox-gl-js/guides/security-and-testing/
+    "'wasm-unsafe-eval'",
   ];
 
   const cspHeader = `

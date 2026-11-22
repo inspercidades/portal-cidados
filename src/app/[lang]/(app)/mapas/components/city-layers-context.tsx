@@ -1,15 +1,15 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { CityLayersConfig } from "../lib/city-layers";
+import type { GeoportalLayersConfig } from "../lib/types";
 
-const CityLayersContext = createContext<CityLayersConfig | null>(null);
+const CityLayersContext = createContext<GeoportalLayersConfig | null>(null);
 
 export function CityLayersProvider({
   layers,
   children,
 }: {
-  layers: CityLayersConfig;
+  layers: GeoportalLayersConfig;
   children: React.ReactNode;
 }) {
   return (
@@ -19,10 +19,13 @@ export function CityLayersProvider({
   );
 }
 
-export function useCityLayers(): CityLayersConfig {
+/** Camadas por cidade, no idioma da página, com tema e história. */
+export function useCityLayers(): GeoportalLayersConfig {
   const layers = useContext(CityLayersContext);
   if (!layers) {
-    throw new Error("useCityLayers precisa estar dentro de CityLayersProvider.");
+    throw new Error(
+      "useCityLayers precisa estar dentro de CityLayersProvider.",
+    );
   }
   return layers;
 }

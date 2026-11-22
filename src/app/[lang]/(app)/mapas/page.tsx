@@ -2,8 +2,8 @@ import { PageJsonLd } from "@/components/page-json-ld";
 import { hasLocale } from "@/i18n/config";
 import { chrome } from "@/i18n/messages/chrome";
 import { metadataFor } from "@/i18n/metadata";
-import { localizeCityLayers } from "@/i18n/layers";
 import { GeoportalMap } from "./geoportal-map";
+import { getGeoportalLayers } from "./lib/geoportal-layers";
 
 type PageProps = { params: Promise<{ lang: string }> };
 
@@ -33,7 +33,7 @@ export default async function GeoportalPage({ params }: PageProps) {
           { name: copy.maps.breadcrumb, path: "/mapas" },
         ]}
       />
-      <GeoportalMap layers={localizeCityLayers(locale)} />
+      <GeoportalMap layers={getGeoportalLayers(locale)} />
     </div>
   );
 }

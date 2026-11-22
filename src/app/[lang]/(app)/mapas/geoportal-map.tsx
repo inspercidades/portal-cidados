@@ -1,21 +1,24 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import type { CityLayersConfig } from "./lib/city-layers";
 import { CityLayersProvider } from "./components/city-layers-context";
+import type { GeoportalLayersConfig } from "./lib/types";
 
-const PropertyMap = dynamic(() => import("./components/property-map"), {
+// O Mapbox só existe no navegador; o estado inicial vem da URL na montagem.
+const Geoportal = dynamic(() => import("./components/geoportal"), {
   ssr: false,
-  loading: () => <div className="h-screen w-full bg-neutral-900" aria-hidden />,
+  loading: () => (
+    <div
+      className="force-light-theme h-screen w-full bg-background"
+      aria-hidden
+    />
+  ),
 });
 
-export function GeoportalMap({ layers }: { layers: CityLayersConfig }) {
+export function GeoportalMap({ layers }: { layers: GeoportalLayersConfig }) {
   return (
     <CityLayersProvider layers={layers}>
-      <Suspense fallback={null}>
-        <PropertyMap />
-      </Suspense>
+      <Geoportal />
     </CityLayersProvider>
   );
 }
